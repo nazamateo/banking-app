@@ -1,0 +1,23 @@
+@use "../../assets/sass/main.scss";
+
+.nav-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: yellow;
+  font-size: 2rem;
+  height: 100vh;
+  gap: 2rem;
+  padding: 0.8rem 1.2rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
