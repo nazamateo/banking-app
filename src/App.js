@@ -1,8 +1,11 @@
-import Table from "./components/displayUser";
+import Table from "./components/displayUserTable";
+import SideBar from "./components/SideBar/SideBar";
+import "./App.scss";
 
 function App() {
   return (
-    <div>
+    <div className="main-layout">
+      <SideBar />
       <Table />
     </div>
   );
