@@ -1,6 +1,6 @@
 import React from "react";
 
-export const userArr = [
+export let userArr = [
     {
       name: "Esmeralda Curry",
       email: "smrldCrry@gmail.com",
@@ -141,7 +141,7 @@ export const userArr = [
     }).format(balance);
   };
   
-  const newuserArr = userArr.map(user => {
+  userArr = userArr.map(user => {
     return {
       ...user,
       formattedbalance: formatmyBalance(user.balance)
@@ -149,6 +149,6 @@ export const userArr = [
   });
 
   
-localStorage.setItem("userdetails", JSON.stringify(newuserArr)); 
+localStorage.setItem("userdetails", JSON.stringify(userArr)); 
 export const getFromLocalStorage = JSON.parse(localStorage.getItem("userdetails"));
 

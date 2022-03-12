@@ -1,5 +1,5 @@
 import React from "react";
-import {getFromLocalStorage} from "./BankDetails"
+import {getFromLocalStorage} from "./BankDetails";
 
 const HeaderBalance = () => {
   return (
@@ -7,6 +7,7 @@ const HeaderBalance = () => {
       <th>Name</th>
       <th>Account Number</th>
       <th>Account Balance</th>
+      <th>Add/Delete</th>
     </tr>
   );
 };
@@ -17,6 +18,7 @@ const RowsBalance = ({ userInfo }) => {
       <td>{userInfo.name}</td>
       <td>{userInfo.accountNumber}</td>
       <td>{userInfo.formattedbalance}</td>
+      <td>svg/svg</td>
     </tr>
   ));
 };

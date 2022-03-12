@@ -1,10 +1,8 @@
 import React from "react";
-import Table from "./DisplayUser";
-import TableBalance from "./DisplayBalance";
+import TableBalance from "./DisplayUsersBalance";
 
 function AllUsersPage() {
   return <div>;
-  <Table />
   <TableBalance />
   </div>
 }
