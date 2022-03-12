@@ -1,6 +1,7 @@
-import React from "react";
+//shall be in login page
 
-export let userArr = [
+const adminAccount = { username: "abc123", password: "abc123" };
+let bankAccounts = [
   {
     name: "Esmeralda Curry",
     email: "smrldCrry@gmail.com",
@@ -134,6 +135,14 @@ export let userArr = [
   },
 ];
 
+function getBankAccounts() {
+  return JSON.parse(localStorage.getItem("bankAccounts"));
+}
+
+function getAdminAccounts() {
+  return JSON.parse(localStorage.getItem("adminAccounts"));
+}
+
 const formatmyBalance = balance => {
   return Intl.NumberFormat("en-PH", {
     currency: "PHP",
@@ -141,13 +150,26 @@ const formatmyBalance = balance => {
   }).format(balance);
 };
 
-userArr = userArr.map(user => {
+bankAccounts = bankAccounts.map(user => {
   return {
     ...user,
     formattedbalance: formatmyBalance(user.balance),
   };
 });
 
-localStorage.setItem("userdetails", JSON.stringify(userArr));
+function LoadDataButton() {
+  const onClickBtn = e => {
+    e.preventDefault();
+    localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
+    localStorage.setItem("adminAccounts", JSON.stringify(adminAccount));
+    e.target.remove();
+  };
 
-let inactiveUsers = [];
+  return (
+    <button type="button" onClick={e => onClickBtn(e)}>
+      Load Data
+    </button>
+  );
+}
+
+export { getBankAccounts, getAdminAccounts, LoadDataButton };
