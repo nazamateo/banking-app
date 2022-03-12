@@ -148,7 +148,9 @@ export let userArr = [
     }
   });
 
+localStorage.setItem("userdetails", JSON.stringify(userArr));
+
+let inactiveUsers =[]
+
   
-localStorage.setItem("userdetails", JSON.stringify(userArr)); 
-export const getFromLocalStorage = JSON.parse(localStorage.getItem("userdetails"));
 

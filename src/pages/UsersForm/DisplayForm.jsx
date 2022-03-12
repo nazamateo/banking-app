@@ -2,7 +2,7 @@ import React from "react";
 import UserForm from "./UsersForm";
 
 function FormPage() {
-  return <div>;
+  return<div className="formproper">
   <UserForm/>
   </div>
 }

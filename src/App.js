@@ -8,8 +8,9 @@ function App() {
   return (
     <div className="main-layout">
       <SideBar />
-      <AllUsersPage/>
       <FormPage/>
+
+
     </div>
   );
 }
