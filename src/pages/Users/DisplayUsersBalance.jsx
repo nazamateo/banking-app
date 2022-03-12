@@ -1,13 +1,13 @@
 import React from "react";
-import {getFromLocalStorage} from "./BankDetails";
 
+var getFromLocalStorage = JSON.parse(localStorage.getItem("userdetails"));
 const HeaderBalance = () => {
   return (
     <tr>
       <th>Name</th>
       <th>Account Number</th>
       <th>Account Balance</th>
-      <th>Add/Delete</th>
+      <th>Action</th>
     </tr>
   );
 };
@@ -18,7 +18,7 @@ const RowsBalance = ({ userInfo }) => {
       <td>{userInfo.name}</td>
       <td>{userInfo.accountNumber}</td>
       <td>{userInfo.formattedbalance}</td>
-      <td>svg/svg</td>
+      <td><button type="submit" className="adddeletebttn">Add</button><button type="submit" className="adddeletebttn">Delete</button></td>
     </tr>
   ));
 };
