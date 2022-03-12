@@ -1,4 +1,6 @@
 import React from "react";
+import "./Users.scss";
+
 
 var getFromLocalStorage = JSON.parse(localStorage.getItem("userdetails"));
 const HeaderBalance = () => {
@@ -25,9 +27,11 @@ const RowsBalance = ({ userInfo }) => {
 
 const TableBalance = () => {
   return (
-    <table>
+    <table className="balanceTable">
+      <tbody>
       <HeaderBalance />
       <RowsBalance userInfo={getFromLocalStorage} />
+      </tbody>
     </table>
   );
 };

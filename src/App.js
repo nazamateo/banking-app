@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="main-layout">
       <SideBar />
-      <FormPage/>
+      <AllUsersPage/>
 
 
     </div>
