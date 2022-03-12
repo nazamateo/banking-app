@@ -3,6 +3,9 @@ import "./SideBar.scss";
 import Logo from "../General/Logo/Logo";
 import "../../assets/images/placeholder.jpg";
 
+// to be removed, this must be in login page, for testing purposes only.
+import { LoadDataButton } from "../LocalStorage/LocalStorage";
+
 function NavList({ list, href }) {
   return (
     <li>
@@ -22,6 +25,7 @@ function SideBar() {
         <NavList list="Withdraw" href="#" />
         <NavList list="Transfer" href="#" />
       </ul>
+      <LoadDataButton />
     </nav>
   );
 }
