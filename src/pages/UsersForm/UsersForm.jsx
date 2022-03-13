@@ -33,6 +33,7 @@ const UserForm = () => {
     creationDate: creationDate,
     accountNumber: parseInt(accountNumber),
     balance: parseInt(balance),
+    transactionHistory:[],
     formattedbalance: Intl.NumberFormat("en-PH", {
       currency: "PHP",
       style: "currency",

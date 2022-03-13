@@ -25,12 +25,22 @@ const DepositFunc = () => {
  else{
    if(nameChecker.accountNumber!==parseInt(accountNumber)){alert("user does not exist")}
    else{
+    let transactionObject = {
+      transactionDate: transactionDate,
+      action: "deposit",
+      oldBalance: nameChecker.balance,
+      newBalance: nameChecker.balance+parseInt(deposit)
+    }
+
     updateBankAccountBalance(
       name,
       parseInt(accountNumber),
       parseInt(deposit),
-      "deposit"
+      "deposit",
+      transactionObject
     );
+
+
     setName("");
     setTransactionDate(DateToday());
     setAccountNumber("");

@@ -27,11 +27,19 @@ const WithdrawFunc = () => {
    else{
      if(nameChecker.balance<parseInt(withdraw)){alert("insufficient balance")}
      else{
+      let transactionObject = {
+        transactionDate: transactionDate,
+        action: "withdraw",
+        oldBalance: nameChecker.balance,
+        newBalance: nameChecker.balance-parseInt(withdraw)
+      }
+  
     updateBankAccountBalance(
       name,
       parseInt(accountNumber),
       parseInt(withdraw),
-      "withdraw"
+      "withdraw",
+      transactionObject
     );
     setName("");
     setTransactionDate(DateToday);
