@@ -85,7 +85,7 @@ let bankAccounts = [
     address:
       "Suite 101, M/F Eastgate Center Building, 169 EDSA,Mandaluyong City,Philippines",
     creationDate: "03/19/21",
-    accountNumber: 10,
+    accountNumber: 9,
     balance: 104010.96,
   },
   {
@@ -94,7 +94,7 @@ let bankAccounts = [
     age: "62",
     address: "486 Tunhua Rd.,Peitun Area,Taiwan",
     creationDate: "05/25/21",
-    accountNumber: 11,
+    accountNumber: 10,
     balance: 104848.69,
   },
   {
@@ -103,7 +103,7 @@ let bankAccounts = [
     age: "58",
     address: "Alley 9, Lane 22, Wende Rd.,Neihu Dist.,Taiwan",
     creationDate: "06/07/21",
-    accountNumber: 12,
+    accountNumber: 11,
     balance: 32305.77,
   },
   {
@@ -112,7 +112,7 @@ let bankAccounts = [
     age: "52",
     address: "62, Chung I 1 Street,Jen Te Hsiang,Taiwan",
     creationDate: "06/09/21",
-    accountNumber: 13,
+    accountNumber: 12,
     balance: 67470.34,
   },
   {
@@ -121,7 +121,7 @@ let bankAccounts = [
     age: "29",
     address: "No. 9-1,Ichang E. Rd.,Taiwan",
     creationDate: "10/06/21",
-    accountNumber: 14,
+    accountNumber: 13,
     balance: 113205.33,
   },
   {
@@ -130,7 +130,7 @@ let bankAccounts = [
     age: "43",
     address: "Bldg. A, Niuchouhsi, Fuhsing Village,Miuhsiung Hsiang,Taiwan",
     creationDate: "02/02/22",
-    accountNumber: 15,
+    accountNumber: 14,
     balance: 73788.25,
   },
 ];

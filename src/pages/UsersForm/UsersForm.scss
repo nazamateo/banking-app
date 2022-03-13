@@ -1,12 +1,5 @@
 @use "../../assets/sass/main.scss";
 
-.formproper{
-   position: relative;
-   top: 15vh;
-   left: 3rem;
-    width: auto;
-    height: auto;
-
 
     .form{  
         width: 80vw;
@@ -74,7 +67,3 @@
         box-sizing: border-box;
         cursor: pointer;
     }
-
-    
-
-}

@@ -2,7 +2,7 @@ import React from "react";
 import "./Users.scss";
 import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
 
-var getFromLocalStorage = getBankAccounts();
+export var getFromLocalStorage = getBankAccounts();
 const HeaderBalance = () => {
   return (
     <tr>
