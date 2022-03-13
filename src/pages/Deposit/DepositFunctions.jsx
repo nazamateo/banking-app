@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 //import { getFromLocalStorage } from "../Users/DisplayUsersdeposit";
 import DateToday from "../../components/General/Helpers/DateToday";
-import { updateBankAccountBalance } from "../../components/LocalStorage/LocalStorage";
+import { getBankAccountName, updateBankAccountBalance } from "../../components/LocalStorage/LocalStorage";
 import "./Deposit.scss";
 
 //add value on options
@@ -15,6 +15,16 @@ const DepositFunc = () => {
 
   const DepositThis = e => {
     e.preventDefault();
+
+    
+ //user already exists
+ let nameChecker = getBankAccountName(name)
+ console.log(nameChecker) //object
+
+ if (nameChecker == null){alert("user does not exist")}
+ else{
+   if(nameChecker.accountNumber!==parseInt(accountNumber)){alert("user does not exist")}
+   else{
     updateBankAccountBalance(
       name,
       parseInt(accountNumber),
@@ -25,7 +35,7 @@ const DepositFunc = () => {
     setTransactionDate(DateToday());
     setAccountNumber("");
     setDeposit("");
-  };
+  }; }}
   return (
     <form className="formd" onSubmit={DepositThis}>
       <div className="divname">
@@ -33,7 +43,7 @@ const DepositFunc = () => {
           Name
         </label>
         <input
-          type="text" pattern="[a-zA-Z]+" 
+          type="text" pattern="[a-zA-Z\s]+" 
           className="form-fields"
           id="name"
           value={name}

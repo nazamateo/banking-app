@@ -180,6 +180,17 @@ function getBankAccount(accountName, accountNumber) {
   });
 }
 
+
+function getBankAccountName(accountName) {
+  const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
+
+  return bankAccounts.find(bankAccount => {
+    return (
+      bankAccount.name === accountName
+    );
+  });
+}
+
 function updateBankAccountBalance(accountName, accountNumber, amount, action) {
   const bankAccounts = getFromLocalStorage
   const foundAccount = getBankAccount(accountName, accountNumber);
@@ -255,5 +266,6 @@ export {
   LoadDataButton,
   getBankAccount,
   updateBankAccountBalance,
-  transferBankAccountBalance
+  transferBankAccountBalance,
+  getBankAccountName
 };

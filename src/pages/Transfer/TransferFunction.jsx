@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 //import { getFromLocalStorage } from "../Users/DisplayUsersdeposit";
 import DateToday from "../../components/General/Helpers/DateToday";
-import {transferBankAccountBalance} from "../../components/LocalStorage/LocalStorage"
+import {getBankAccountName, transferBankAccountBalance} from "../../components/LocalStorage/LocalStorage"
 import "./Transfer.scss"
 
 //add value on options
@@ -18,6 +18,22 @@ const TransferFunc = () => {
 
     const TransferThis = e => {
       e.preventDefault();
+
+ //user already exists
+ let fromnameChecker = getBankAccountName(fromName)
+ console.log(fromnameChecker) //object
+
+ if (fromnameChecker == null){alert("sender does not exist")}
+ else{
+   if(fromnameChecker.accountNumber!==parseInt(fromAccountNumber)){alert("sender does not exist")}
+   else{
+    let tonameChecker = getBankAccountName(toName)
+     if (tonameChecker == null){alert("reciever does not exist")}
+     else{
+      if(tonameChecker.accountNumber!==parseInt(toAccountNumber)){alert("reciever does not exist")}
+      else{
+        if(fromnameChecker.balance<parseInt(amount)){alert("insufficient balance")}
+        else{
       transferBankAccountBalance(
         toName,
         parseInt(toAccountNumber),
@@ -33,7 +49,7 @@ const TransferFunc = () => {
       settoName("");
       settoAccountNumber("");
       setamount("");
-    };
+    };}}}}}
     return (
       <form className="formt" onSubmit={TransferThis}>
         <div className="fromdivname">
@@ -41,7 +57,7 @@ const TransferFunc = () => {
             From
           </label>
           <input
-            type="text" pattern="[a-zA-Z]+" 
+            type="text" pattern="[a-zA-Z\s]+" 
             className="form-fields"
             id="fromname"
             value={fromName}
@@ -70,7 +86,7 @@ const TransferFunc = () => {
             To
           </label>
           <input
-            type="text" pattern="[a-zA-Z]+" 
+            type="text" pattern="[a-zA-Z\s]+" 
             className="form-fields"
             id="toname"
             value={toName}
