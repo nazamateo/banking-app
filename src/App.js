@@ -1,7 +1,7 @@
 import React from "react";
 
 import MainPage from "./pages/MainPage/MainPage";
-import LoginPage from "./pages/Login/login";
+//import LoginPage from "./pages/Login/login";
 
 function App() {
   return (
