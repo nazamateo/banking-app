@@ -161,8 +161,10 @@ function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
   return bankAccounts.find(bankAccount => {
-    return bankAccount.accountNumber === accountNumber &&
-      bankAccount.name === accountName;
+    return (
+      bankAccount.accountNumber === accountNumber &&
+      bankAccount.name === accountName
+    );
   });
 }
 
