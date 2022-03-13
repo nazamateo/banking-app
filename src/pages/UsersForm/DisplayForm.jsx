@@ -3,7 +3,7 @@ import UserForm from "./UsersForm";
 
 function FormPage() {
   return (
-    <div className="formproper">
+    <div className="page">
       <UserForm />
     </div>
   );

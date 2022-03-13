@@ -30,7 +30,7 @@ function MainPage() {
       <div className="main-layout">
         <SideBar getWidth={getSideBarWidth} />
         <Routes>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/" element={<FormPage/>} />
           <Route path="users" element={<AllUsersPage />} />
           <Route path="deposit" element={<DepositPage />} />
           <Route path="withdraw" element={<WithdrawPage />} />
