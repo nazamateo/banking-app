@@ -157,19 +157,33 @@ function getAdminAccounts() {
   return JSON.parse(localStorage.getItem("adminAccounts"));
 }
 
-function getBankAccount(accountName = "", accountNumber) {
+function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-  if (accountName) {
-    return bankAccounts.find(bankAccount => {
-      bankAccount.accountNumber === accountNumber &&
-        bankAccount.name === accountName;
-    });
+  return bankAccounts.find(bankAccount => {
+    bankAccount.accountNumber === accountNumber &&
+      bankAccount.name === accountName;
+  });
+}
+
+function updateBankAccountBalance(accountName, accountNumber, amount, action) {
+  const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
+
+  const foundAccount = getBankAccount(accountName, accountNumber);
+
+  const index = bankAccounts.findIndex(obj => {
+    return obj.accountNumber === accountNumber;
+  });
+
+  if (action === "deposit") {
+    foundAccount.balance += amount;
+  } else if (action === "withdraw") {
+    foundAccount.balance -= amount;
   }
 
-  return bankAccounts.find(
-    bankAccount => bankAccount.accountNumber === accountNumber
-  );
+  bankAccounts[index] = foundAccount;
+
+  localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
 
 function LoadDataButton() {
@@ -187,4 +201,10 @@ function LoadDataButton() {
   );
 }
 
-export { getBankAccounts, getAdminAccounts, LoadDataButton, getBankAccount };
+export {
+  getBankAccounts,
+  getAdminAccounts,
+  LoadDataButton,
+  getBankAccount,
+  updateBankAccountBalance,
+};
