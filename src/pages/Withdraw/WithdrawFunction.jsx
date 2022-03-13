@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 //import { getFromLocalStorage } from "../Users/DisplayUsersdeposit";
-import { updateBankAccountBalance } from "../../components/LocalStorage/LocalStorage";
+import { updateBankAccountBalance,getBankAccountName } from "../../components/LocalStorage/LocalStorage";
 import DateToday from "../../components/General/Helpers/DateToday";
 import "../Deposit/Deposit.scss";
 
@@ -15,6 +15,18 @@ const WithdrawFunc = () => {
 
   const WithdrawThis = e => {
     e.preventDefault();
+
+
+ //user already exists
+ let nameChecker = getBankAccountName(name)
+ console.log(nameChecker) //object
+
+ if (nameChecker == null){alert("user does not exist")}
+ else{
+   if(nameChecker.accountNumber!==parseInt(accountNumber)){alert("user does not exist")}
+   else{
+     if(nameChecker.balance<parseInt(withdraw)){alert("insufficient balance")}
+     else{
     updateBankAccountBalance(
       name,
       parseInt(accountNumber),
@@ -25,7 +37,7 @@ const WithdrawFunc = () => {
     setTransactionDate(DateToday);
     setAccountNumber("");
     setWithdraw("");
-  };
+  };}}}
   return (
     <form className="formd" onSubmit={WithdrawThis}>
       <div className="divname">
@@ -33,7 +45,7 @@ const WithdrawFunc = () => {
           Name
         </label>
         <input
-          type="text" pattern="[a-zA-Z]+" 
+          type="text" pattern="[a-zA-Z\s]+" 
           className="form-fields"
           id="name"
           value={name}

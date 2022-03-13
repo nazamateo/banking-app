@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import DateToday from "../../components/General/Helpers/DateToday";
 import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
+import { getBankAccountName } from "../../components/LocalStorage/LocalStorage";
 import "./UsersForm.scss";
 
 const UserForm = () => {
@@ -19,35 +20,43 @@ const UserForm = () => {
     e.preventDefault();
 
 
-    //amount cannot be negative
-    //name cannot start with a number
+ //user already exists
+ let nameChecker = getBankAccountName(name)
+ console.log(nameChecker) //object
 
-    const addThis = {
-      name: name,
-      email: email,
-      age: age,
-      address: address,
-      creationDate: creationDate,
-      accountNumber: parseInt(accountNumber),
-      balance: parseInt(balance),
-      formattedbalance: Intl.NumberFormat("en-PH", {
-        currency: "PHP",
-        style: "currency",
-      }).format(balance),
-    };
-    getFromLocalStorage.push(addThis);
-
-    localStorage.setItem("bankAccounts", JSON.stringify(getFromLocalStorage));
-
-    setName("");
-    setEmail("");
-    setAge("");
-    setAddress("");
-    setcreationDate(DateToday);
-    setaccountNumber(accountNumCount);
-    setbalance("");
-
+ if (nameChecker == null){
+  const addThis = {
+    name: name,
+    email: email,
+    age: age,
+    address: address,
+    creationDate: creationDate,
+    accountNumber: parseInt(accountNumber),
+    balance: parseInt(balance),
+    formattedbalance: Intl.NumberFormat("en-PH", {
+      currency: "PHP",
+      style: "currency",
+    }).format(balance),
   };
+  getFromLocalStorage.push(addThis);
+
+  localStorage.setItem("bankAccounts", JSON.stringify(getFromLocalStorage));
+
+  setName("");
+  setEmail("");
+  setAge("");
+  setAddress("");
+  setcreationDate(DateToday);
+  setaccountNumber(accountNumCount);
+  setbalance("");
+
+}else{alert("user already exist"
+
+)};
+}
+
+ 
+
   return (
     <form className="form" onSubmit={addUserdata}>
       <div className="divname">
@@ -55,7 +64,7 @@ const UserForm = () => {
           Name
         </label>
         <input
-        pattern="[a-zA-Z]+" 
+        pattern="[a-zA-Z\s]+" 
           type="text"
           className="form-fields"
           id="name"
