@@ -5,7 +5,7 @@ import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
 import "./UsersForm.scss";
 
 const UserForm = () => {
-  var accountNumCount = (getFromLocalStorage.length)+1;
+  var accountNumCount = getFromLocalStorage.length + 1;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
@@ -30,10 +30,7 @@ const UserForm = () => {
     };
     getFromLocalStorage.push(addThis);
 
-    localStorage.setItem(
-      "bankAccounts",
-      JSON.stringify(getFromLocalStorage)
-    );
+    localStorage.setItem("bankAccounts", JSON.stringify(getFromLocalStorage));
 
     setName("");
     setEmail("");
@@ -46,7 +43,7 @@ const UserForm = () => {
   return (
     <form className="form" onSubmit={addUserdata}>
       <div className="divname">
-        <label for="name" className="form-label">
+        <label htmlFor="name" className="form-label">
           Name
         </label>
         <input
@@ -59,7 +56,7 @@ const UserForm = () => {
       </div>
 
       <div className="divemail">
-        <label for="email" className="form-label">
+        <label htmlFor="email" className="form-label">
           Email
         </label>
         <input
@@ -72,7 +69,7 @@ const UserForm = () => {
       </div>
 
       <div className="divage">
-        <label for="age" className="form-label">
+        <label htmlFor="age" className="form-label">
           Age
         </label>
         <input
@@ -85,7 +82,7 @@ const UserForm = () => {
       </div>
 
       <div className="divaddr">
-        <label for="address" className="form-label">
+        <label htmlFor="address" className="form-label">
           Address
         </label>
         <input
@@ -98,7 +95,7 @@ const UserForm = () => {
       </div>
 
       <div className="divdate">
-        <label for="creationDate" className="form-label">
+        <label htmlFor="creationDate" className="form-label">
           Creation Date
         </label>
         <input
@@ -112,7 +109,7 @@ const UserForm = () => {
       </div>
 
       <div className="acct">
-        <label for="accountNumber" className="form-label">
+        <label htmlFor="accountNumber" className="form-label">
           Account Number
         </label>
         <input
@@ -125,7 +122,7 @@ const UserForm = () => {
         />
       </div>
       <div className="divbal">
-        <label for="balance" className="form-label">
+        <label htmlFor="balance" className="form-label">
           Balance
         </label>
         <input
