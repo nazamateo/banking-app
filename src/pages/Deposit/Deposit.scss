@@ -1,0 +1,59 @@
+@use "../../assets/sass/main.scss";
+
+    .formd{  
+        width: 80vw;
+        height: 30vh;
+        font-size: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr auto ;
+        grid-template-areas: 
+        "nname acct date"
+        "divbal . ."
+        "submit . ."; 
+        justify-items: center;
+        justify-items: stretch;
+        gap: 3rem;
+    }
+    .divname{
+        grid-area: nname;
+    }
+
+    .divdate{
+        grid-area: date;
+    } 
+
+    .acct{
+        grid-area: acct;
+    } 
+
+    .divbal{
+        grid-area: divbal;
+    } 
+
+    .submit{
+        grid-area: submit;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .form-fields{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+
+
+
+

@@ -1,29 +1,28 @@
 import React from "react";
 import { useState } from "react";
 //import { getFromLocalStorage } from "../Users/DisplayUsersdeposit";
-import DateToday from "../../components/General/Helpers/DateToday";
 import {updateBankAccountBalance} from "../../components/LocalStorage/LocalStorage"
-import "./Deposit.scss";
+import DateToday from "../../components/General/Helpers/DateToday";
+import "../Deposit/Deposit.scss";
 
 //add value on options
 
-const DepositFunc = () => {
+const WithdrawFunc = () => {
     const [name, setName] = useState("");
     const [transactionDate, settransactionDate] = useState(DateToday);
     const [accountNumber, setaccountNumber] = useState("");
     const [deposit, setdeposit] = useState("");
 
-
-    const DepositThis = e => {
+    const WithdrawThis = e => {
       e.preventDefault();
-      updateBankAccountBalance(name,accountNumber,deposit,"deposit")
+      updateBankAccountBalance(setName,setaccountNumber,setdeposit,"withdraw")
       setName("");
       settransactionDate(DateToday);
       setaccountNumber("");
       setdeposit("");
     };
     return (
-      <form className="formd" onSubmit={DepositThis}>
+      <form className="formd" onSubmit={WithdrawThis}>
         <div className="divname">
           <label for="name" className="form-label">
             Name
@@ -46,7 +45,6 @@ const DepositFunc = () => {
             className="form-fields"
             id="accountNumber"
             value={accountNumber}
-            
             onChange={e => setaccountNumber(e.target.value)}
           />
         </div>
@@ -67,14 +65,14 @@ const DepositFunc = () => {
   
         <div className="divbal">
           <label for="deposit" className="form-label">
-            Deposit Amount
+            Withdraw Amount
           </label>
           <input
             type="text"
             className="form-fields"
             id="deposit"
             value={deposit}
-            onChange={e => setdeposit(parseInt(e.target.value))}
+            onChange={e => setdeposit(e.target.value)}
           />
         </div>
   
@@ -85,6 +83,6 @@ const DepositFunc = () => {
     );
   };
   
-  export default DepositFunc;
+  export default WithdrawFunc;
 
 
