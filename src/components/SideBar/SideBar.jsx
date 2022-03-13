@@ -10,13 +10,19 @@ import { LoadDataButton } from "../LocalStorage/LocalStorage";
 function SideBar({ getWidth }) {
   const widthRef = useRef();
 
-  const getWidthSize = e => {
+  const getWidthSize = (e = "") => {
     e.preventDefault();
     getWidth(widthRef.current.offsetWidth);
   };
 
   useEffect(() => {
+    window.addEventListener("load", getWidthSize);
     window.addEventListener("resize", getWidthSize);
+
+    return () => {
+      window.removeEventListener("load", getWidthSize);
+      window.removeEventListener("resize", getWidthSize);
+    };
   }, []);
 
   return (
