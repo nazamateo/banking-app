@@ -13,8 +13,15 @@ const UserForm = () => {
   const [creationDate, setcreationDate] = useState(DateToday);
   const [accountNumber, setaccountNumber] = useState(accountNumCount);
   const [balance, setbalance] = useState("");
+
+
   const addUserdata = e => {
     e.preventDefault();
+
+
+    //amount cannot be negative
+    //name cannot start with a number
+
     const addThis = {
       name: name,
       email: email,
@@ -39,6 +46,7 @@ const UserForm = () => {
     setcreationDate(DateToday);
     setaccountNumber(accountNumCount);
     setbalance("");
+
   };
   return (
     <form className="form" onSubmit={addUserdata}>
@@ -47,11 +55,13 @@ const UserForm = () => {
           Name
         </label>
         <input
+        pattern="[a-zA-Z]+" 
           type="text"
           className="form-fields"
           id="name"
           value={name}
           onChange={e => setName(e.target.value)}
+          required
         />
       </div>
 
@@ -60,11 +70,12 @@ const UserForm = () => {
           Email
         </label>
         <input
-          type="text"
+          type="email"
           className="form-fields"
           id="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          required
         />
       </div>
 
@@ -73,11 +84,12 @@ const UserForm = () => {
           Age
         </label>
         <input
-          type="text"
+          type="text" pattern="[0-9.]+"
           className="form-fields"
           id="age"
           value={age}
           onChange={e => setAge(e.target.value)}
+          required
         />
       </div>
 
@@ -91,6 +103,7 @@ const UserForm = () => {
           id="address"
           value={address}
           onChange={e => setAddress(e.target.value)}
+          required
         />
       </div>
 
@@ -105,6 +118,7 @@ const UserForm = () => {
           value={creationDate}
           disabled
           onChange={e => setcreationDate(e.target.value)}
+          required
         />
       </div>
 
@@ -119,6 +133,7 @@ const UserForm = () => {
           value={accountNumCount}
           disabled
           onChange={e => setaccountNumber(e.target.value)}
+          
         />
       </div>
       <div className="divbal">
@@ -126,11 +141,12 @@ const UserForm = () => {
           Balance
         </label>
         <input
-          type="text"
+          type="text" pattern="[0-9.]+"
           className="form-fields"
           id="balance"
           value={balance}
           onChange={e => setbalance(e.target.value)}
+          required
         />
       </div>
 
