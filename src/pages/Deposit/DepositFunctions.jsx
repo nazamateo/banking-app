@@ -6,26 +6,27 @@ import { getBankAccountName, updateBankAccountBalance } from "../../components/L
 import "./Deposit.scss";
 
 //add value on options
-
+export let transactionObject
+export let nameChecker
 const DepositFunc = () => {
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
   const [deposit, setDeposit] = useState("");
-
+ 
   const DepositThis = e => {
     e.preventDefault();
 
     
  //user already exists
- let nameChecker = getBankAccountName(name)
+ nameChecker = getBankAccountName(name)
  console.log(nameChecker) //object
 
  if (nameChecker == null){alert("user does not exist")}
  else{
    if(nameChecker.accountNumber!==parseInt(accountNumber)){alert("user does not exist")}
    else{
-    let transactionObject = {
+     transactionObject = {
       transactionDate: transactionDate,
       action: "deposit",
       oldBalance: nameChecker.balance,

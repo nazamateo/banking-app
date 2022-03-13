@@ -4,7 +4,7 @@ import DateToday from "../../components/General/Helpers/DateToday";
 import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
 import { getBankAccountName } from "../../components/LocalStorage/LocalStorage";
 import "./UsersForm.scss";
-
+export let addThis
 const UserForm = () => {
   var accountNumCount = getFromLocalStorage.length;
   const [name, setName] = useState("");
@@ -15,7 +15,7 @@ const UserForm = () => {
   const [accountNumber, setaccountNumber] = useState(accountNumCount);
   const [balance, setbalance] = useState("");
 
-
+//onsubmit dapat mag rerender si DisplayUserBalance para maupdate yung accountnumber
   const addUserdata = e => {
     e.preventDefault();
 
@@ -25,7 +25,7 @@ const UserForm = () => {
  console.log(nameChecker) //object
 
  if (nameChecker == null){
-  const addThis = {
+  addThis = {
     name: name,
     email: email,
     age: age,
@@ -59,7 +59,7 @@ const UserForm = () => {
  
 
   return (
-    <form className="form" onSubmit={addUserdata}>
+    <form className="form" onSubmit={addUserdata}> 
       <div className="divname">
         <label htmlFor="name" className="form-label">
           Name
@@ -161,7 +161,7 @@ const UserForm = () => {
       </div>
 
       <button type="submit" className="submit">
-        Submit
+        Submit 
       </button>
     </form>
   );
