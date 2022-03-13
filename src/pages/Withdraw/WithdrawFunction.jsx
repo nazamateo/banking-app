@@ -11,15 +11,20 @@ const WithdrawFunc = () => {
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
-  const [deposit, setDeposit] = useState("");
+  const [withdraw, setWithdraw] = useState("");
 
   const WithdrawThis = e => {
     e.preventDefault();
-    updateBankAccountBalance(setName, setAccountNumber, setDeposit, "withdraw");
+    updateBankAccountBalance(
+      name,
+      parseInt(accountNumber),
+      parseInt(withdraw),
+      "withdraw"
+    );
     setName("");
     setTransactionDate(DateToday);
     setAccountNumber("");
-    setDeposit("");
+    setWithdraw("");
   };
   return (
     <form className="formd" onSubmit={WithdrawThis}>
@@ -70,9 +75,9 @@ const WithdrawFunc = () => {
         <input
           type="text"
           className="form-fields"
-          id="deposit"
-          value={deposit}
-          onChange={e => setDeposit(e.target.value)}
+          id="withdraw"
+          value={withdraw}
+          onChange={e => setWithdraw(e.target.value)}
         />
       </div>
 

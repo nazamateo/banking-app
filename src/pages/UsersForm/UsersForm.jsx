@@ -5,7 +5,7 @@ import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
 import "./UsersForm.scss";
 
 const UserForm = () => {
-  var accountNumCount = getFromLocalStorage.length + 1;
+  var accountNumCount = getFromLocalStorage.length;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
@@ -21,8 +21,8 @@ const UserForm = () => {
       age: age,
       address: address,
       creationDate: creationDate,
-      accountNumber: accountNumber,
-      balance: balance,
+      accountNumber: parseInt(accountNumber),
+      balance: parseInt(balance),
       formattedbalance: Intl.NumberFormat("en-PH", {
         currency: "PHP",
         style: "currency",

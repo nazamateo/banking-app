@@ -1,7 +1,19 @@
 //shall be in login page
+import React from "react";
+import { getFromLocalStorage } from "../../pages/Users/DisplayUsersBalance";
 
 const adminAccount = { username: "abc123", password: "abc123" };
 let bankAccounts = [
+  {
+    name: "Esmeralda Curry",
+    email: "smrldCrry@gmail.com",
+    age: "45",
+    address:
+      "#170 EDAP Building Cenetr, Boni Serrano Road, Camp Aguinaldo,Quezon City,Philippines",
+    creationDate: "05/08/19",
+    accountNumber: 0,
+    balance: 5000,
+  },
   {
     name: "Esmeralda Curry",
     email: "smrldCrry@gmail.com",
@@ -169,13 +181,13 @@ function getBankAccount(accountName, accountNumber) {
 }
 
 function updateBankAccountBalance(accountName, accountNumber, amount, action) {
-  const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
-
+  const bankAccounts = getFromLocalStorage
   const foundAccount = getBankAccount(accountName, accountNumber);
-
   const index = bankAccounts.findIndex(obj => {
     return obj.accountNumber === accountNumber;
   });
+
+
 
   if (action === "deposit") {
     foundAccount.balance += amount;
@@ -183,8 +195,42 @@ function updateBankAccountBalance(accountName, accountNumber, amount, action) {
     foundAccount.balance -= amount;
   }
 
-  bankAccounts[index] = foundAccount;
+  foundAccount.formattedbalance = Intl.NumberFormat("en-PH", {
+    currency: "PHP",
+    style: "currency",
+  }).format(foundAccount.balance);
 
+  bankAccounts[index] = foundAccount;
+  localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
+}
+
+function transferBankAccountBalance(toaccountName, toaccountNumber,fromaccountName, fromaccountNumber, amount) {
+  const bankAccounts = getFromLocalStorage
+
+  const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
+  const fromindex = bankAccounts.findIndex(obj => {
+    return obj.accountNumber === fromaccountNumber;
+  });
+  fromAccount.balance-=amount
+  fromAccount.formattedbalance = Intl.NumberFormat("en-PH", {
+    currency: "PHP",
+    style: "currency",
+  }).format(fromAccount.balance);
+  bankAccounts[fromindex] = fromAccount;
+
+
+
+  const toAccount = getBankAccount(toaccountName, toaccountNumber);
+  const toindex = bankAccounts.findIndex(obj => {
+    return obj.accountNumber === toaccountNumber;
+  });
+toAccount.balance+=amount
+toAccount.formattedbalance = Intl.NumberFormat("en-PH", {
+  currency: "PHP",
+  style: "currency",
+}).format(toAccount.balance);
+  bankAccounts[toindex] = toAccount;
+ 
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
 
@@ -209,4 +255,5 @@ export {
   LoadDataButton,
   getBankAccount,
   updateBankAccountBalance,
+  transferBankAccountBalance
 };
