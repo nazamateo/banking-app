@@ -41,11 +41,12 @@ const TransferFunc = () => {
             From
           </label>
           <input
-            type="text"
+            type="text" pattern="[a-zA-Z]+" 
             className="form-fields"
             id="fromname"
             value={fromName}
             onChange={e => setfromName(e.target.value)}
+            required
           />
         </div> 
 
@@ -54,11 +55,12 @@ const TransferFunc = () => {
             From Account Number
           </label>
           <input
-            type="text"
+            type="text" pattern="[0-9.]+"
             className="form-fields"
             id="fromaccountNumber"
             value={fromAccountNumber}
             onChange={e => setfromAccountNumber(e.target.value)}
+            required
           />
         </div>
 
@@ -68,11 +70,12 @@ const TransferFunc = () => {
             To
           </label>
           <input
-            type="text"
+            type="text" pattern="[a-zA-Z]+" 
             className="form-fields"
             id="toname"
             value={toName}
             onChange={e => settoName(e.target.value)}
+            required
           />
         </div>
 
@@ -82,11 +85,12 @@ const TransferFunc = () => {
             To Account Number
           </label>
           <input
-            type="text"
+            type="text" pattern="[0-9.]+"
             className="form-fields"
             id="toaccountNumber"
             value={toAccountNumber}
             onChange={e => settoAccountNumber(e.target.value)}
+            required
           />
         </div>
   
@@ -101,6 +105,7 @@ const TransferFunc = () => {
             value={transactionDate}
             disabled
             onChange={e => settransactionDate(e.target.value)}
+            
           />
         </div>
   
@@ -109,11 +114,12 @@ const TransferFunc = () => {
             Amount
           </label>
           <input
-            type="text"
+            type="text" pattern="[0-9.]+"
             className="form-fields"
             id="amount"
             value={amount}
             onChange={e => setamount(parseInt(e.target.value))}
+            required
           />
         </div>
   

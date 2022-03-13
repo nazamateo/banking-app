@@ -33,11 +33,12 @@ const WithdrawFunc = () => {
           Name
         </label>
         <input
-          type="text"
+          type="text" pattern="[a-zA-Z]+" 
           className="form-fields"
           id="name"
           value={name}
           onChange={e => setName(e.target.value)}
+          required
         />
       </div>
 
@@ -46,11 +47,12 @@ const WithdrawFunc = () => {
           Account Number
         </label>
         <input
-          type="text"
+          type="text" pattern="[0-9.]+"
           className="form-fields"
           id="accountNumber"
           value={accountNumber}
           onChange={e => setAccountNumber(e.target.value)}
+          required
         />
       </div>
 
@@ -65,6 +67,7 @@ const WithdrawFunc = () => {
           value={transactionDate}
           disabled
           onChange={e => setTransactionDate(e.target.value)}
+          required
         />
       </div>
 
@@ -73,11 +76,12 @@ const WithdrawFunc = () => {
           Withdraw Amount
         </label>
         <input
-          type="text"
+          type="text" pattern="[0-9.]+"
           className="form-fields"
           id="withdraw"
           value={withdraw}
           onChange={e => setWithdraw(e.target.value)}
+          required
         />
       </div>
 
