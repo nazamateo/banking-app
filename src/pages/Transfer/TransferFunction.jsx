@@ -34,12 +34,31 @@ const TransferFunc = () => {
       else{
         if(fromnameChecker.balance<parseInt(amount)){alert("insufficient balance")}
         else{
+
+          let sendertransactionObject = {
+            transactionDate: transactionDate,
+            action: "transfer",
+            reciever:toName,
+            oldBalance: fromnameChecker.balance,
+            newBalance: fromnameChecker.balance-parseInt(amount)
+          }
+
+          let recievertransactionObject = {
+            transactionDate: transactionDate,
+            action: "transfer",
+            sender:fromName,
+            oldBalance: tonameChecker.balance,
+            newBalance: tonameChecker.balance+parseInt(amount)
+          }
+
       transferBankAccountBalance(
         toName,
         parseInt(toAccountNumber),
         fromName,
         parseInt(fromAccountNumber),
-        parseInt(amount)
+        parseInt(amount),
+        sendertransactionObject,
+        recievertransactionObject
       );
 
       //transferBankAccountBalance(toaccountName, toaccountNumber,fromaccountName, fromaccountNumber, amount)

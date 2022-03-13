@@ -231,7 +231,7 @@ function updateBankAccountBalance(accountName, accountNumber, amount, action, tr
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
 
-function transferBankAccountBalance(toaccountName, toaccountNumber,fromaccountName, fromaccountNumber, amount) {
+function transferBankAccountBalance(toaccountName, toaccountNumber,fromaccountName, fromaccountNumber, amount, sernderTransaction, recieverTransaction) {
   const bankAccounts = getFromLocalStorage
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
@@ -243,6 +243,7 @@ function transferBankAccountBalance(toaccountName, toaccountNumber,fromaccountNa
     currency: "PHP",
     style: "currency",
   }).format(fromAccount.balance);
+  fromAccount.transactionHistory.push(sernderTransaction)
   bankAccounts[fromindex] = fromAccount;
 
 
@@ -256,6 +257,7 @@ toAccount.formattedbalance = Intl.NumberFormat("en-PH", {
   currency: "PHP",
   style: "currency",
 }).format(toAccount.balance);
+toAccount.transactionHistory.push(recieverTransaction)
   bankAccounts[toindex] = toAccount;
  
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
