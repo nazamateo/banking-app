@@ -4,7 +4,8 @@ import DateToday from "../../components/General/Helpers/DateToday";
 import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
 import { getBankAccountName } from "../../components/LocalStorage/LocalStorage";
 import "./UsersForm.scss";
-export let addThis
+export let addThis;
+
 const UserForm = () => {
   var accountNumCount = getFromLocalStorage.length;
   const [name, setName] = useState("");
@@ -12,60 +13,56 @@ const UserForm = () => {
   const [age, setAge] = useState("");
   const [address, setAddress] = useState("");
   const [creationDate, setcreationDate] = useState(DateToday);
-  const [accountNumber, setaccountNumber] = useState(accountNumCount);
+  const [accountNumber, setaccountNumber] = useState(accountNumCount + 1);
   const [balance, setbalance] = useState("");
 
-//onsubmit dapat mag rerender si DisplayUserBalance para maupdate yung accountnumber
+  //onsubmit dapat mag rerender si DisplayUserBalance para maupdate yung accountnumber
   const addUserdata = e => {
     e.preventDefault();
 
+    //user already exists
+    let nameChecker = getBankAccountName(name);
+    console.log(nameChecker); //object
 
- //user already exists
- let nameChecker = getBankAccountName(name)
- console.log(nameChecker) //object
+    if (nameChecker == null) {
+      addThis = {
+        name: name,
+        email: email,
+        age: age,
+        address: address,
+        creationDate: creationDate,
+        accountNumber: parseInt(accountNumber),
+        balance: parseInt(balance),
+        transactionHistory: [],
+        formattedbalance: Intl.NumberFormat("en-PH", {
+          currency: "PHP",
+          style: "currency",
+        }).format(balance),
+      };
+      getFromLocalStorage.push(addThis);
 
- if (nameChecker == null){
-  addThis = {
-    name: name,
-    email: email,
-    age: age,
-    address: address,
-    creationDate: creationDate,
-    accountNumber: parseInt(accountNumber),
-    balance: parseInt(balance),
-    transactionHistory:[],
-    formattedbalance: Intl.NumberFormat("en-PH", {
-      currency: "PHP",
-      style: "currency",
-    }).format(balance),
+      localStorage.setItem("bankAccounts", JSON.stringify(getFromLocalStorage));
+
+      setName("");
+      setEmail("");
+      setAge("");
+      setAddress("");
+      setcreationDate(DateToday);
+      setaccountNumber(accountNumCount + 1);
+      setbalance("");
+    } else {
+      alert("user already exist");
+    }
   };
-  getFromLocalStorage.push(addThis);
-
-  localStorage.setItem("bankAccounts", JSON.stringify(getFromLocalStorage));
-
-  setName("");
-  setEmail("");
-  setAge("");
-  setAddress("");
-  setcreationDate(DateToday);
-  setaccountNumber(accountNumCount);
-  setbalance("");
-
-}else{alert("user already exist"
-
-)};
-}
-
- 
 
   return (
-    <form className="form" onSubmit={addUserdata}> 
+    <form className="form" onSubmit={addUserdata}>
       <div className="divname">
         <label htmlFor="name" className="form-label">
           Name
         </label>
         <input
-        pattern="[a-zA-Z\s]+" 
+          pattern="[a-zA-Z\s]+"
           type="text"
           className="form-fields"
           id="name"
@@ -94,7 +91,8 @@ const UserForm = () => {
           Age
         </label>
         <input
-          type="text" pattern="[0-9.]+"
+          type="text"
+          pattern="[0-9.]+"
           className="form-fields"
           id="age"
           value={age}
@@ -128,7 +126,6 @@ const UserForm = () => {
           value={creationDate}
           disabled
           onChange={e => setcreationDate(e.target.value)}
-          required
         />
       </div>
 
@@ -140,10 +137,8 @@ const UserForm = () => {
           type="text"
           className="form-fields"
           id="accountNumber"
-          value={accountNumCount}
+          value={accountNumCount + 1}
           disabled
-          onChange={e => setaccountNumber(e.target.value)}
-          
         />
       </div>
       <div className="divbal">
@@ -151,17 +146,17 @@ const UserForm = () => {
           Balance
         </label>
         <input
-          type="text" pattern="[0-9.]+"
+          type="text"
+          pattern="[0-9.]+"
           className="form-fields"
           id="balance"
           value={balance}
           onChange={e => setbalance(e.target.value)}
-          required
         />
       </div>
 
       <button type="submit" className="submit">
-        Submit 
+        Submit
       </button>
     </form>
   );

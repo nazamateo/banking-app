@@ -1,52 +1,63 @@
 import React from "react";
 import { useState } from "react";
-//import { getFromLocalStorage } from "../Users/DisplayUsersdeposit";
 import DateToday from "../../components/General/Helpers/DateToday";
-import { getBankAccountName, updateBankAccountBalance } from "../../components/LocalStorage/LocalStorage";
+import {
+  getBankAccountName,
+  updateBankAccountBalance,
+} from "../../components/LocalStorage/LocalStorage";
 import "./Deposit.scss";
+import { v4 as uuidv4 } from "uuid";
 
 //add value on options
-export let transactionObject
-export let nameChecker
+export let transactionDetail;
+export let nameChecker;
 const DepositFunc = () => {
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
   const [deposit, setDeposit] = useState("");
- 
+  const [transactionId, setTransactionId] = useState(uuidv4());
+
   const DepositThis = e => {
     e.preventDefault();
 
-    
- //user already exists
- nameChecker = getBankAccountName(name)
- console.log(nameChecker) //object
+    //user already exists
+    let nameChecker = getBankAccountName(name);
+    console.log(nameChecker); //object
 
- if (nameChecker == null){alert("user does not exist")}
- else{
-   if(nameChecker.accountNumber!==parseInt(accountNumber)){alert("user does not exist")}
-   else{
-     transactionObject = {
-      transactionDate: transactionDate,
-      action: "deposit",
-      oldBalance: nameChecker.balance,
-      newBalance: nameChecker.balance+parseInt(deposit)
+    if (!nameChecker) {
+      alert("user does not exist");
+    } else {
+      if (nameChecker.accountNumber !== parseInt(accountNumber)) {
+        alert("user does not exist");
+      } else {
+        transactionDetail = {
+          transactionDate: transactionDate,
+          transactionId: transactionId,
+          action: "deposit",
+          oldBalance: nameChecker.balance,
+          newBalance: nameChecker.balance + parseInt(deposit),
+        };
+
+        updateBankAccountBalance(
+          name,
+          parseInt(accountNumber),
+          parseInt(deposit),
+          "deposit",
+          transactionDetail
+        );
+
+        //also check if the transactionHistory of the object does not contain anything
+
+        setName("");
+        setTransactionDate(DateToday());
+        setAccountNumber("");
+        setDeposit("");
+        setTransactionId(uuidv4());
+      }
     }
+  };
 
-    updateBankAccountBalance(
-      name,
-      parseInt(accountNumber),
-      parseInt(deposit),
-      "deposit",
-      transactionObject
-    );
-
-
-    setName("");
-    setTransactionDate(DateToday());
-    setAccountNumber("");
-    setDeposit("");
-  }; }}
   return (
     <form className="formd" onSubmit={DepositThis}>
       <div className="divname">
@@ -54,7 +65,8 @@ const DepositFunc = () => {
           Name
         </label>
         <input
-          type="text" pattern="[a-zA-Z\s]+" 
+          type="text"
+          pattern="[a-zA-Z\s]+"
           className="form-fields"
           id="name"
           value={name}
@@ -68,7 +80,8 @@ const DepositFunc = () => {
           Account Number
         </label>
         <input
-          type="text" pattern="[0-9.]+"
+          type="text"
+          pattern="[0-9.]+"
           className="form-fields"
           id="accountNumber"
           value={accountNumber}
@@ -95,7 +108,8 @@ const DepositFunc = () => {
           Deposit Amount
         </label>
         <input
-          type="text" pattern="[0-9.]+"
+          type="text"
+          pattern="[0-9.]+"
           className="form-fields"
           id="deposit"
           value={deposit}

@@ -1,20 +1,11 @@
-//shall be in login page
 import React from "react";
 import { getFromLocalStorage } from "../../pages/Users/DisplayUsersBalance";
 
-const adminAccount = { username: "abc123", password: "abc123" };
+const adminAccounts = [
+  { username: "abc123", password: "abc123" },
+  { username: "admin", password: "admin1234" },
+];
 let bankAccounts = [
-  {
-    name: "Esmeralda Curry",
-    email: "smrldCrry@gmail.com",
-    age: "45",
-    address:
-      "#170 EDAP Building Cenetr, Boni Serrano Road, Camp Aguinaldo,Quezon City,Philippines",
-    creationDate: "05/08/19",
-    accountNumber: 0,
-    balance: 5000,
-    transactionHistory:[]
-  },
   {
     name: "Esmeralda Curry",
     email: "smrldCrry@gmail.com",
@@ -24,7 +15,7 @@ let bankAccounts = [
     creationDate: "05/08/19",
     accountNumber: 1,
     balance: 25193.5,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Aida Krause",
@@ -34,7 +25,7 @@ let bankAccounts = [
     creationDate: "06/05/19",
     accountNumber: 2,
     balance: 87377.6,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Cyril Caldwell",
@@ -44,7 +35,7 @@ let bankAccounts = [
     creationDate: "08/05/19",
     accountNumber: 3,
     balance: 94809.8,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Letha Welch",
@@ -55,7 +46,7 @@ let bankAccounts = [
     creationDate: "10/25/19",
     accountNumber: 4,
     balance: 10692.35,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Gretchen Young",
@@ -65,7 +56,7 @@ let bankAccounts = [
     creationDate: "12/05/19",
     accountNumber: 5,
     balance: 21623.7,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Gilbert Heath",
@@ -76,7 +67,7 @@ let bankAccounts = [
     creationDate: "01/31/20",
     accountNumber: 6,
     balance: 84370.1,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Concepcion Rocha",
@@ -87,7 +78,7 @@ let bankAccounts = [
     creationDate: "07/24/20",
     accountNumber: 7,
     balance: 10669.3,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "August Shannon",
@@ -97,7 +88,7 @@ let bankAccounts = [
     creationDate: "08/19/20",
     accountNumber: 8,
     balance: 15094.5,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Beatriz Morrison",
@@ -108,7 +99,7 @@ let bankAccounts = [
     creationDate: "03/19/21",
     accountNumber: 9,
     balance: 104010.96,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Thomas Oconnell",
@@ -118,7 +109,7 @@ let bankAccounts = [
     creationDate: "05/25/21",
     accountNumber: 10,
     balance: 104848.69,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Ahmad Duffy",
@@ -128,7 +119,7 @@ let bankAccounts = [
     creationDate: "06/07/21",
     accountNumber: 11,
     balance: 32305.77,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Annie Garrison",
@@ -138,7 +129,7 @@ let bankAccounts = [
     creationDate: "06/09/21",
     accountNumber: 12,
     balance: 67470.34,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Lonnie Fitzpatrick",
@@ -148,7 +139,7 @@ let bankAccounts = [
     creationDate: "10/06/21",
     accountNumber: 13,
     balance: 113205.33,
-    transactionHistory:[]
+    transactionHistory: [],
   },
   {
     name: "Maryellen Herman",
@@ -158,7 +149,7 @@ let bankAccounts = [
     creationDate: "02/02/22",
     accountNumber: 14,
     balance: 73788.25,
-    transactionHistory:[]
+    transactionHistory: [],
   },
 ];
 
@@ -195,25 +186,26 @@ function getBankAccount(accountName, accountNumber) {
   });
 }
 
-
 function getBankAccountName(accountName) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
   return bankAccounts.find(bankAccount => {
-    return (
-      bankAccount.name === accountName
-    );
+    return bankAccount.name === accountName;
   });
 }
 
-function updateBankAccountBalance(accountName, accountNumber, amount, action, transaction) {
-  const bankAccounts = getFromLocalStorage
+function updateBankAccountBalance(
+  accountName,
+  accountNumber,
+  amount,
+  action,
+  transaction
+) {
+  const bankAccounts = getFromLocalStorage;
   const foundAccount = getBankAccount(accountName, accountNumber);
   const index = bankAccounts.findIndex(obj => {
     return obj.accountNumber === accountNumber;
   });
-
-
 
   if (action === "deposit") {
     foundAccount.balance += amount;
@@ -226,40 +218,48 @@ function updateBankAccountBalance(accountName, accountNumber, amount, action, tr
     style: "currency",
   }).format(foundAccount.balance);
 
-  foundAccount.transactionHistory.push(transaction)
+  foundAccount.transactionHistory.push(transaction);
   bankAccounts[index] = foundAccount;
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
 
-function transferBankAccountBalance(toaccountName, toaccountNumber,fromaccountName, fromaccountNumber, amount, sernderTransaction, recieverTransaction) {
-  const bankAccounts = getFromLocalStorage
+function transferBankAccountBalance(
+  toaccountName,
+  toaccountNumber,
+  fromaccountName,
+  fromaccountNumber,
+  amount,
+  sernderTransaction,
+  recieverTransaction
+) {
+  const bankAccounts = getFromLocalStorage;
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
   const fromindex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === fromaccountNumber;
   });
-  fromAccount.balance-=amount
+  fromAccount.balance -= amount;
   fromAccount.formattedbalance = Intl.NumberFormat("en-PH", {
     currency: "PHP",
     style: "currency",
   }).format(fromAccount.balance);
-  fromAccount.transactionHistory.push(sernderTransaction)
+  fromAccount.transactionHistory.push(sernderTransaction);
   bankAccounts[fromindex] = fromAccount;
-
-
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
   const toindex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === toaccountNumber;
   });
-toAccount.balance+=amount
-toAccount.formattedbalance = Intl.NumberFormat("en-PH", {
-  currency: "PHP",
-  style: "currency",
-}).format(toAccount.balance);
-toAccount.transactionHistory.push(recieverTransaction)
+
+  toAccount.balance += amount;
+  toAccount.formattedbalance = Intl.NumberFormat("en-PH", {
+    currency: "PHP",
+    style: "currency",
+  }).format(toAccount.balance);
+
+  toAccount.transactionHistory.push(recieverTransaction);
   bankAccounts[toindex] = toAccount;
- 
+
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
 
@@ -267,7 +267,8 @@ function LoadDataButton() {
   const onClickBtn = e => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
-    localStorage.setItem("adminAccounts", JSON.stringify(adminAccount));
+    localStorage.setItem("adminAccounts", JSON.stringify(adminAccounts));
+    localStorage.setItem("isAuthenticated", "");
     e.target.remove();
   };
 
@@ -285,5 +286,5 @@ export {
   getBankAccount,
   updateBankAccountBalance,
   transferBankAccountBalance,
-  getBankAccountName
+  getBankAccountName,
 };

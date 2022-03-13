@@ -4,9 +4,6 @@ import "./SideBar.scss";
 import Logo from "../General/Logo/Logo";
 import "../../assets/images/placeholder.jpg";
 
-// to be removed, this must be in login page, for testing purposes only.
-import { LoadDataButton } from "../LocalStorage/LocalStorage";
-
 function SideBar({ getWidth }) {
   const widthRef = useRef();
 
@@ -60,7 +57,6 @@ function SideBar({ getWidth }) {
           Transfer
         </NavLink>
       </ul>
-      <LoadDataButton />
     </nav>
   );
 }
