@@ -6,6 +6,8 @@ import DateToday from "../../components/General/Helpers/DateToday";
 import "../Deposit/Deposit.scss";
 
 //add value on options
+export let nameChecker
+export let transactionObject
 
 const WithdrawFunc = () => {
   const [name, setName] = useState("");
@@ -18,7 +20,7 @@ const WithdrawFunc = () => {
 
 
  //user already exists
- let nameChecker = getBankAccountName(name)
+ nameChecker = getBankAccountName(name)
  console.log(nameChecker) //object
 
  if (nameChecker == null){alert("user does not exist")}
@@ -27,7 +29,7 @@ const WithdrawFunc = () => {
    else{
      if(nameChecker.balance<parseInt(withdraw)){alert("insufficient balance")}
      else{
-      let transactionObject = {
+      transactionObject = {
         transactionDate: transactionDate,
         action: "withdraw",
         oldBalance: nameChecker.balance,
