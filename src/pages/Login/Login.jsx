@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { LoadDataButton } from "../../components/LocalStorage/LocalStorage";
+import {
+  LoadDataButton,
+  getAdminAccounts,
+} from "../../components/LocalStorage/LocalStorage";
 
 function LoginPage() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleUsernameChange = e => {
     setUserName(e.target.value);
@@ -13,32 +17,48 @@ function LoginPage() {
     setPassword(e.target.value);
   };
 
-  const onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    // pseudocode
-    // call the function that will check if the credential matches the adminaccount in localstorage,
-    // if not matched, return an error!
+    const adminAccounts = getAdminAccounts();
+
+    if (username === "" || password === "") {
+      setError("Empty username/password field");
+    } else if (
+      adminAccounts.find(
+        account =>
+          account.username === username && account.password === password
+      )
+    ) {
+      localStorage.setItem("isAuthenticated", "true");
+      window.location.pathname = "/";
+    } else {
+      setError("Invalid username/password");
+      return;
+    }
   };
 
   return (
     <div>
-      <label htmlFor="username">Username: </label>
-      <input
-        type="text"
-        placeholder="Username"
-        id="username"
-        name="username"
-        onChange={handleUsernameChange}
-      />
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        placeholder="Password"
-        id="password"
-        onChange={handlePasswordChange}
-        required
-      />
-      <button type="button">Log In</button>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username: </label>
+        <input
+          type="text"
+          placeholder="Username"
+          id="username"
+          name="username"
+          onChange={handleUsernameChange}
+        />
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          placeholder="Password"
+          id="password"
+          onChange={handlePasswordChange}
+        />
+        <button type="submit">Log In</button>
+        <LoadDataButton />
+        <p>{error}</p>
+      </form>
     </div>
   );
 }

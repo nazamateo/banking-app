@@ -1,13 +1,23 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import PrivateRoute from "./components/General/Helpers/PrivateRoute";
 
 import MainPage from "./pages/MainPage/MainPage";
-//import LoginPage from "./pages/Login/login";
+import LoginPage from "./pages/Login/Login";
 
 function App() {
   return (
-    <>
-      <MainPage />
-    </>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="*"
+        element={
+          <PrivateRoute>
+            <MainPage />
+          </PrivateRoute>
+        }
+      />
+    </Routes>
   );
 }
 
