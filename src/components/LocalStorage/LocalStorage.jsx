@@ -135,14 +135,6 @@ let bankAccounts = [
   },
 ];
 
-function getBankAccounts() {
-  return JSON.parse(localStorage.getItem("bankAccounts"));
-}
-
-function getAdminAccounts() {
-  return JSON.parse(localStorage.getItem("adminAccounts"));
-}
-
 const formatmyBalance = balance => {
   return Intl.NumberFormat("en-PH", {
     currency: "PHP",
@@ -156,6 +148,14 @@ bankAccounts = bankAccounts.map(user => {
     formattedbalance: formatmyBalance(user.balance),
   };
 });
+
+function getBankAccounts() {
+  return JSON.parse(localStorage.getItem("bankAccounts"));
+}
+
+function getAdminAccounts() {
+  return JSON.parse(localStorage.getItem("adminAccounts"));
+}
 
 function LoadDataButton() {
   const onClickBtn = e => {

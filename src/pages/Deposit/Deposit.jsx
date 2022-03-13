@@ -1,5 +1,7 @@
+import "../pages.scss";
+
 function DepositPage() {
-  return <div>Deposit</div>;
+  return <div className="page">Deposit</div>;
 }
 
 export default DepositPage;

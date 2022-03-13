@@ -1,5 +1,5 @@
 function TransferPage() {
-  return <div>Transfer</div>;
+  return <div className="page">Transfer</div>;
 }
 
 export default TransferPage;

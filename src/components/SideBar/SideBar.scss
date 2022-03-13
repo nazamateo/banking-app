@@ -5,13 +5,18 @@
   flex-direction: column;
   background: yellow;
   font-size: 2rem;
-  height: 100vh;
+  height: 100%;
   gap: 2rem;
-  padding: 0.8rem 1.2rem;
+  padding: 2rem 1.4rem;
+  flex: 1 0 10%;
 }
 
-ul {
+.nav-links-sidebar {
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-size: 3rem;
 }
 
 a {
@@ -20,4 +25,13 @@ a {
   &:hover {
     opacity: 0.8;
   }
+}
+
+.active {
+  color: red;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.inactive {
+  color: black;
 }
