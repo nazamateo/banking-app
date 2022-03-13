@@ -13,6 +13,7 @@ let bankAccounts = [
     creationDate: "05/08/19",
     accountNumber: 0,
     balance: 5000,
+    transactionHistory:[]
   },
   {
     name: "Esmeralda Curry",
@@ -23,6 +24,7 @@ let bankAccounts = [
     creationDate: "05/08/19",
     accountNumber: 1,
     balance: 25193.5,
+    transactionHistory:[]
   },
   {
     name: "Aida Krause",
@@ -32,6 +34,7 @@ let bankAccounts = [
     creationDate: "06/05/19",
     accountNumber: 2,
     balance: 87377.6,
+    transactionHistory:[]
   },
   {
     name: "Cyril Caldwell",
@@ -41,6 +44,7 @@ let bankAccounts = [
     creationDate: "08/05/19",
     accountNumber: 3,
     balance: 94809.8,
+    transactionHistory:[]
   },
   {
     name: "Letha Welch",
@@ -51,6 +55,7 @@ let bankAccounts = [
     creationDate: "10/25/19",
     accountNumber: 4,
     balance: 10692.35,
+    transactionHistory:[]
   },
   {
     name: "Gretchen Young",
@@ -60,6 +65,7 @@ let bankAccounts = [
     creationDate: "12/05/19",
     accountNumber: 5,
     balance: 21623.7,
+    transactionHistory:[]
   },
   {
     name: "Gilbert Heath",
@@ -70,6 +76,7 @@ let bankAccounts = [
     creationDate: "01/31/20",
     accountNumber: 6,
     balance: 84370.1,
+    transactionHistory:[]
   },
   {
     name: "Concepcion Rocha",
@@ -80,6 +87,7 @@ let bankAccounts = [
     creationDate: "07/24/20",
     accountNumber: 7,
     balance: 10669.3,
+    transactionHistory:[]
   },
   {
     name: "August Shannon",
@@ -89,6 +97,7 @@ let bankAccounts = [
     creationDate: "08/19/20",
     accountNumber: 8,
     balance: 15094.5,
+    transactionHistory:[]
   },
   {
     name: "Beatriz Morrison",
@@ -99,6 +108,7 @@ let bankAccounts = [
     creationDate: "03/19/21",
     accountNumber: 9,
     balance: 104010.96,
+    transactionHistory:[]
   },
   {
     name: "Thomas Oconnell",
@@ -108,6 +118,7 @@ let bankAccounts = [
     creationDate: "05/25/21",
     accountNumber: 10,
     balance: 104848.69,
+    transactionHistory:[]
   },
   {
     name: "Ahmad Duffy",
@@ -117,6 +128,7 @@ let bankAccounts = [
     creationDate: "06/07/21",
     accountNumber: 11,
     balance: 32305.77,
+    transactionHistory:[]
   },
   {
     name: "Annie Garrison",
@@ -126,6 +138,7 @@ let bankAccounts = [
     creationDate: "06/09/21",
     accountNumber: 12,
     balance: 67470.34,
+    transactionHistory:[]
   },
   {
     name: "Lonnie Fitzpatrick",
@@ -135,6 +148,7 @@ let bankAccounts = [
     creationDate: "10/06/21",
     accountNumber: 13,
     balance: 113205.33,
+    transactionHistory:[]
   },
   {
     name: "Maryellen Herman",
@@ -144,6 +158,7 @@ let bankAccounts = [
     creationDate: "02/02/22",
     accountNumber: 14,
     balance: 73788.25,
+    transactionHistory:[]
   },
 ];
 
@@ -191,7 +206,7 @@ function getBankAccountName(accountName) {
   });
 }
 
-function updateBankAccountBalance(accountName, accountNumber, amount, action) {
+function updateBankAccountBalance(accountName, accountNumber, amount, action, transaction) {
   const bankAccounts = getFromLocalStorage
   const foundAccount = getBankAccount(accountName, accountNumber);
   const index = bankAccounts.findIndex(obj => {
@@ -211,6 +226,7 @@ function updateBankAccountBalance(accountName, accountNumber, amount, action) {
     style: "currency",
   }).format(foundAccount.balance);
 
+  foundAccount.transactionHistory.push(transaction)
   bankAccounts[index] = foundAccount;
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
