@@ -1,20 +1,20 @@
 import React from "react";
-import SideBar from "./components/SideBar/SideBar";
-import "./App.scss";
 
-//Pages
-import AllUsersPage from "./pages/Users/Users";
-import FormPage from "./pages/UsersForm/DisplayForm";
+import MainPage from "./pages/MainPage/MainPage";
 import LoginPage from "./pages/Login/login";
 
 function App() {
   return (
-    <div className="main-layout">
-      <SideBar />
-      {/* <AllUsersPage /> */}
-      <LoginPage />
-    </div>
+    <>
+      <MainPage />
+    </>
   );
 }
 
 export default App;
+
+//Note for Olan
+// pseudocode
+/* create routing here that will authenticate mainpage, when the admin user has logged in.
+create a function that will confirm if username and password corresponds to the input value
+if not match, produce an error */

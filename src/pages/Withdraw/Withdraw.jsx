@@ -1,5 +1,5 @@
 function WithdrawPage() {
-  return <div>Withdraw</div>;
+  return <div className="page">Withdraw</div>;
 }
 
 export default WithdrawPage;

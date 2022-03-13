@@ -1,0 +1,12 @@
+@use "../../assets/sass/main.scss";
+
+.top-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: lightpink;
+  font-size: 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
