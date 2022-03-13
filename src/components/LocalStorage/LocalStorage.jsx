@@ -157,6 +157,21 @@ function getAdminAccounts() {
   return JSON.parse(localStorage.getItem("adminAccounts"));
 }
 
+function getBankAccount(accountName = "", accountNumber) {
+  const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
+
+  if (accountName) {
+    return bankAccounts.find(bankAccount => {
+      bankAccount.accountNumber === accountNumber &&
+        bankAccount.name === accountName;
+    });
+  }
+
+  return bankAccounts.find(
+    bankAccount => bankAccount.accountNumber === accountNumber
+  );
+}
+
 function LoadDataButton() {
   const onClickBtn = e => {
     e.preventDefault();
@@ -172,4 +187,4 @@ function LoadDataButton() {
   );
 }
 
-export { getBankAccounts, getAdminAccounts, LoadDataButton };
+export { getBankAccounts, getAdminAccounts, LoadDataButton, getBankAccount };
