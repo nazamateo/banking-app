@@ -9,6 +9,8 @@ import {
 import "./Transfer.scss";
 import { v4 as uuidv4 } from "uuid";
 
+import Popup from "../../components/General/Helpers/ErrorPopup";
+
 //add value on options
 
 const TransferFunc = () => {
@@ -19,30 +21,28 @@ const TransferFunc = () => {
   const [toAccountNumber, settoAccountNumber] = useState("");
   const [amount, setAmount] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [errormessage, setErrorMessage] = useState("");
+ 
+   function togglePopup () {
+    setIsOpen(!isOpen);
+  }
   const TransferThis = e => {
     e.preventDefault();
 
-    //user already exists
-    let fromNameChecker = getBankAccountName(fromName);
-    console.log(fromNameChecker); //object
+    let fromNameChecker = getBankAccountName(fromName)
+    let tonameChecker = getBankAccountName(toName)
 
-    if (fromNameChecker == null) {
-      alert("sender does not exist");
-    } else {
-      if (fromNameChecker.accountNumber !== parseInt(fromAccountNumber)) {
-        alert("sender does not exist");
-      } else {
-        let tonameChecker = getBankAccountName(toName);
-        if (tonameChecker == null) {
-          alert("reciever does not exist");
-        } else {
-          if (tonameChecker.accountNumber !== parseInt(toAccountNumber)) {
-            alert("reciever does not exist");
-          } else {
-            if (fromNameChecker.balance < parseInt(amount)) {
-              alert("insufficient balance");
-            } else {
+    if ((fromNameChecker == null) || fromNameChecker.accountNumber !== parseInt(fromAccountNumber)){
+      togglePopup()
+      setErrorMessage("Sender not found");} 
+    else if ((tonameChecker == null) ||(tonameChecker.accountNumber !== parseInt(toAccountNumber))) {
+      togglePopup()
+      setErrorMessage("Reciever not found")}
+    else if (fromNameChecker.balance < parseInt(amount)) {
+      togglePopup()
+      setErrorMessage("Insufficient balance")} 
+    else {
               let senderTransactionObject = {
                 transactionDate: transactionDate,
                 action: "transfer",
@@ -72,8 +72,7 @@ const TransferFunc = () => {
                 senderTransactionObject,
                 receiverTransactionObject
               );
-
-              //transferBankAccountBalance(toaccountName, toaccountNumber,fromaccountName, fromaccountNumber, amount)
+              
               window.location.pathname = `/success/${transactionId}`;
 
               setTransactionDate(DateToday);
@@ -84,12 +83,10 @@ const TransferFunc = () => {
               setAmount("");
               setTransactionId(uuidv4());
             }
-          }
-        }
-      }
-    }
   };
   return (
+
+    <div>
     <form className="formt" onSubmit={TransferThis}>
       <div className="fromdivname">
         <label htmlFor="fromname" className="form-label">
@@ -184,6 +181,14 @@ const TransferFunc = () => {
         Submit
       </button>
     </form>
+    {isOpen && <Popup
+    content={<>
+      <b>{errormessage}</b>
+    </>}
+    handleClose={togglePopup}
+  />}
+    
+    </div>
   );
 };
 

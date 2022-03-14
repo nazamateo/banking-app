@@ -5,12 +5,21 @@ import {
 } from "../../components/LocalStorage/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
+import Popup from "../../components/General/Helpers/ErrorPopup";
 
 function LoginPage() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   let navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  function togglePopup () {
+    setIsOpen(!isOpen);
+  }
+
 
   const handleUsernameChange = e => {
     setUserName(e.target.value);
@@ -25,6 +34,7 @@ function LoginPage() {
     const adminAccounts = getAdminAccounts();
 
     if (username === "" || password === "") {
+      togglePopup()
       setError("Empty username/password field");
     } else if (
       adminAccounts.find(
@@ -35,6 +45,7 @@ function LoginPage() {
       localStorage.setItem("isAuthenticated", "true");
       navigate("/dashboard");
     } else {
+      togglePopup()
       setError("Invalid username/password");
       return;
     }
@@ -70,9 +81,14 @@ function LoginPage() {
         <button type="submit" className="btn-login">
           Log In
         </button>
-        <p>{error}</p>
       </form>
       <LoadDataButton />
+      {isOpen && <Popup
+    content={<>
+      <b>{error}</b>
+    </>}
+    handleClose={togglePopup}
+  />}
     </div>
   );
 }

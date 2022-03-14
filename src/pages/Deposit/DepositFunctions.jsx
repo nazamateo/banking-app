@@ -7,16 +7,23 @@ import {
 } from "../../components/LocalStorage/LocalStorage";
 import "./Deposit.scss";
 import { v4 as uuidv4 } from "uuid";
+import Popup from "../../components/General/Helpers/ErrorPopup";
 
 //add value on options
 export let transactionDetail;
 export let nameChecker;
+
 const DepositFunc = () => {
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
   const [deposit, setDeposit] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
+  const [isOpen, setIsOpen] = useState(false);
+  const [errormessage, setErrorMessage] = useState("");
+ 
+   function togglePopup () {
+    setIsOpen(!isOpen);}
 
   const DepositThis = e => {
     e.preventDefault();
@@ -25,12 +32,11 @@ const DepositFunc = () => {
     let nameChecker = getBankAccountName(name);
     console.log(nameChecker); //object
 
-    if (!nameChecker) {
-      alert("user does not exist");
-    } else {
-      if (nameChecker.accountNumber !== parseInt(accountNumber)) {
-        alert("user does not exist");
-      } else {
+    if ((!nameChecker) || (nameChecker.accountNumber !== parseInt(accountNumber))){
+      togglePopup()
+      setErrorMessage("User does not exist");
+    }
+    else{
         transactionDetail = {
           accountName: name,
           accountNumber: accountNumber,
@@ -57,10 +63,10 @@ const DepositFunc = () => {
         setDeposit("");
         setTransactionId(uuidv4());
       }
-    }
   };
 
   return (
+    <div>
     <form className="formd" onSubmit={DepositThis}>
       <div className="divname">
         <label htmlFor="name" className="form-label">
@@ -124,6 +130,12 @@ const DepositFunc = () => {
         Submit
       </button>
     </form>
+    {isOpen && <Popup
+      content={<>
+        <b>{errormessage}</b>
+      </>}
+      handleClose={togglePopup}
+    />}</div>
   );
 };
 
