@@ -1,28 +1,30 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DateToday from "../../components/General/Helpers/DateToday";
 // import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
 import {
   getBankAccountName,
   getBankAccounts,
 } from "../../components/LocalStorage/LocalStorage";
-import { useNavigate } from "react-router-dom";
+
 import "./UsersForm.scss";
 import Popup from "../../components/General/Helpers/ErrorPopup";
 
 export let addThis;
 
 const UserForm = () => {
-  var accountNumCount = getBankAccounts().length;
+  let accountNumCount =
+    getBankAccounts()[getBankAccounts().length - 1].accountNumber;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [address, setAddress] = useState("");
-  const [creationDate, setcreationDate] = useState(DateToday);
-  const [accountNumber, setaccountNumber] = useState(accountNumCount + 1);
-  const [balance, setbalance] = useState("");
+  const [creationDate, setCreationDate] = useState(DateToday);
+  const [accountNumber, setAccountNumber] = useState(accountNumCount + 1);
+  const [balance, setBalance] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   function togglePopup() {
     setIsOpen(!isOpen);
@@ -55,15 +57,15 @@ const UserForm = () => {
 
       localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 
-      window.location.pathname = `users/newaccount/success/${accountNumber}`;
+      navigate(`success/${accountNumber}`);
 
       setName("");
       setEmail("");
       setAge("");
       setAddress("");
-      setcreationDate(DateToday);
-      setaccountNumber(accountNumCount + 1);
-      setbalance("");
+      setCreationDate(DateToday);
+      setAccountNumber(accountNumCount + 1);
+      setBalance("");
     } else {
       togglePopup();
       setErrorMessage("User already exists");
@@ -84,7 +86,7 @@ const UserForm = () => {
             id="name"
             value={name}
             onChange={e => setName(e.target.value)}
-            autocomplete="off"
+            autoComplete="off"
             required
           />
         </div>
@@ -99,6 +101,7 @@ const UserForm = () => {
             id="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
+            autoComplete="off"
             required
           />
         </div>
@@ -108,12 +111,13 @@ const UserForm = () => {
             Age
           </label>
           <input
-            type="text"
+            type="number"
             pattern="[0-9.]+"
             className="form-fields"
             id="age"
             value={age}
             onChange={e => setAge(e.target.value)}
+            autoComplete="off"
             required
           />
         </div>
@@ -128,6 +132,7 @@ const UserForm = () => {
             id="address"
             value={address}
             onChange={e => setAddress(e.target.value)}
+            autoComplete="off"
             required
           />
         </div>
@@ -142,7 +147,7 @@ const UserForm = () => {
             id="creationDate"
             value={creationDate}
             disabled
-            onChange={e => setcreationDate(e.target.value)}
+            onChange={e => setCreationDate(e.target.value)}
           />
         </div>
 
@@ -163,12 +168,13 @@ const UserForm = () => {
             Balance
           </label>
           <input
-            type="text"
+            type="number"
             pattern="[0-9.]+"
             className="form-fields"
             id="balance"
             value={balance}
-            onChange={e => setbalance(e.target.value)}
+            onChange={e => setBalance(e.target.value)}
+            autoComplete="off"
           />
         </div>
 

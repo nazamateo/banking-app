@@ -1,6 +1,5 @@
-import React from "react";
-import { useState } from "react";
-//import { getFromLocalStorage } from "../Users/DisplayUsersdeposit";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DateToday from "../../components/General/Helpers/DateToday";
 import {
   getBankAccountName,
@@ -15,8 +14,6 @@ import {
   AccntNumDataListGenerator,
 } from "../../components/General/Helpers/Datalist";
 
-//add value on options
-
 const TransferFunc = () => {
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [fromName, setfromName] = useState("");
@@ -27,6 +24,7 @@ const TransferFunc = () => {
   const [transactionId, setTransactionId] = useState(uuidv4());
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
+  let navigate = useNavigate();
 
   function togglePopup() {
     setIsOpen(!isOpen);
@@ -83,7 +81,7 @@ const TransferFunc = () => {
         receiverTransactionObject
       );
 
-      window.location.pathname = `/success/${transactionId}`;
+      navigate(`/complete/${transactionId}`);
 
       setTransactionDate(DateToday);
       setfromName("");
@@ -96,6 +94,9 @@ const TransferFunc = () => {
   };
   return (
     <div>
+      {isOpen && (
+        <Popup content={<>{errormessage}</>} handleClose={togglePopup} />
+      )}
       <form className="formt" onSubmit={TransferThis}>
         <div className="fromdivname">
           <label htmlFor="fromname" className="form-label">
@@ -109,7 +110,7 @@ const TransferFunc = () => {
             value={fromName}
             onChange={e => setfromName(e.target.value)}
             required
-            autocomplete="off"
+            autoComplete="off"
           />
           <datalist id="namelist">
             <NameDataListGenerator />
@@ -121,14 +122,14 @@ const TransferFunc = () => {
             From Account Number
           </label>
           <input
+            type="number"
             list="listacct"
-            pattern="[0-9.]+"
             className="form-fields"
             id="fromaccountNumber"
             value={fromAccountNumber}
             onChange={e => setfromAccountNumber(e.target.value)}
             required
-            autocomplete="off"
+            autoComplete="off"
           />
           <datalist id="listacct">
             <AccntNumDataListGenerator />
@@ -147,7 +148,7 @@ const TransferFunc = () => {
             value={toName}
             onChange={e => setToName(e.target.value)}
             required
-            autocomplete="off"
+            autoComplete="off"
           />
           <datalist id="namelist">
             <NameDataListGenerator />
@@ -159,14 +160,14 @@ const TransferFunc = () => {
             To Account Number
           </label>
           <input
+            type="number"
             list="listacct"
-            pattern="[0-9.]+"
             className="form-fields"
             id="toaccountNumber"
             value={toAccountNumber}
             onChange={e => settoAccountNumber(e.target.value)}
             required
-            autocomplete="off"
+            autoComplete="off"
           />
           <datalist id="listacct">
             <AccntNumDataListGenerator />
@@ -192,13 +193,14 @@ const TransferFunc = () => {
             Amount
           </label>
           <input
-            type="text"
+            type="number"
             pattern="[0-9.]+"
             className="form-fields"
             id="amount"
             value={amount}
             onChange={e => setAmount(parseInt(e.target.value))}
             required
+            autoComplete="off"
           />
         </div>
 
@@ -206,16 +208,6 @@ const TransferFunc = () => {
           Submit
         </button>
       </form>
-      {isOpen && (
-        <Popup
-          content={
-            <>
-              <b>{errormessage}</b>
-            </>
-          }
-          handleClose={togglePopup}
-        />
-      )}
     </div>
   );
 };

@@ -1,6 +1,5 @@
-import React from "react";
-import { useState } from "react";
-//import { getFromLocalStorage } from "../Users/DisplayUsersdeposit";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   updateBankAccountBalance,
   getBankAccountName,
@@ -8,7 +7,6 @@ import {
 import DateToday from "../../components/General/Helpers/DateToday";
 import "../Deposit/Deposit.scss";
 import { v4 as uuidv4 } from "uuid";
-
 import Popup from "../../components/General/Helpers/ErrorPopup";
 import {
   NameDataListGenerator,
@@ -26,6 +24,7 @@ const WithdrawFunc = () => {
   const [transactionId, setTransactionId] = useState(uuidv4());
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
+  let navigate = useNavigate();
 
   function togglePopup() {
     setIsOpen(!isOpen);
@@ -65,7 +64,7 @@ const WithdrawFunc = () => {
         transactionObject
       );
 
-      window.location.pathname = `/success/${transactionId}`;
+      navigate(`/complete/${transactionId}`);
 
       setName("");
       setTransactionDate(DateToday);
@@ -76,6 +75,9 @@ const WithdrawFunc = () => {
   };
   return (
     <div>
+      {isOpen && (
+        <Popup content={<>{errormessage}</>} handleClose={togglePopup} />
+      )}
       <form className="formd" onSubmit={WithdrawThis}>
         <div className="divname">
           <label htmlFor="name" className="form-label">
@@ -89,7 +91,7 @@ const WithdrawFunc = () => {
             value={name}
             onChange={e => setName(e.target.value)}
             required
-            autocomplete="off"
+            autoComplete="off"
           />
           <datalist id="namelist">
             <NameDataListGenerator />
@@ -101,13 +103,13 @@ const WithdrawFunc = () => {
             Account Number
           </label>
           <input
+            type="number"
             list="listacct"
-            pattern="[0-9.]+"
             className="form-fields"
             id="accountNumber"
             value={accountNumber}
             onChange={e => setAccountNumber(e.target.value)}
-            autocomplete="off"
+            autoComplete="off"
           />
           <datalist id="listacct">
             <AccntNumDataListGenerator />
@@ -134,13 +136,14 @@ const WithdrawFunc = () => {
             Withdraw Amount
           </label>
           <input
-            type="text"
+            type="number"
             pattern="[0-9.]+"
             className="form-fields"
             id="withdraw"
             value={withdraw}
             onChange={e => setWithdraw(e.target.value)}
             required
+            autoComplete="off"
           />
         </div>
 
@@ -148,19 +151,6 @@ const WithdrawFunc = () => {
           Submit
         </button>
       </form>
-      <div>
-        {" "}
-        {isOpen && (
-          <Popup
-            content={
-              <>
-                <b>{errormessage}</b>
-              </>
-            }
-            handleClose={togglePopup}
-          />
-        )}
-      </div>
     </div>
   );
 };
