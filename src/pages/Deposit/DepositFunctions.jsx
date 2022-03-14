@@ -8,6 +8,7 @@ import {
 import "./Deposit.scss";
 import { v4 as uuidv4 } from "uuid";
 import Popup from "../../components/General/Helpers/ErrorPopup";
+import {NameDataListGenerator, AccntNumDataListGenerator} from "../../components/General/Helpers/Datalist";
 
 //add value on options
 export let transactionDetail;
@@ -73,7 +74,7 @@ const DepositFunc = () => {
           Name
         </label>
         <input
-          type="text"
+          list="namelist"
           pattern="[a-zA-Z\s]+"
           className="form-fields"
           id="name"
@@ -81,6 +82,9 @@ const DepositFunc = () => {
           onChange={e => setName(e.target.value)}
           required
         />
+<datalist id="namelist">
+<NameDataListGenerator/>
+</datalist>
       </div>
 
       <div className="acct">
@@ -88,13 +92,16 @@ const DepositFunc = () => {
           Account Number
         </label>
         <input
-          type="text"
+          list="listacct"
           pattern="[0-9.]+"
           className="form-fields"
           id="accountNumber"
           value={accountNumber}
           onChange={e => setAccountNumber(e.target.value)}
         />
+        <datalist id="listacct">
+<AccntNumDataListGenerator/>
+</datalist>
       </div>
 
       <div className="divdate">

@@ -10,6 +10,7 @@ import "./Transfer.scss";
 import { v4 as uuidv4 } from "uuid";
 
 import Popup from "../../components/General/Helpers/ErrorPopup";
+import {NameDataListGenerator, AccntNumDataListGenerator} from "../../components/General/Helpers/Datalist";
 
 //add value on options
 
@@ -93,7 +94,7 @@ const TransferFunc = () => {
           From
         </label>
         <input
-          type="text"
+          list="namelist"
           pattern="[a-zA-Z\s]+"
           className="form-fields"
           id="fromname"
@@ -101,6 +102,9 @@ const TransferFunc = () => {
           onChange={e => setfromName(e.target.value)}
           required
         />
+        <datalist id="namelist">
+<NameDataListGenerator/>
+</datalist>
       </div>
 
       <div className="fromacct">
@@ -108,7 +112,7 @@ const TransferFunc = () => {
           From Account Number
         </label>
         <input
-          type="text"
+          list="listacct"
           pattern="[0-9.]+"
           className="form-fields"
           id="fromaccountNumber"
@@ -116,6 +120,9 @@ const TransferFunc = () => {
           onChange={e => setfromAccountNumber(e.target.value)}
           required
         />
+                <datalist id="listacct">
+<AccntNumDataListGenerator/>
+</datalist>
       </div>
 
       <div className="todivname">
@@ -123,7 +130,7 @@ const TransferFunc = () => {
           To
         </label>
         <input
-          type="text"
+          list="namelist"
           pattern="[a-zA-Z\s]+"
           className="form-fields"
           id="toname"
@@ -131,6 +138,9 @@ const TransferFunc = () => {
           onChange={e => setToName(e.target.value)}
           required
         />
+        <datalist id="namelist">
+<NameDataListGenerator/>
+</datalist>
       </div>
 
       <div className="toacct">
@@ -138,7 +148,7 @@ const TransferFunc = () => {
           To Account Number
         </label>
         <input
-          type="text"
+          list="listacct"
           pattern="[0-9.]+"
           className="form-fields"
           id="toaccountNumber"
@@ -146,6 +156,9 @@ const TransferFunc = () => {
           onChange={e => settoAccountNumber(e.target.value)}
           required
         />
+                <datalist id="listacct">
+<AccntNumDataListGenerator/>
+</datalist>
       </div>
 
       <div className="divdate">
