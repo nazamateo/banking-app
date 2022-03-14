@@ -17,7 +17,7 @@ const HeaderBalance = () => {
   );
 };
 
-const RowsBalance = ({ userInfo, deactivateAccount }) => {
+const RowsBalance = ({ userInfo, deactivateAccount: deleteAccount }) => {
   return userInfo.map(userInfo => (
     <tr key={userInfo.accountNumber}>
       <td>
@@ -29,9 +29,9 @@ const RowsBalance = ({ userInfo, deactivateAccount }) => {
         <button
           type="submit"
           className="adddeletebttn"
-          onClick={e => deactivateAccount(e, userInfo.accountNumber)}
+          onClick={e => deleteAccount(e, userInfo.accountNumber)}
         >
-          Deactivate
+          Delete
         </button>
       </td>
     </tr>
