@@ -1,6 +1,8 @@
 import React from "react";
-import { getFromLocalStorage } from "../../../pages/Users/DisplayUsersBalance";
+import {getBankAccounts} from "../../LocalStorage/LocalStorage";
 
+
+let getFromLocalStorage = getBankAccounts();
 const NameDataListGenerator = () =>{
 return getFromLocalStorage.map(users=>
 <option value={users.name}></option>
