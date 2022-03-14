@@ -9,17 +9,23 @@ import DateToday from "../../components/General/Helpers/DateToday";
 import "../Deposit/Deposit.scss";
 import { v4 as uuidv4 } from "uuid";
 
+import Popup from "../../components/General/Helpers/ErrorPopup";
+
 //add value on options
 export let nameChecker;
 export let transactionObject;
-
 const WithdrawFunc = () => {
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
   const [withdraw, setWithdraw] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [errormessage, setErrorMessage] = useState("");
+ 
+   function togglePopup () {
+    setIsOpen(!isOpen);
+  }
   const WithdrawThis = e => {
     e.preventDefault();
 
@@ -27,15 +33,13 @@ const WithdrawFunc = () => {
     nameChecker = getBankAccountName(name);
     console.log(nameChecker); //object
 
-    if (nameChecker == null) {
-      alert("user does not exist");
-    } else {
-      if (nameChecker.accountNumber !== parseInt(accountNumber)) {
-        alert("user does not exist");
-      } else {
-        if (nameChecker.balance < parseInt(withdraw)) {
-          alert("insufficient balance");
-        } else {
+    if ((nameChecker == null) || (nameChecker.accountNumber !== parseInt(accountNumber))) {
+      togglePopup()
+      setErrorMessage("User not found")}
+    else if (nameChecker.balance < parseInt(withdraw)) {
+      togglePopup()
+      setErrorMessage("Insufficient balance")} 
+    else {
           transactionObject = {
             accountName: name,
             accountNumber: accountNumber,
@@ -63,9 +67,8 @@ const WithdrawFunc = () => {
           setTransactionId(uuidv4());
         }
       }
-    }
-  };
   return (
+    <div>
     <form className="formd" onSubmit={WithdrawThis}>
       <div className="divname">
         <label htmlFor="name" className="form-label">
@@ -131,6 +134,13 @@ const WithdrawFunc = () => {
         Submit
       </button>
     </form>
+    <div> {isOpen && <Popup
+    content={<>
+      <b>{errormessage}</b>
+    </>}
+    handleClose={togglePopup}
+  />}</div>
+  </div>
   );
 };
 
