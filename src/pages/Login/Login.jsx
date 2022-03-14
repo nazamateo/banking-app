@@ -3,6 +3,7 @@ import {
   LoadDataButton,
   getAdminAccounts,
 } from "../../components/LocalStorage/LocalStorage";
+import "./login.scss";
 
 function LoginPage() {
   const [username, setUserName] = useState("");
@@ -30,7 +31,7 @@ function LoginPage() {
       )
     ) {
       localStorage.setItem("isAuthenticated", "true");
-      window.location.pathname = "/";
+      window.location.pathname = "/dashboard";
     } else {
       setError("Invalid username/password");
       return;
@@ -38,27 +39,38 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username: </label>
-        <input
-          type="text"
-          placeholder="Username"
-          id="username"
-          name="username"
-          onChange={handleUsernameChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          placeholder="Password"
-          id="password"
-          onChange={handlePasswordChange}
-        />
-        <button type="submit">Log In</button>
-        <LoadDataButton />
+    <div className="log-in">
+      <form onSubmit={handleSubmit} className="form-login">
+        <h1>LOGIN</h1>
+        <div className="input-login">
+          <label htmlFor="username" class="label-login">
+            Username:{" "}
+          </label>
+          <input
+            type="text"
+            placeholder="Username"
+            id="username"
+            name="username"
+            onChange={handleUsernameChange}
+          />
+        </div>
+        <div className="input-login">
+          <label htmlFor="password" class="label-login">
+            Password:
+          </label>
+          <input
+            type="password"
+            placeholder="Password"
+            id="password"
+            onChange={handlePasswordChange}
+          />
+        </div>
+        <button type="submit" className="btn-login">
+          Log In
+        </button>
         <p>{error}</p>
       </form>
+      <LoadDataButton />
     </div>
   );
 }

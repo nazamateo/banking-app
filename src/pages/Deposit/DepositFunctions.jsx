@@ -32,6 +32,8 @@ const DepositFunc = () => {
         alert("user does not exist");
       } else {
         transactionDetail = {
+          accountName: name,
+          accountNumber: accountNumber,
           transactionDate: transactionDate,
           transactionId: transactionId,
           action: "deposit",
@@ -47,7 +49,7 @@ const DepositFunc = () => {
           transactionDetail
         );
 
-        //also check if the transactionHistory of the object does not contain anything
+        window.location.pathname = `/success/${transactionId}`;
 
         setName("");
         setTransactionDate(DateToday());

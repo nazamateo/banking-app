@@ -27,7 +27,7 @@ function SideBar({ getWidth }) {
       <Logo link="https://via.placeholder.com/48" name="Digibank" />
       <ul className="nav-links-sidebar">
         <NavLink
-          to="/"
+          to="dashboard"
           className={({ isActive }) => (isActive ? "active" : "inactive")}
         >
           Dashboard

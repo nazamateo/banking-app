@@ -37,6 +37,8 @@ const WithdrawFunc = () => {
           alert("insufficient balance");
         } else {
           transactionObject = {
+            accountName: name,
+            accountNumber: accountNumber,
             transactionDate: transactionDate,
             transactionId: transactionId,
             action: "withdraw",
@@ -51,6 +53,8 @@ const WithdrawFunc = () => {
             "withdraw",
             transactionObject
           );
+
+          window.location.pathname = `/success/${transactionId}`;
 
           setName("");
           setTransactionDate(DateToday);
