@@ -13,11 +13,10 @@ function SideBar({ getWidth }) {
   };
 
   useEffect(() => {
-    window.addEventListener("load", getWidthSize);
+    getWidth(widthRef.current.offsetWidth);
     window.addEventListener("resize", getWidthSize);
 
     return () => {
-      window.removeEventListener("load", getWidthSize);
       window.removeEventListener("resize", getWidthSize);
     };
   }, []);

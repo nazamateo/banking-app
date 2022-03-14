@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./MainPage.scss";
 
@@ -11,15 +11,12 @@ import FormPage from "../UsersForm/DisplayForm";
 import AllUsersPage from "../Users/Users";
 import TransferPage from "../Transfer/Transfer";
 import DepositPage from "../Deposit/Deposit";
-
 import DashboardPage from "../Dashboard/Dashboard";
 import WithdrawPage from "../Withdraw/Withdraw";
 import SuccessTransactionPage from "../Success/TransactionComplete";
 import NotFoundPage from "../NotFound/NotFound";
 import SuccessAddUserPage from "../UsersForm/AddUserSuccessful";
 import IndividualUserPage from "../IndividualUser/IndividualUser";
-
-//Route
 
 function MainPage() {
   const [sideBarWidth, setSideBarWidth] = useState(0);
@@ -35,7 +32,6 @@ function MainPage() {
       <div className="main-layout">
         <SideBar getWidth={getSideBarWidth} />
         <Routes>
-          <Route path="*" element={<NotFoundPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="users" element={<AllUsersPage />} />
           <Route path="users/:accountNumber" element={<IndividualUserPage />} />
@@ -48,9 +44,10 @@ function MainPage() {
           <Route path="withdraw" element={<WithdrawPage />} />
           <Route path="transfer" element={<TransferPage />} />
           <Route
-            path="success/:transactionId"
+            path="complete/:transactionId"
             element={<SuccessTransactionPage />}
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </div>

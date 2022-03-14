@@ -56,7 +56,7 @@ function LoginPage() {
         <h1>LOGIN</h1>
         <div className="input-login">
           <label htmlFor="username" className="label-login">
-            Username:{" "}
+            Username:
           </label>
           <input
             type="text"
@@ -64,7 +64,7 @@ function LoginPage() {
             id="username"
             name="username"
             onChange={handleUsernameChange}
-            autocomplete="off"
+            autoComplete="off"
           />
         </div>
         <div className="input-login">

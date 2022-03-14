@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DateToday from "../../components/General/Helpers/DateToday";
 import {
   getBankAccountName,
@@ -25,6 +25,7 @@ const DepositFunc = () => {
   const [transactionId, setTransactionId] = useState(uuidv4());
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
+  let navigate = useNavigate();
 
   function togglePopup() {
     setIsOpen(!isOpen);
@@ -33,13 +34,11 @@ const DepositFunc = () => {
   const DepositThis = e => {
     e.preventDefault();
 
-    //user already exists
     let nameChecker = getBankAccountName(name);
-    console.log(nameChecker); //object
 
     if (!nameChecker || nameChecker.accountNumber !== parseInt(accountNumber)) {
       togglePopup();
-      setErrorMessage("User does not exist");
+      setErrorMessage("Account Name/Account Number does not match/exist");
     } else {
       transactionDetail = {
         accountName: name,
@@ -59,7 +58,7 @@ const DepositFunc = () => {
         transactionDetail
       );
 
-      window.location.pathname = `/success/${transactionId}`;
+      navigate(`/complete/${transactionId}`);
 
       setName("");
       setTransactionDate(DateToday());
@@ -71,6 +70,9 @@ const DepositFunc = () => {
 
   return (
     <div>
+      {isOpen && (
+        <Popup content={<>{errormessage}</>} handleClose={togglePopup} />
+      )}
       <form className="formd" onSubmit={DepositThis}>
         <div className="divname">
           <label htmlFor="name" className="form-label">
@@ -84,7 +86,7 @@ const DepositFunc = () => {
             value={name}
             onChange={e => setName(e.target.value)}
             required
-            autocomplete="off"
+            autoComplete="off"
           />
           <datalist id="namelist">
             <NameDataListGenerator />
@@ -96,13 +98,13 @@ const DepositFunc = () => {
             Account Number
           </label>
           <input
+            type="number"
             list="listacct"
-            pattern="[0-9.]+"
             className="form-fields"
             id="accountNumber"
             value={accountNumber}
             onChange={e => setAccountNumber(e.target.value)}
-            autocomplete="off"
+            autoComplete="off"
           />
           <datalist id="listacct">
             <AccntNumDataListGenerator />
@@ -128,13 +130,14 @@ const DepositFunc = () => {
             Deposit Amount
           </label>
           <input
-            type="text"
+            type="number"
             pattern="[0-9.]+"
             className="form-fields"
             id="deposit"
             value={deposit}
             onChange={e => setDeposit(e.target.value)}
             required
+            autoComplete="off"
           />
         </div>
 
@@ -142,16 +145,6 @@ const DepositFunc = () => {
           Submit
         </button>
       </form>
-      {isOpen && (
-        <Popup
-          content={
-            <>
-              <b>{errormessage}</b>
-            </>
-          }
-          handleClose={togglePopup}
-        />
-      )}
     </div>
   );
 };

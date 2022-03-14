@@ -1,11 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./NavBar.scss";
 
 function NavBar({ navBarWidth }) {
+  let navigate = useNavigate();
+
   const signOut = e => {
     e.preventDefault();
     localStorage.setItem("isAuthenticated", "");
-    window.location.pathname = "/login";
+    navigate("/login");
   };
 
   return (

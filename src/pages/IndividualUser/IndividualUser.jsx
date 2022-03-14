@@ -46,12 +46,3 @@ function IndividualUserPage() {
 }
 
 export default IndividualUserPage;
-
-// name: "Maryellen Herman",
-// email: "MryllnHrmn@gmail.com",
-// age: "43",
-// address: "Bldg. A, Niuchouhsi, Fuhsing Village,Miuhsiung Hsiang,Taiwan",
-// creationDate: "02/02/22",
-// accountNumber: 14,
-// balance: 73788.25,
-// transactionHistory: [],
