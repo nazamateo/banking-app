@@ -16,10 +16,9 @@ function LoginPage() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  function togglePopup () {
+  function togglePopup() {
     setIsOpen(!isOpen);
   }
-
 
   const handleUsernameChange = e => {
     setUserName(e.target.value);
@@ -34,7 +33,7 @@ function LoginPage() {
     const adminAccounts = getAdminAccounts();
 
     if (username === "" || password === "") {
-      togglePopup()
+      togglePopup();
       setError("Empty username/password field");
     } else if (
       adminAccounts.find(
@@ -45,7 +44,7 @@ function LoginPage() {
       localStorage.setItem("isAuthenticated", "true");
       navigate("/dashboard");
     } else {
-      togglePopup()
+      togglePopup();
       setError("Invalid username/password");
       return;
     }
@@ -56,7 +55,7 @@ function LoginPage() {
       <form onSubmit={handleSubmit} className="form-login">
         <h1>LOGIN</h1>
         <div className="input-login">
-          <label htmlFor="username" class="label-login">
+          <label htmlFor="username" className="label-login">
             Username:{" "}
           </label>
           <input
@@ -68,7 +67,7 @@ function LoginPage() {
           />
         </div>
         <div className="input-login">
-          <label htmlFor="password" class="label-login">
+          <label htmlFor="password" className="label-login">
             Password:
           </label>
           <input
@@ -83,12 +82,16 @@ function LoginPage() {
         </button>
       </form>
       <LoadDataButton />
-      {isOpen && <Popup
-    content={<>
-      <b>{error}</b>
-    </>}
-    handleClose={togglePopup}
-  />}
+      {isOpen && (
+        <Popup
+          content={
+            <>
+              <b>{error}</b>
+            </>
+          }
+          handleClose={togglePopup}
+        />
+      )}
     </div>
   );
 }
