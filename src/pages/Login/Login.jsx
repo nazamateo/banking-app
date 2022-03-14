@@ -64,6 +64,7 @@ function LoginPage() {
             id="username"
             name="username"
             onChange={handleUsernameChange}
+            autocomplete="off"
           />
         </div>
         <div className="input-login">

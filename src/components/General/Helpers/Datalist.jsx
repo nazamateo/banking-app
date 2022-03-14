@@ -1,5 +1,6 @@
 import React from "react";
-import {getBankAccounts} from "../../LocalStorage/LocalStorage";
+import { getBankAccounts } from "../../LocalStorage/LocalStorage";
+
 
 
 const NameDataListGenerator = () =>{
@@ -11,7 +12,7 @@ return getBankAccounts().map(users=>
 const AccntNumDataListGenerator = () =>{
     return getBankAccounts().map(users=>
     <option value={users.accountNumber}></option>
-        )
-    }
+  ));
+};
 
-export {NameDataListGenerator, AccntNumDataListGenerator}
+export { NameDataListGenerator, AccntNumDataListGenerator };
