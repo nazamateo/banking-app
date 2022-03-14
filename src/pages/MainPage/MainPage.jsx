@@ -12,11 +12,11 @@ import SuccessAddUser from "../UsersForm/AddUserSuccessful";
 import AllUsersPage from "../Users/Users";
 import TransferPage from "../Transfer/Transfer";
 import DepositPage from "../Deposit/Deposit";
-import SuccessDepositPage from "../Deposit/DepositSuccessful";
+
 import DashboardPage from "../Dashboard/Dashboard";
 import WithdrawPage from "../Withdraw/Withdraw";
-import SuccessWithdrawPage from "../Withdraw/WithdrawSuccessful";
-import SuccessTransferPage from "../Transfer/TransferSuccessful";
+import SuccessTransactionPage from "../Success/TransactionComplete";
+import NotFoundPage from "../NotFound/NotFound";
 
 //Route
 
@@ -34,16 +34,20 @@ function MainPage() {
       <div className="main-layout">
         <SideBar getWidth={getSideBarWidth} />
         <Routes>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="users" element={<AllUsersPage />} />
           <Route path="users/newaccount" element={<FormPage />} />
           <Route path="users/newaccount/success" element={<SuccessAddUser />} />
           <Route path="deposit" element={<DepositPage />} />
-          <Route path="deposit/success" element={<SuccessDepositPage />} />
           <Route path="withdraw" element={<WithdrawPage />} />
-          <Route path="withdraw/success" element={<SuccessWithdrawPage />} />
           <Route path="transfer" element={<TransferPage />} />
-          <Route path="transfer/success" element={<SuccessTransferPage />} />
+          <Route
+            path="success/:transactionId"
+            element={<SuccessTransactionPage />}
+          />
+
+          {/* <Route path="transaction-success/:transacId" element={</>} />< */}
         </Routes>
       </div>
     </div>
@@ -54,4 +58,6 @@ function MainPage() {
 
 //put <Route path=":transactionId" as children sa withdraw transfer and deposit>
 // then sa window.location.pathName, doon istringliteral natin para mapunta sa mismong transaction id na page
+
+//Success page isang component na lang tapos dapat may parameter don kung anong action yung ginawa
 export default MainPage;

@@ -24,13 +24,13 @@ const TransferFunc = () => {
     e.preventDefault();
 
     //user already exists
-    let fromnameChecker = getBankAccountName(fromName);
-    console.log(fromnameChecker); //object
+    let fromNameChecker = getBankAccountName(fromName);
+    console.log(fromNameChecker); //object
 
-    if (fromnameChecker == null) {
+    if (fromNameChecker == null) {
       alert("sender does not exist");
     } else {
-      if (fromnameChecker.accountNumber !== parseInt(fromAccountNumber)) {
+      if (fromNameChecker.accountNumber !== parseInt(fromAccountNumber)) {
         alert("sender does not exist");
       } else {
         let tonameChecker = getBankAccountName(toName);
@@ -40,23 +40,25 @@ const TransferFunc = () => {
           if (tonameChecker.accountNumber !== parseInt(toAccountNumber)) {
             alert("reciever does not exist");
           } else {
-            if (fromnameChecker.balance < parseInt(amount)) {
+            if (fromNameChecker.balance < parseInt(amount)) {
               alert("insufficient balance");
             } else {
-              let sendertransactionObject = {
+              let senderTransactionObject = {
                 transactionDate: transactionDate,
                 action: "transfer",
                 transactionId: transactionId,
-                reciever: toName,
-                oldBalance: fromnameChecker.balance,
-                newBalance: fromnameChecker.balance - parseInt(amount),
+                receiver: toName,
+                receiverAccountNumber: parseInt(toAccountNumber),
+                oldBalance: fromNameChecker.balance,
+                newBalance: fromNameChecker.balance - parseInt(amount),
               };
 
-              let recievertransactionObject = {
+              let receiverTransactionObject = {
                 transactionDate: transactionDate,
                 action: "transfer",
                 transactionId: transactionId,
                 sender: fromName,
+                senderAccountNumber: parseInt(fromAccountNumber),
                 oldBalance: tonameChecker.balance,
                 newBalance: tonameChecker.balance + parseInt(amount),
               };
@@ -67,11 +69,13 @@ const TransferFunc = () => {
                 fromName,
                 parseInt(fromAccountNumber),
                 parseInt(amount),
-                sendertransactionObject,
-                recievertransactionObject
+                senderTransactionObject,
+                receiverTransactionObject
               );
 
               //transferBankAccountBalance(toaccountName, toaccountNumber,fromaccountName, fromaccountNumber, amount)
+              window.location.pathname = `/success/${transactionId}`;
+
               setTransactionDate(DateToday);
               setfromName("");
               setfromAccountNumber("");

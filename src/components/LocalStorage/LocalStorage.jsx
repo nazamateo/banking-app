@@ -1,5 +1,4 @@
 import React from "react";
-import { getFromLocalStorage } from "../../pages/Users/DisplayUsersBalance";
 
 const adminAccounts = [
   { username: "abc123", password: "abc123" },
@@ -187,7 +186,7 @@ function getBankAccount(accountName, accountNumber) {
 }
 
 function getBankAccountName(accountName) {
-  const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
+  const bankAccounts = getBankAccounts();
 
   return bankAccounts.find(bankAccount => {
     return bankAccount.name === accountName;
@@ -201,7 +200,7 @@ function updateBankAccountBalance(
   action,
   transaction
 ) {
-  const bankAccounts = getFromLocalStorage;
+  const bankAccounts = getBankAccounts();
   const foundAccount = getBankAccount(accountName, accountNumber);
   const index = bankAccounts.findIndex(obj => {
     return obj.accountNumber === accountNumber;
@@ -229,13 +228,13 @@ function transferBankAccountBalance(
   fromaccountName,
   fromaccountNumber,
   amount,
-  sernderTransaction,
-  recieverTransaction
+  senderTransaction,
+  receiverTransaction
 ) {
-  const bankAccounts = getFromLocalStorage;
+  const bankAccounts = getBankAccounts();
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
-  const fromindex = bankAccounts.findIndex(obj => {
+  const fromIndex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
@@ -243,11 +242,11 @@ function transferBankAccountBalance(
     currency: "PHP",
     style: "currency",
   }).format(fromAccount.balance);
-  fromAccount.transactionHistory.push(sernderTransaction);
-  bankAccounts[fromindex] = fromAccount;
+  fromAccount.transactionHistory.push(senderTransaction);
+  bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
-  const toindex = bankAccounts.findIndex(obj => {
+  const toIndex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === toaccountNumber;
   });
 
@@ -257,8 +256,8 @@ function transferBankAccountBalance(
     style: "currency",
   }).format(toAccount.balance);
 
-  toAccount.transactionHistory.push(recieverTransaction);
-  bankAccounts[toindex] = toAccount;
+  toAccount.transactionHistory.push(receiverTransaction);
+  bankAccounts[toIndex] = toAccount;
 
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
@@ -273,7 +272,7 @@ function LoadDataButton() {
   };
 
   return (
-    <button type="button" onClick={e => onClickBtn(e)}>
+    <button type="button" onClick={e => onClickBtn(e)} className="btn-login">
       Load Data
     </button>
   );
