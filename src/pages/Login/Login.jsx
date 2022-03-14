@@ -4,11 +4,17 @@ import {
   getAdminAccounts,
 } from "../../components/LocalStorage/LocalStorage";
 import "./login.scss";
+import Popup from "../../components/General/Helpers/ErrorPopup";
 
 function LoginPage() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  function togglePopup () {
+    setIsOpen(!isOpen);
+  }
 
   const handleUsernameChange = e => {
     setUserName(e.target.value);
@@ -23,6 +29,7 @@ function LoginPage() {
     const adminAccounts = getAdminAccounts();
 
     if (username === "" || password === "") {
+      togglePopup()
       setError("Empty username/password field");
     } else if (
       adminAccounts.find(
@@ -33,6 +40,7 @@ function LoginPage() {
       localStorage.setItem("isAuthenticated", "true");
       window.location.pathname = "/dashboard";
     } else {
+      togglePopup()
       setError("Invalid username/password");
       return;
     }
@@ -68,9 +76,14 @@ function LoginPage() {
         <button type="submit" className="btn-login">
           Log In
         </button>
-        <p>{error}</p>
       </form>
       <LoadDataButton />
+      {isOpen && <Popup
+    content={<>
+      <b>{error}</b>
+    </>}
+    handleClose={togglePopup}
+  />}
     </div>
   );
 }
