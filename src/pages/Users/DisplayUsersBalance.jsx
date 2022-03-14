@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Users.scss";
-import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
+import {
+  getBankAccounts,
+  getBankAccountNumber,
+} from "../../components/LocalStorage/LocalStorage";
 import { Link } from "react-router-dom";
 
 const HeaderBalance = () => {
@@ -14,13 +17,9 @@ const HeaderBalance = () => {
   );
 };
 
-const RowsBalance = ({ userInfo }) => {
-  const deactivateAccount = (e, accountNumber) => {
-    e.target.parentNode.parentNode.remove();
-    e.preventDefault();
-  };
+const RowsBalance = ({ userInfo, deactivateAccount }) => {
   return userInfo.map(userInfo => (
-    <tr>
+    <tr key={userInfo.accountNumber}>
       <td>
         <Link to={`${userInfo.accountNumber}`}>{userInfo.name}</Link>
       </td>
@@ -39,14 +38,29 @@ const RowsBalance = ({ userInfo }) => {
   ));
 };
 
-// dapat pag cinlick yung sa sidebar, don palang magloload tong table
-
 const TableBalance = () => {
+  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
+
+  const deactivateAccount = (e, accountNumber) => {
+    e.preventDefault();
+    const accountToDeactivate =
+      getBankAccountNumber(accountNumber).accountNumber;
+    const newAccountList = getBankAccounts().filter(
+      account => account.accountNumber !== accountToDeactivate
+    );
+
+    localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
+    setBankAccounts(getBankAccounts());
+  };
+
   return (
     <table className="balanceTable">
       <tbody>
         <HeaderBalance />
-        <RowsBalance userInfo={getBankAccounts()} />
+        <RowsBalance
+          userInfo={bankAccounts}
+          deactivateAccount={deactivateAccount}
+        />
       </tbody>
     </table>
   );
