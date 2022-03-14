@@ -3,12 +3,14 @@ import {
   LoadDataButton,
   getAdminAccounts,
 } from "../../components/LocalStorage/LocalStorage";
+import { useNavigate } from "react-router-dom";
 import "./login.scss";
 
 function LoginPage() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  let navigate = useNavigate();
 
   const handleUsernameChange = e => {
     setUserName(e.target.value);
@@ -31,7 +33,7 @@ function LoginPage() {
       )
     ) {
       localStorage.setItem("isAuthenticated", "true");
-      window.location.pathname = "/dashboard";
+      navigate("/dashboard");
     } else {
       setError("Invalid username/password");
       return;

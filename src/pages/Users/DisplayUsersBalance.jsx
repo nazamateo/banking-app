@@ -1,8 +1,8 @@
 import React from "react";
 import "./Users.scss";
 import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
+import { Link } from "react-router-dom";
 
-export var getFromLocalStorage = getBankAccounts();
 const HeaderBalance = () => {
   return (
     <tr>
@@ -15,17 +15,24 @@ const HeaderBalance = () => {
 };
 
 const RowsBalance = ({ userInfo }) => {
+  const deactivateAccount = (e, accountNumber) => {
+    e.target.parentNode.parentNode.remove();
+    e.preventDefault();
+  };
   return userInfo.map(userInfo => (
     <tr>
-      <td>{userInfo.name}</td>
+      <td>
+        <Link to={`${userInfo.accountNumber}`}>{userInfo.name}</Link>
+      </td>
       <td>{userInfo.accountNumber}</td>
       <td>{userInfo.formattedbalance}</td>
       <td>
-        <button type="submit" className="adddeletebttn">
-          Add
-        </button>
-        <button type="submit" className="adddeletebttn">
-          Delete
+        <button
+          type="submit"
+          className="adddeletebttn"
+          onClick={e => deactivateAccount(e, userInfo.accountNumber)}
+        >
+          Deactivate
         </button>
       </td>
     </tr>
@@ -39,7 +46,7 @@ const TableBalance = () => {
     <table className="balanceTable">
       <tbody>
         <HeaderBalance />
-        <RowsBalance userInfo={getFromLocalStorage} />
+        <RowsBalance userInfo={getBankAccounts()} />
       </tbody>
     </table>
   );
