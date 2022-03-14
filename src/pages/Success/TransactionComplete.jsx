@@ -1,9 +1,7 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import getInfo from "./transactComplete";
 import capitalizeFirstLetter from "../../components/General/Helpers/CapitalizeFirstLetter";
-
-//create a NotFound Page
 
 function SuccessTransactionPage() {
   let transactionId = useParams().transactionId;
@@ -14,15 +12,6 @@ function SuccessTransactionPage() {
   } else {
     return <TransferSuccessfulPage info={getInfo(transactionId)} />;
   }
-}
-
-function NotFoundPage() {
-  return (
-    <div>
-      <h1>Transaction does not exist!</h1>
-      <Link to="dashboard">Redirect to dashboard</Link>
-    </div>
-  );
 }
 
 function DepositWithdrawSuccessfulPage({ info }) {

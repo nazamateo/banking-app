@@ -36,7 +36,7 @@ function SideBar({ getWidth }) {
           to="users"
           className={({ isActive }) => (isActive ? "active" : "inactive")}
         >
-          Users
+          Accounts
         </NavLink>
         <NavLink
           to="deposit"

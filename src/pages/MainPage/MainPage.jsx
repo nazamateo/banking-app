@@ -17,6 +17,7 @@ import DashboardPage from "../Dashboard/Dashboard";
 import WithdrawPage from "../Withdraw/Withdraw";
 import SuccessTransactionPage from "../Success/TransactionComplete";
 import NotFoundPage from "../NotFound/NotFound";
+import SuccessAddUserPage from "../UsersForm/AddUserSuccessful";
 
 //Route
 
@@ -37,8 +38,12 @@ function MainPage() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="users" element={<AllUsersPage />} />
+          {/* <Route path="users/:accountNumber" element={</>} /> */}
           <Route path="users/newaccount" element={<FormPage />} />
-          <Route path="users/newaccount/success" element={<SuccessAddUser />} />
+          <Route
+            path="users/newaccount/success/:accountNumber"
+            element={<SuccessAddUserPage />}
+          />
           <Route path="deposit" element={<DepositPage />} />
           <Route path="withdraw" element={<WithdrawPage />} />
           <Route path="transfer" element={<TransferPage />} />

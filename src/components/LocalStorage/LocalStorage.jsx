@@ -193,6 +193,14 @@ function getBankAccountName(accountName) {
   });
 }
 
+function getBankAccountNumber(accountNumber) {
+  const bankAccounts = getBankAccounts();
+
+  return bankAccounts.find(bankAccount => {
+    return bankAccount.accountNumber === accountNumber;
+  });
+}
+
 function updateBankAccountBalance(
   accountName,
   accountNumber,
@@ -286,4 +294,5 @@ export {
   updateBankAccountBalance,
   transferBankAccountBalance,
   getBankAccountName,
+  getBankAccountNumber,
 };

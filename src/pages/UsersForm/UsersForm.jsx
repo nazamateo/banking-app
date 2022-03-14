@@ -43,6 +43,8 @@ const UserForm = () => {
 
       localStorage.setItem("bankAccounts", JSON.stringify(getFromLocalStorage));
 
+      window.location.pathname = `users/newaccount/success/${accountNumber}`;
+
       setName("");
       setEmail("");
       setAge("");
