@@ -1,29 +1,28 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { getBankAccountNumber } from "../../components/LocalStorage/LocalStorage";
 import { addThis } from "./UsersForm";
 
 //userinfo=addThis
-function SuccessAddUser({ userInfo }) {
+
+function SuccessAddUserPage() {
+  const accountNumber = parseInt(useParams().accountNumber);
+  const account = getBankAccountNumber(accountNumber);
+
   return (
-    <div>
-      <caption>Account Successfully Added!</caption>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Age</th>
-        <th>Address</th>
-        <th>Creation Date</th>
-        <th>Account Number</th>
-        <th>Initial Balance</th>
-      </tr>
-      <td>{userInfo.name}</td>
-      <td>{userInfo.email}</td>
-      <td>{userInfo.age}</td>
-      <td>{userInfo.address}</td>
-      <td>{userInfo.creationDate}</td>
-      <td>{userInfo.accountNumber}</td>
-      <td>{userInfo.formattedbalance}</td>
+    <div className="page">
+      <h1>Account Successfully Added!</h1>
+      <div>
+        <p>Name: {account.name} </p>
+        <p>Email: {account.email}</p>
+        <p>Age: {account.age}</p>
+        <p>Address: {account.address}</p>
+        <p>Creation Date: {account.creationDate}</p>
+        <p>Account Number: {account.accountNumber}</p>
+        <p>Balance: {account.formattedbalance}</p>
+      </div>
     </div>
   );
 }
 
-export default SuccessAddUser;
+export default SuccessAddUserPage;
