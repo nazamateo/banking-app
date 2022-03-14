@@ -1,12 +1,13 @@
 .nav-sidebar {
   display: flex;
   flex-direction: column;
-  background: yellow;
+  background: rgb(44, 52, 59);
   font-size: 2rem;
   height: 100%;
-  gap: 2rem;
+  gap: 2.4rem;
   padding: 2rem 1.4rem;
   flex: 1 0 10%;
+  color: white;
 }
 
 .nav-links-sidebar {
@@ -14,22 +15,22 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  font-size: 3rem;
+  font-size: 2.6rem;
 }
 
 a {
   text-decoration: none;
 
   &:hover {
-    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.05);
   }
 }
 
 .active {
-  color: red;
-  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .inactive {
-  color: black;
+  color: white;
 }

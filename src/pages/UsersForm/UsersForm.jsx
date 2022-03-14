@@ -1,15 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import DateToday from "../../components/General/Helpers/DateToday";
-import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
-import { getBankAccountName } from "../../components/LocalStorage/LocalStorage";
+// import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
+import {
+  getBankAccountName,
+  getBankAccounts,
+} from "../../components/LocalStorage/LocalStorage";
+import { useNavigate } from "react-router-dom";
 import "./UsersForm.scss";
 import Popup from "../../components/General/Helpers/ErrorPopup";
 
 export let addThis;
 
 const UserForm = () => {
-  var accountNumCount = getFromLocalStorage.length;
+  var accountNumCount = getBankAccounts().length;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
@@ -45,8 +49,12 @@ const UserForm = () => {
           style: "currency",
         }).format(balance),
       };
-      getFromLocalStorage.push(addThis);
-      localStorage.setItem("bankAccounts", JSON.stringify(getFromLocalStorage));
+
+      let bankAccounts = getBankAccounts();
+      bankAccounts.push(addThis);
+
+      localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
+
 
       window.location.pathname = `users/newaccount/success/${accountNumber}`;
 

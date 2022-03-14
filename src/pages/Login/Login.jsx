@@ -3,6 +3,7 @@ import {
   LoadDataButton,
   getAdminAccounts,
 } from "../../components/LocalStorage/LocalStorage";
+import { useNavigate } from "react-router-dom";
 import "./login.scss";
 import Popup from "../../components/General/Helpers/ErrorPopup";
 
@@ -10,11 +11,15 @@ function LoginPage() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  let navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
 
   function togglePopup () {
     setIsOpen(!isOpen);
   }
+
 
   const handleUsernameChange = e => {
     setUserName(e.target.value);
@@ -38,7 +43,7 @@ function LoginPage() {
       )
     ) {
       localStorage.setItem("isAuthenticated", "true");
-      window.location.pathname = "/dashboard";
+      navigate("/dashboard");
     } else {
       togglePopup()
       setError("Invalid username/password");
