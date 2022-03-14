@@ -4,7 +4,6 @@ import PrivateRoute from "./components/General/Helpers/PrivateRoute";
 
 import MainPage from "./pages/MainPage/MainPage";
 import LoginPage from "./pages/Login/Login";
-
 function App() {
   return (
     <Routes>

@@ -4,6 +4,8 @@ import DateToday from "../../components/General/Helpers/DateToday";
 import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
 import { getBankAccountName } from "../../components/LocalStorage/LocalStorage";
 import "./UsersForm.scss";
+import Popup from "../../components/General/Helpers/ErrorPopup";
+
 export let addThis;
 
 const UserForm = () => {
@@ -15,16 +17,20 @@ const UserForm = () => {
   const [creationDate, setcreationDate] = useState(DateToday);
   const [accountNumber, setaccountNumber] = useState(accountNumCount + 1);
   const [balance, setbalance] = useState("");
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [errormessage, setErrorMessage] = useState("");
+ 
+   function togglePopup () {
+    setIsOpen(!isOpen);
+  }
   //onsubmit dapat mag rerender si DisplayUserBalance para maupdate yung accountnumber
   const addUserdata = e => {
     e.preventDefault();
 
-    //user already exists
     let nameChecker = getBankAccountName(name);
-    console.log(nameChecker); //object
+    console.log(nameChecker);
 
-    if (nameChecker == null) {
+    if (!nameChecker) {
       addThis = {
         name: name,
         email: email,
@@ -40,7 +46,6 @@ const UserForm = () => {
         }).format(balance),
       };
       getFromLocalStorage.push(addThis);
-
       localStorage.setItem("bankAccounts", JSON.stringify(getFromLocalStorage));
 
       window.location.pathname = `users/newaccount/success/${accountNumber}`;
@@ -53,11 +58,12 @@ const UserForm = () => {
       setaccountNumber(accountNumCount + 1);
       setbalance("");
     } else {
-      alert("user already exist");
-    }
+      togglePopup()
+      setErrorMessage("User already exists");}
   };
 
   return (
+    <div>
     <form className="form" onSubmit={addUserdata}>
       <div className="divname">
         <label htmlFor="name" className="form-label">
@@ -161,6 +167,13 @@ const UserForm = () => {
         Submit
       </button>
     </form>
+    {isOpen && <Popup
+    content={<>
+      <b>{errormessage}</b>
+    </>}
+    handleClose={togglePopup}
+  />}
+    </div>
   );
 };
 

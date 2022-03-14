@@ -1,0 +1,15 @@
+import React from "react";
+import "./ErrorPopup.scss";
+ 
+const Popup = ({handleClose, content}) => {
+  return (
+    <div className="popup-box">
+      <div className="box">
+      {content}
+        <span className="close-icon" onClick={handleClose}>x</span>
+      </div>
+    </div>
+  );
+};
+ 
+export default Popup;
