@@ -29,6 +29,11 @@ const WithdrawFunc = () => {
   function togglePopup() {
     setIsOpen(!isOpen);
   }
+  function clearErrors(){
+    setIsOpen(!isOpen)
+    setErrorMessage([])
+  }
+
   const WithdrawThis = e => {
     e.preventDefault();
 
@@ -36,16 +41,31 @@ const WithdrawFunc = () => {
     nameChecker = getBankAccountName(name);
     console.log(nameChecker); //object
 
-    if (
-      nameChecker == null ||
-      nameChecker.accountNumber !== parseInt(accountNumber)
-    ) {
+    if (!nameChecker) {
       togglePopup();
-      setErrorMessage("User not found");
-    } else if (nameChecker.balance < parseInt(withdraw)) {
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Account Name does not exist"
+      ])
+    } 
+    if(nameChecker.accountNumber !== parseInt(accountNumber)){
       togglePopup();
-      setErrorMessage("Insufficient balance");
-    } else {
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Account Number does not match"
+      ])
+    }
+    if (nameChecker.balance < parseInt(withdraw)) {
+      togglePopup();
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Insufficient Balance"
+      ])
+    } 
+    if(parseInt(withdraw)<0){
+      togglePopup();
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Invalid Withdraw Amount"
+      ])
+    }
+    else {
       transactionObject = {
         accountName: name,
         accountNumber: accountNumber,
@@ -76,7 +96,10 @@ const WithdrawFunc = () => {
   return (
     <div>
       {isOpen && (
-        <Popup content={<>{errormessage}</>} handleClose={togglePopup} />
+        <Popup content={errormessage.map(displayed=>{return(
+          <p>{displayed}</p>
+          )}
+          )} handleClose={clearErrors} />
       )}
       <form className="formd" onSubmit={WithdrawThis}>
         <div className="divname">

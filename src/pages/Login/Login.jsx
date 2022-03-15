@@ -17,7 +17,11 @@ function LoginPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   function togglePopup() {
-    setIsOpen(!isOpen);
+    setIsOpen(!isOpen); 
+  }
+  function clearErrors(){
+    setIsOpen(!isOpen)
+    setError([])
   }
 
   const handleUsernameChange = e => {
@@ -32,10 +36,19 @@ function LoginPage() {
     e.preventDefault();
     const adminAccounts = getAdminAccounts();
 
-    if (username === "" || password === "") {
+    if (password === "") {
       togglePopup();
-      setError("Empty username/password field");
-    } else if (
+      setError((displayerror)=>[
+        ...displayerror,"Empty password field"
+      ])
+    }
+    if(username === "" ){
+      togglePopup();
+      setError((displayerror)=>[
+        ...displayerror,"Empty username field"
+      ])
+    } 
+    if (
       adminAccounts.find(
         account =>
           account.username === username && account.password === password
@@ -45,7 +58,9 @@ function LoginPage() {
       navigate("/dashboard");
     } else {
       togglePopup();
-      setError("Invalid username/password");
+      setError((displayerror)=>[
+        ...displayerror,"Invalid userame/password"
+      ])
       return;
     }
   };
@@ -86,11 +101,12 @@ function LoginPage() {
       {isOpen && (
         <Popup
           content={
-            <>
-              <b>{error}</b>
-            </>
+            error.map(displayed=>{return(
+              <p>{displayed}</p>
+              )}
+              )
           }
-          handleClose={togglePopup}
+          handleClose={clearErrors}
         />
       )}
     </div>

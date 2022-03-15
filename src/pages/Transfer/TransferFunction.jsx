@@ -29,6 +29,12 @@ const TransferFunc = () => {
   function togglePopup() {
     setIsOpen(!isOpen);
   }
+
+  function clearErrors(){
+    setIsOpen(!isOpen)
+    setErrorMessage([])
+  }
+  
   const TransferThis = e => {
     e.preventDefault();
 
@@ -40,17 +46,33 @@ const TransferFunc = () => {
       fromNameChecker.accountNumber !== parseInt(fromAccountNumber)
     ) {
       togglePopup();
-      setErrorMessage("Sender not found");
-    } else if (
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Sender not found"
+      ])
+    }
+    if (
       tonameChecker == null ||
       tonameChecker.accountNumber !== parseInt(toAccountNumber)
     ) {
       togglePopup();
-      setErrorMessage("Reciever not found");
-    } else if (fromNameChecker.balance < parseInt(amount)) {
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Reciever not found"
+      ])
+    }
+    if (fromNameChecker.balance < parseInt(amount)) {
       togglePopup();
-      setErrorMessage("Insufficient balance");
-    } else {
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Insufficient sender balance"
+      ])
+    }
+    if (fromNameChecker.name === tonameChecker.name){
+      togglePopup();
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Invalid transaction, sender and reciever same account"
+      ])
+    }
+    
+    else{
       let senderTransactionObject = {
         transactionDate: transactionDate,
         action: "transfer",
@@ -95,7 +117,10 @@ const TransferFunc = () => {
   return (
     <div>
       {isOpen && (
-        <Popup content={<>{errormessage}</>} handleClose={togglePopup} />
+        <Popup content={errormessage.map(displayed=>{return(
+          <p>{displayed}</p>
+          )}
+          )} handleClose={clearErrors} />
       )}
       <form className="formt" onSubmit={TransferThis}>
         <div className="fromdivname">
