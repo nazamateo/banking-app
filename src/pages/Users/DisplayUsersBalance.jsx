@@ -1,3 +1,4 @@
+/*
 import React, { useState } from "react";
 import "./Users.scss";
 import {
@@ -65,6 +66,13 @@ function TableRow({ userInfo, deactivateAccount }) {
         <button
           type="button"
           className="adddeletebttn"
+          //onClick={e => deactivateAccount(e, userInfo.accountNumber)}
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          className="adddeletebttn"
           onClick={e => deactivateAccount(e, userInfo.accountNumber)}
         >
           Delete
@@ -101,3 +109,4 @@ const TableBalance = () => {
   );
 };
 export default TableBalance;
+*/
