@@ -10,7 +10,7 @@ function IndividualUserPage() {
       <h1>User details</h1>
       <p>Name: {bankAccount.name}</p>
       <p>E-mail: {bankAccount.email}</p>
-      <p>Age: {bankAccount.age}</p>
+      <p>Birthday: {bankAccount.bday}</p>
       <p>Address: {bankAccount.address}</p>
       <p>Creation Date: {bankAccount.creationDate}</p>
       <p>Account Number: {bankAccount.accountNumber}</p>
