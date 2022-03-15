@@ -16,31 +16,35 @@ function IndividualUserPage() {
       <p>Account Number: {bankAccount.accountNumber}</p>
       <p>Balance: {bankAccount.balance}</p>
 
-      <div>
-        <tr>
-          <th>Account Number</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th>Type</th>
-          <th>Transaction ID</th>
-        </tr>
+      <table>
+        <thead>
+          <tr>
+            <td>Account Number</td>
+            <td>Amount</td>
+            <td>Date</td>
+            <td>Type</td>
+            <td>Transaction ID</td>
+          </tr>
+        </thead>
 
         {bankAccount.transactionHistory.map(transaction => {
           return (
-            <tr>
-              <td>{transaction.accountNumber}</td>
-              <td>
-                {`₱${Math.abs(
-                  transaction.newBalance - transaction.oldBalance
-                )}`}
-              </td>
-              <td>{transaction.transactionDate}</td>
-              <td>{capitalizeFirstLetter(transaction.action)}</td>
-              <td>{transaction.transactionId}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>{transaction.accountNumber}</td>
+                <td>
+                  {`₱${Math.abs(
+                    transaction.newBalance - transaction.oldBalance
+                  )}`}
+                </td>
+                <td>{transaction.transactionDate}</td>
+                <td>{capitalizeFirstLetter(transaction.action)}</td>
+                <td>{transaction.transactionId}</td>
+              </tr>
+            </tbody>
           );
         })}
-      </div>
+      </table>
     </div>
   );
 }
