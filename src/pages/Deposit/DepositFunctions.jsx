@@ -30,16 +30,30 @@ const DepositFunc = () => {
   function togglePopup() {
     setIsOpen(!isOpen);
   }
+  function clearErrors(){
+    setIsOpen(!isOpen)
+    setErrorMessage([])
+  }
 
   const DepositThis = e => {
     e.preventDefault();
 
     let nameChecker = getBankAccountName(name);
 
-    if (!nameChecker || nameChecker.accountNumber !== parseInt(accountNumber)) {
+    if (!nameChecker) {
       togglePopup();
-      setErrorMessage("Account Name/Account Number does not match/exist");
-    } else {
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Account Name does not exist"
+      ])
+    } 
+    if(nameChecker.accountNumber !== parseInt(accountNumber)){
+      togglePopup();
+      setErrorMessage((displayerror)=>[
+        ...displayerror,"Account Number does not match"
+      ])
+
+    }
+    else {
       transactionDetail = {
         accountName: name,
         accountNumber: accountNumber,
@@ -71,7 +85,10 @@ const DepositFunc = () => {
   return (
     <div>
       {isOpen && (
-        <Popup content={<>{errormessage}</>} handleClose={togglePopup} />
+        <Popup content={errormessage.map(displayed=>{return(
+          <p>{displayed}</p>
+          )}
+          )} handleClose={clearErrors} />
       )}
       <form className="formd" onSubmit={DepositThis}>
         <div className="divname">
