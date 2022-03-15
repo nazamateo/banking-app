@@ -12,7 +12,7 @@ function SuccessAddUserPage() {
       <div>
         <p>Name: {account.name} </p>
         <p>Email: {account.email}</p>
-        <p>Age: {account.age}</p>
+        <p>Birthday: {account.bday}</p>
         <p>Address: {account.address}</p>
         <p>Creation Date: {account.creationDate}</p>
         <p>Account Number: {account.accountNumber}</p>

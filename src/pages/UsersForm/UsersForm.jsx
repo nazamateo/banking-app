@@ -17,7 +17,7 @@ const UserForm = () => {
     getBankAccounts()[getBankAccounts().length - 1].accountNumber;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
+  const [bday, setBday] = useState("");
   const [address, setAddress] = useState("");
   const [creationDate, setCreationDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState(accountNumCount + 1);
@@ -40,7 +40,7 @@ const UserForm = () => {
       addThis = {
         name: name,
         email: email,
-        age: age,
+        bday: bday,
         address: address,
         creationDate: creationDate,
         accountNumber: parseInt(accountNumber),
@@ -61,7 +61,7 @@ const UserForm = () => {
 
       setName("");
       setEmail("");
-      setAge("");
+      setBday("");
       setAddress("");
       setCreationDate(DateToday);
       setAccountNumber(accountNumCount + 1);
@@ -108,15 +108,14 @@ const UserForm = () => {
 
         <div className="divage">
           <label htmlFor="age" className="form-label">
-            Age
+            Birthday
           </label>
           <input
-            type="number"
-            pattern="[0-9.]+"
+            type="date"
             className="form-fields"
             id="age"
-            value={age}
-            onChange={e => setAge(e.target.value)}
+            value={bday}
+            onChange={e => setBday(e.target.value)}
             autoComplete="off"
             required
           />
