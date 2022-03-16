@@ -7,21 +7,18 @@ import Popup from "../../components/General/Helpers/ErrorPopup";
 
 const EditForm = () => {
   const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
-  //set initial state to values of object selected
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
   const [address, setAddress] = useState("");
-  const [creationDate, setCreationDate] = useState(""); //set unedittable
-  const [accountNumber, setAccountNumber] = useState(""); //set unedittable
-  const [balance, setBalance] = useState(""); //set unedittable
-  const [edittedUser, setEdittedUser] = useState("");
+  const [creationDate, setCreationDate] = useState("");
+  const [balance, setBalance] = useState("");
   const navigate = useNavigate();
-  const selectedAccountNumber = parseInt(useParams().accountNumber);
+  const accountNumber = parseInt(useParams().accountNumber);
 
   const getAccountDetails = () => {
     const selectedBankAccount = bankAccounts.find(
-      bankAccount => bankAccount.accountNumber === selectedAccountNumber
+      bankAccount => bankAccount.accountNumber === accountNumber
     );
 
     setName(selectedBankAccount.name);
@@ -29,7 +26,6 @@ const EditForm = () => {
     setBday(selectedBankAccount.bday);
     setAddress(selectedBankAccount.address);
     setCreationDate(selectedBankAccount.creationDate);
-    setAccountNumber(selectedBankAccount.accountNumber);
     setBalance(selectedBankAccount.balance);
   };
 
@@ -37,23 +33,8 @@ const EditForm = () => {
     getAccountDetails();
   }, []);
 
-  // //useEffect function sets input fields to object values
-  // useEffect(accountNumber => {
-  //   //need makuha accountNumber nung naselect then pass dito, yun di ko pa alam paano hehe
-  //   const selectedUser = getBankAccounts().find(
-  //     user => user.accountNumber === accountNumber
-  //   );
-  //   setName(selectedUser.name);
-  //   setEmail(selectedUser.email);
-  //   setBday(selectedUser.bday);
-  //   setAddress(selectedUser.address);
-  //   setCreationDate(selectedUser.creationDate);
-  //   setAccountNumber(selectedUser.accountNumber);
-  //   setBalance(selectedUser.balance);
-  // }, []);
-
   //updates object values based on input field
-  const EditUserData = e => {
+  const handleSubmitData = e => {
     e.preventDefault();
     const selectedUser = bankAccounts.find(
       user => user.accountNumber === accountNumber
@@ -64,21 +45,21 @@ const EditForm = () => {
     selectedUser.bday = bday;
     selectedUser.address = address;
 
-    // //updates object on the bank accounts array
-    // const updatedUsers = bankAccounts.map(user =>
-    //   user.id === id ? { ...selectedUser } : user
-    // );
+    //updates object on the bank accounts array
+    const updatedUsers = bankAccounts.map(account =>
+      account.accountNumber === accountNumber ? { ...selectedUser } : account
+    );
 
-    // setBankAccounts(updatedUsers);
-    // // saves the new array to local storage
-    // localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
+    setBankAccounts(updatedUsers);
+    localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
 
-    // // navigate(`success/${accountNumber}`);
+    //temporary URL
+    navigate(`/users`);
   };
 
   return (
     <div>
-      <form className="form" onSubmit={EditUserData}>
+      <form className="form" onSubmit={handleSubmitData}>
         <div className="divname">
           <label htmlFor="name" className="form-label">
             Name
