@@ -55,3 +55,12 @@ function MainPage() {
 }
 
 export default MainPage;
+
+//pseudo
+
+/*create another routing for edit forms.
+get url params again to edit form
+fix index routing
+
+do not use async function, localStorage is a synchronous API.
+*/

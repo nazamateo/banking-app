@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./pagination.scss";
 
 //data - array of the data to be in paginated form
 //Component - react component to show paginated data
 //pageLimit - number of pages to be shown in pagination
 //dataLimit - number of rows to be shown in each page
+//componentFunction - function to pass to a button or any component that needs a function
 
 function Pagination({
   data,
@@ -13,7 +14,7 @@ function Pagination({
   dataLimit,
   componentFunction,
 }) {
-  const [pages] = useState(Math.round(data.length / dataLimit));
+  const [pages, setPages] = useState(Math.ceil(data.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
 
   function toNextPage() {
@@ -31,10 +32,15 @@ function Pagination({
     const endIndex = startIndex + dataLimit;
     return data.slice(startIndex, endIndex);
   };
-  const getPaginationGroup = () => {
+  function getPaginationGroup() {
     let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
     return new Array(pageLimit).fill().map((_, i) => start + i + 1);
-  };
+  }
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setPages(Math.ceil(data.length / dataLimit));
+  }, [data]);
 
   return (
     <>

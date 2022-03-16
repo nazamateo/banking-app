@@ -1,10 +1,6 @@
-/*
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Users.scss";
-import {
-  getBankAccounts,
-  getBankAccountNumber,
-} from "../../components/LocalStorage/LocalStorage";
+import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
 import { Link, useSearchParams } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
 
@@ -19,42 +15,40 @@ const HeaderBalance = () => {
   );
 };
 
-const RowsBalance = ({ searchParams }) => {
-  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
-
-  const deactivateAccount = (e, accountNumber) => {
-    e.preventDefault();
-    const accountToDeactivate =
-      getBankAccountNumber(accountNumber).accountNumber;
-    const newAccountList = getBankAccounts().filter(
-      account => account.accountNumber !== accountToDeactivate
-    );
-
-    localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
-    setBankAccounts(getBankAccounts());
-  };
+const RowsBalance = ({ searchParams, inputValue }) => {
+  const [bankAccounts] = useState(getBankAccounts());
+  const [filteredBankAccounts, setFilterBankAccounts] = useState(bankAccounts);
 
   const filterFromInput = filterUserInfo => {
     const input = searchParams.get("filter");
 
-    return filterUserInfo.filter(info => {
+    const filteredAccounts = filterUserInfo.filter(info => {
       if (!input) return true;
       return info.name.toLowerCase().indexOf(input.toLowerCase()) > -1;
     });
+    return filteredAccounts;
   };
+
+  const handleEdit = accountNumber => {
+    //when edit is clicked, get the details and pass it as props in edit page.
+    // sa loob ng page na yun, kapag nagclick ka ng submit, dapat maistore na yung data sa localStorage.
+  };
+
+  useEffect(() => {
+    setFilterBankAccounts(filterFromInput(bankAccounts));
+  }, [inputValue]);
 
   return (
     <Pagination
-      data={filterFromInput(bankAccounts)}
+      data={filteredBankAccounts}
       Component={TableRow}
       pageLimit={3}
       dataLimit={3}
-      componentFunction={deactivateAccount}
     />
   );
 };
 
-function TableRow({ userInfo, deactivateAccount }) {
+function TableRow({ userInfo }) {
   return (
     <tr key={userInfo.accountNumber}>
       <td>
@@ -70,13 +64,6 @@ function TableRow({ userInfo, deactivateAccount }) {
         >
           Edit
         </button>
-        <button
-          type="button"
-          className="adddeletebttn"
-          onClick={e => deactivateAccount(e, userInfo.accountNumber)}
-        >
-          Delete
-        </button>
       </td>
     </tr>
   );
@@ -84,29 +71,34 @@ function TableRow({ userInfo, deactivateAccount }) {
 
 const TableBalance = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [inputNameValue, setInputNameValue] = useState(
+    searchParams.get("filter")
+  );
+
+  const handleChange = e => {
+    let input = e.target.value;
+    if (input) {
+      setSearchParams({ filter: input });
+    } else {
+      setSearchParams({});
+    }
+    setInputNameValue(input);
+  };
 
   return (
     <>
       <input
-        value={searchParams.get("filter") || ""}
-        onChange={e => {
-          let input = e.target.value;
-          if (input) {
-            setSearchParams({ filter: input });
-          } else {
-            setSearchParams({});
-          }
-        }}
+        value={inputNameValue}
+        onChange={e => handleChange(e)}
         placeholder="Search by name"
       />
       <table className="balanceTable">
         <thead>
           <HeaderBalance />
         </thead>
-        <RowsBalance searchParams={searchParams} />
+        <RowsBalance searchParams={searchParams} inputValue={inputNameValue} />
       </table>
     </>
   );
 };
 export default TableBalance;
-*/
