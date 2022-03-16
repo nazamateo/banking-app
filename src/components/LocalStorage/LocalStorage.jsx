@@ -8,7 +8,7 @@ let bankAccounts = [
   {
     name: "Esmeralda Curry",
     email: "smrldCrry@gmail.com",
-    bday: "08/30/71",
+    bday: "1971-08-30",
     address:
       "#170 EDAP Building Cenetr, Boni Serrano Road, Camp Aguinaldo,Quezon City,Philippines",
     creationDate: "05/08/19",
@@ -19,7 +19,7 @@ let bankAccounts = [
   {
     name: "Aida Krause",
     email: "dKrs@gmail.com",
-    bday: "08/30/71",
+    bday: "1975-02-16",
     address: "Prudential Bank Building,Manila,Philippines",
     creationDate: "06/05/19",
     accountNumber: 2,
@@ -29,7 +29,7 @@ let bankAccounts = [
   {
     name: "Cyril Caldwell",
     email: "CyrlCldwll@gmail.com",
-    bday: "01/05/92",
+    bday: "1992-01-05",
     address: "103 10th Street, New Manila Mariana,Quezon City,Philippines",
     creationDate: "08/05/19",
     accountNumber: 3,

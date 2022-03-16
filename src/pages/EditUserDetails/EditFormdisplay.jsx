@@ -1,61 +1,79 @@
-/*
-import React, { useState, useEffect, useImperativeHandle } from "react";
-import { useNavigate } from "react-router-dom";
-// import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
-import {
-  getBankAccounts,
-} from "../../components/LocalStorage/LocalStorage";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
 
-import "./UsersForm.scss";
+import "./Editform.scss";
 import Popup from "../../components/General/Helpers/ErrorPopup";
 
- 
-
-
 const EditForm = () => {
-    //set initial state to values of object selected
+  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
+  //set initial state to values of object selected
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
   const [address, setAddress] = useState("");
-  const [creationDate, setCreationDate] = useState("");//set unedittable
-  const [accountNumber, setAccountNumber] = useState("");//set unedittable
-  const [balance, setBalance] = useState("");//set unedittable
-  const [edittedUser, setEdittedUser] = useState("")
+  const [creationDate, setCreationDate] = useState(""); //set unedittable
+  const [accountNumber, setAccountNumber] = useState(""); //set unedittable
+  const [balance, setBalance] = useState(""); //set unedittable
+  const [edittedUser, setEdittedUser] = useState("");
   const navigate = useNavigate();
+  const selectedAccountNumber = parseInt(useParams().accountNumber);
 
-  //useEffect function sets input fields to object values
-  useEffect((accountNumber)=>{ //need makuha accountNumber nung naselect then pass dito, yun di ko pa alam paano hehe
-   const selectedUSer = getBankAccounts().find((user)=>user.accountNumber===accountNumber)
-   setName(selectedUSer.name)
-   setEmail(selectedUSer.email)
-   setBday(selectedUSer.bday)
-   setAddress(selectedUSer.address)
-   setCreationDate(selectedUSer.creationDate)
-   setAccountNumber(selectedUSer.accountNumber)
-   setBalance(selectedUSer.balance)
-    }, [])
+  const getAccountDetails = () => {
+    const selectedBankAccount = bankAccounts.find(
+      bankAccount => bankAccount.accountNumber === selectedAccountNumber
+    );
 
+    setName(selectedBankAccount.name);
+    setEmail(selectedBankAccount.email);
+    setBday(selectedBankAccount.bday);
+    setAddress(selectedBankAccount.address);
+    setCreationDate(selectedBankAccount.creationDate);
+    setAccountNumber(selectedBankAccount.accountNumber);
+    setBalance(selectedBankAccount.balance);
+  };
 
-    //updates object values based on input field
+  useEffect(() => {
+    getAccountDetails();
+  }, []);
+
+  // //useEffect function sets input fields to object values
+  // useEffect(accountNumber => {
+  //   //need makuha accountNumber nung naselect then pass dito, yun di ko pa alam paano hehe
+  //   const selectedUser = getBankAccounts().find(
+  //     user => user.accountNumber === accountNumber
+  //   );
+  //   setName(selectedUser.name);
+  //   setEmail(selectedUser.email);
+  //   setBday(selectedUser.bday);
+  //   setAddress(selectedUser.address);
+  //   setCreationDate(selectedUser.creationDate);
+  //   setAccountNumber(selectedUser.accountNumber);
+  //   setBalance(selectedUser.balance);
+  // }, []);
+
+  //updates object values based on input field
   const EditUserData = e => {
     e.preventDefault();
-    const selectedUser = getBankAccounts().find((user) => user.accountNumber === accountNumber)
-    selectedUSer.name = name
-    selectedUSer.email = email
-    selectedUSer.bday = bday
-    selectedUSer.address = address
+    const selectedUser = bankAccounts.find(
+      user => user.accountNumber === accountNumber
+    );
 
+    selectedUser.name = name;
+    selectedUser.email = email;
+    selectedUser.bday = bday;
+    selectedUser.address = address;
 
-    //updates object on the bank accounts array
-    const updatedUsers = getBankAccounts().map((user) =>
-      user.id === id ? { ...selectedUser } : user
-    )
-    // saves the new array to local storage
-      localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
+    // //updates object on the bank accounts array
+    // const updatedUsers = bankAccounts.map(user =>
+    //   user.id === id ? { ...selectedUser } : user
+    // );
 
+    // setBankAccounts(updatedUsers);
+    // // saves the new array to local storage
+    // localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
 
-      navigate(`success/${accountNumber}`); //not sure ako din dito kaya di ko ginalaw pati yung parent nito hehe sa routing ata ito
+    // // navigate(`success/${accountNumber}`);
   };
 
   return (
@@ -102,7 +120,6 @@ const EditForm = () => {
             id="age"
             value={bday}
             onChange={e => setBday(e.target.value)}
-            autoComplete="off"
             required
           />
         </div>
@@ -131,7 +148,7 @@ const EditForm = () => {
             className="form-fields"
             id="creationDate"
             value={creationDate}
-            disabled
+            disabled={true}
           />
         </div>
 
@@ -144,7 +161,7 @@ const EditForm = () => {
             className="form-fields"
             id="accountNumber"
             value={accountNumber}
-            disabled
+            disabled={true}
           />
         </div>
         <div className="divbal">
@@ -157,8 +174,7 @@ const EditForm = () => {
             className="form-fields"
             id="balance"
             value={balance}
-            disabled
-            autoComplete="off"
+            disabled={true}
           />
         </div>
 
@@ -171,4 +187,3 @@ const EditForm = () => {
 };
 
 export default EditForm;
-*/

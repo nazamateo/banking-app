@@ -1,4 +1,4 @@
-.balanceTable {
+.balance-table {
   border-collapse: collapse;
   text-align: center;
   max-width: 100%;
@@ -6,29 +6,29 @@
   font-size: 2rem;
   margin: auto;
 
+  th {
+    padding: 2px 60px;
+    background-color: #04aa6d;
+    border: 1px solid #ddd;
+    color: white;
+  }
+
   tbody {
     overflow-y: scroll;
 
-    td,
-    th {
+    td {
       border: 1px solid #ddd;
-      padding: 8px;
+      padding: 2px 60px;
       text-align: center;
     }
 
-    th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      background-color: #04aa6d;
-      color: white;
-    }
     tr:hover {
       background-color: #b0ebd5;
     }
   }
 }
 
-button {
+.action-button {
   background-color: #4caf50;
   color: white;
   padding: 14px 20px;

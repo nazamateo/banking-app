@@ -17,11 +17,11 @@ function LoginPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   function togglePopup() {
-    setIsOpen(!isOpen); 
+    setIsOpen(!isOpen);
   }
-  function clearErrors(){
-    setIsOpen(!isOpen)
-    setError([])
+  function clearErrors() {
+    setIsOpen(!isOpen);
+    setError([]);
   }
 
   const handleUsernameChange = e => {
@@ -38,16 +38,12 @@ function LoginPage() {
 
     if (password === "") {
       togglePopup();
-      setError((displayerror)=>[
-        ...displayerror,"Empty password field"
-      ])
+      setError(displayerror => [...displayerror, "Empty password field"]);
     }
-    if(username === "" ){
+    if (username === "") {
       togglePopup();
-      setError((displayerror)=>[
-        ...displayerror,"Empty username field"
-      ])
-    } 
+      setError(displayerror => [...displayerror, "Empty username field"]);
+    }
     if (
       adminAccounts.find(
         account =>
@@ -58,9 +54,7 @@ function LoginPage() {
       navigate("/dashboard");
     } else {
       togglePopup();
-      setError((displayerror)=>[
-        ...displayerror,"Invalid userame/password"
-      ])
+      setError(displayerror => [...displayerror, "Invalid userame/password"]);
       return;
     }
   };
@@ -100,12 +94,9 @@ function LoginPage() {
       <LoadDataButton />
       {isOpen && (
         <Popup
-          content={
-            error.map(displayed=>{return(
-              <p>{displayed}</p>
-              )}
-              )
-          }
+          content={error.map(displayed => {
+            return <p>{displayed}</p>;
+          })}
           handleClose={clearErrors}
         />
       )}
