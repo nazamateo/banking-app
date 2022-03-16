@@ -33,7 +33,7 @@ const RowsBalance = ({ searchParams, inputValue }) => {
       data={filteredBankAccounts}
       Component={TableRow}
       pageLimit={5}
-      dataLimit={5}
+      dataLimit={10}
     />
   );
 };
@@ -42,10 +42,6 @@ function TableRow({ userInfo }) {
   const navigate = useNavigate();
 
   const handleEdit = accountNumber => {
-    //when edit is clicked, get the details and pass it as props in edit page.
-    // sa loob ng page na yun, kapag nagclick ka ng submit, dapat maistore na yung data sa localStorage.
-    //redirect to a website tapos edit/${accountNumber} then ayun kunin lang ulit lahat ng details
-    console.log(accountNumber);
     navigate(`edit/${accountNumber}`);
   };
 
