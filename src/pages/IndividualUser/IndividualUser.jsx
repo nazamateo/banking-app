@@ -1,13 +1,32 @@
-import { useParams } from "react-router-dom";
-import { getBankAccountNumber } from "../../components/LocalStorage/LocalStorage";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  getBankAccountNumber,
+  getBankAccounts,
+} from "../../components/LocalStorage/LocalStorage";
 import capitalizeFirstLetter from "../../components/General/Helpers/CapitalizeFirstLetter";
 
 function IndividualUserPage() {
   const bankAccount = getBankAccountNumber(parseInt(useParams().accountNumber));
+  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
+  const navigate = useNavigate();
+
+  const deactivateAccount = accountNumber => {
+    const newAccountList = bankAccounts.filter(
+      account => account.accountNumber !== accountNumber
+    );
+
+    localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
+    setBankAccounts(newAccountList);
+    navigate("/users");
+  };
 
   return (
     <div className="page">
       <h1>User details</h1>
+      <button onClick={() => deactivateAccount(bankAccount.accountNumber)}>
+        Delete
+      </button>
       <p>Name: {bankAccount.name}</p>
       <p>E-mail: {bankAccount.email}</p>
       <p>Birthday: {bankAccount.bday}</p>
