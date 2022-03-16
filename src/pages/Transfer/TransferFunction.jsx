@@ -30,12 +30,12 @@ const TransferFunc = () => {
     setIsOpen(!isOpen);
   }
 
-  function clearErrors(){
-    setIsOpen(!isOpen)
-    setErrorMessage([])
+  function clearErrors() {
+    setIsOpen(!isOpen);
+    setErrorMessage([]);
   }
-  
-  const TransferThis = e => {
+
+  const TransferThis = (e) => {
     e.preventDefault();
 
     let fromNameChecker = getBankAccountName(fromName);
@@ -46,33 +46,39 @@ const TransferFunc = () => {
       fromNameChecker.accountNumber !== parseInt(fromAccountNumber)
     ) {
       togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Sender not found"
-      ])
+      setErrorMessage((displayerror) => [...displayerror, "Sender not found"]);
     }
     if (
       tonameChecker == null ||
       tonameChecker.accountNumber !== parseInt(toAccountNumber)
     ) {
       togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Reciever not found"
-      ])
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Reciever not found",
+      ]);
     }
     if (fromNameChecker.balance < parseInt(amount)) {
       togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Insufficient sender balance"
-      ])
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Insufficient sender balance",
+      ]);
     }
-    if (fromNameChecker.name === tonameChecker.name){
+    if (fromNameChecker.name === tonameChecker.name) {
       togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Invalid transaction, sender and reciever same account"
-      ])
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Invalid transaction, sender and reciever same account",
+      ]);
     }
-    
-    else{
+    if (parseInt(amount) < 0) {
+      togglePopup();
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Invalid Transfer Amount",
+      ]);
+    } else {
       let senderTransactionObject = {
         transactionDate: transactionDate,
         action: "transfer",
@@ -117,10 +123,12 @@ const TransferFunc = () => {
   return (
     <div>
       {isOpen && (
-        <Popup content={errormessage.map(displayed=>{return(
-          <p>{displayed}</p>
-          )}
-          )} handleClose={clearErrors} />
+        <Popup
+          content={errormessage.map((displayed) => {
+            return <p>{displayed}</p>;
+          })}
+          handleClose={clearErrors}
+        />
       )}
       <form className="formt" onSubmit={TransferThis}>
         <div className="fromdivname">
@@ -133,7 +141,7 @@ const TransferFunc = () => {
             className="form-fields"
             id="fromname"
             value={fromName}
-            onChange={e => setfromName(e.target.value)}
+            onChange={(e) => setfromName(e.target.value)}
             required
             autoComplete="off"
           />
@@ -152,7 +160,7 @@ const TransferFunc = () => {
             className="form-fields"
             id="fromaccountNumber"
             value={fromAccountNumber}
-            onChange={e => setfromAccountNumber(e.target.value)}
+            onChange={(e) => setfromAccountNumber(e.target.value)}
             required
             autoComplete="off"
           />
@@ -171,7 +179,7 @@ const TransferFunc = () => {
             className="form-fields"
             id="toname"
             value={toName}
-            onChange={e => setToName(e.target.value)}
+            onChange={(e) => setToName(e.target.value)}
             required
             autoComplete="off"
           />
@@ -190,7 +198,7 @@ const TransferFunc = () => {
             className="form-fields"
             id="toaccountNumber"
             value={toAccountNumber}
-            onChange={e => settoAccountNumber(e.target.value)}
+            onChange={(e) => settoAccountNumber(e.target.value)}
             required
             autoComplete="off"
           />
@@ -209,7 +217,7 @@ const TransferFunc = () => {
             id="transactionDate"
             value={transactionDate}
             disabled
-            onChange={e => setTransactionDate(e.target.value)}
+            onChange={(e) => setTransactionDate(e.target.value)}
           />
         </div>
 
@@ -223,7 +231,7 @@ const TransferFunc = () => {
             className="form-fields"
             id="amount"
             value={amount}
-            onChange={e => setAmount(parseInt(e.target.value))}
+            onChange={(e) => setAmount(parseInt(e.target.value))}
             required
             autoComplete="off"
           />

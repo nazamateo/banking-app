@@ -30,30 +30,37 @@ const DepositFunc = () => {
   function togglePopup() {
     setIsOpen(!isOpen);
   }
-  function clearErrors(){
-    setIsOpen(!isOpen)
-    setErrorMessage([])
+  function clearErrors() {
+    setIsOpen(!isOpen);
+    setErrorMessage([]);
   }
 
-  const DepositThis = e => {
+  const DepositThis = (e) => {
     e.preventDefault();
 
     let nameChecker = getBankAccountName(name);
 
     if (!nameChecker) {
       togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Account Name does not exist"
-      ])
-    } 
-    if(nameChecker.accountNumber !== parseInt(accountNumber)){
-      togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Account Number does not match"
-      ])
-
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Account Name does not exist",
+      ]);
     }
-    else {
+    if (nameChecker.accountNumber !== parseInt(accountNumber)) {
+      togglePopup();
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Account Number does not match",
+      ]);
+    }
+    if (deposit < 0) {
+      togglePopup();
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Invalid deposit amount",
+      ]);
+    } else {
       transactionDetail = {
         accountName: name,
         accountNumber: accountNumber,
@@ -85,10 +92,12 @@ const DepositFunc = () => {
   return (
     <div>
       {isOpen && (
-        <Popup content={errormessage.map(displayed=>{return(
-          <p>{displayed}</p>
-          )}
-          )} handleClose={clearErrors} />
+        <Popup
+          content={errormessage.map((displayed) => {
+            return <p>{displayed}</p>;
+          })}
+          handleClose={clearErrors}
+        />
       )}
       <form className="formd" onSubmit={DepositThis}>
         <div className="divname">
@@ -101,7 +110,7 @@ const DepositFunc = () => {
             className="form-fields"
             id="name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             required
             autoComplete="off"
           />
@@ -120,7 +129,7 @@ const DepositFunc = () => {
             className="form-fields"
             id="accountNumber"
             value={accountNumber}
-            onChange={e => setAccountNumber(e.target.value)}
+            onChange={(e) => setAccountNumber(e.target.value)}
             autoComplete="off"
           />
           <datalist id="listacct">
@@ -138,7 +147,7 @@ const DepositFunc = () => {
             id="transactionDate"
             value={transactionDate}
             disabled
-            onChange={e => setTransactionDate(e.target.value)}
+            onChange={(e) => setTransactionDate(e.target.value)}
           />
         </div>
 
@@ -152,7 +161,7 @@ const DepositFunc = () => {
             className="form-fields"
             id="deposit"
             value={deposit}
-            onChange={e => setDeposit(e.target.value)}
+            onChange={(e) => setDeposit(e.target.value)}
             required
             autoComplete="off"
           />
