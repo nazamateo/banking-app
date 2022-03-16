@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./pagination.scss";
 
+//headers - headers of the table
 //data - array of the data to be in paginated form
 //Component - react component to show paginated data
 //pageLimit - number of pages to be shown in pagination
 //dataLimit - number of rows to be shown in each page
 //componentFunction - function to pass to a button or any component that needs a function
 
-function Pagination({
+function TablePagination({
+  classNames,
+  headers,
   data,
   Component,
   pageLimit,
   dataLimit,
-  componentFunction,
 }) {
   const [pages, setPages] = useState(Math.ceil(data.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,6 +32,7 @@ function Pagination({
   const getPaginatedData = () => {
     const startIndex = currentPage * dataLimit - dataLimit;
     const endIndex = startIndex + dataLimit;
+
     return data.slice(startIndex, endIndex);
   };
   function getPaginationGroup() {
@@ -44,49 +47,75 @@ function Pagination({
 
   return (
     <>
-      <tbody>
-        {getPaginatedData().map((data, i) => (
-          <Component
-            key={i}
-            userInfo={data}
-            deactivateAccount={componentFunction}
-          />
-        ))}
-      </tbody>
-
-      <div className="pagination">
-        <button
-          onClick={toPrevPage}
-          className={`prev ${currentPage === 1 ? "disabled" : ""}`}
-        >
-          ←
-        </button>
-
-        {getPaginationGroup().map((element, index) => {
-          if (element <= pages) {
-            return (
-              <button
-                key={index}
-                onClick={changePage}
-                className={`paginationItem ${
-                  currentPage === element ? "active" : null
-                }`}
-              >
-                {element}
-              </button>
-            );
-          }
-        })}
-
-        <button
-          onClick={toNextPage}
-          className={`next ${currentPage === pages ? "disabled" : ""}`}
-        >
-          →
-        </button>
-      </div>
+      <table className={classNames.table}>
+        <thead>
+          <tr>
+            {headers.map((header, i) => (
+              <th key={i}>{header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {getPaginatedData().map((data, i) => (
+            <Component key={i} userInfo={data} />
+          ))}
+        </tbody>
+      </table>
+      <PageNumbers
+        classNames={classNames.pageNumbers}
+        pages={pages}
+        currentPage={currentPage}
+        pageFunctions={{
+          prevPage: toPrevPage,
+          nextPage: toNextPage,
+          changePage: changePage,
+        }}
+        getPaginationGroup={getPaginationGroup}
+      />
     </>
   );
 }
 
-export default Pagination;
+function PageNumbers({
+  classNames,
+  pages,
+  currentPage,
+  pageFunctions,
+  getPaginationGroup,
+}) {
+  return (
+    <div className="pagination">
+      <button
+        onClick={pageFunctions.prevPage}
+        className={`prev ${currentPage === 1 ? "disabled" : ""}`}
+      >
+        ←
+      </button>
+
+      {getPaginationGroup().map((element, index) => {
+        if (element <= pages) {
+          return (
+            <button
+              key={index}
+              onClick={pageFunctions.changePage}
+              className={`paginationItem ${
+                currentPage === element ? "active" : null
+              }`}
+            >
+              {element}
+            </button>
+          );
+        }
+      })}
+
+      <button
+        onClick={pageFunctions.nextPage}
+        className={`next ${currentPage === pages ? "disabled" : ""}`}
+      >
+        →
+      </button>
+    </div>
+  );
+}
+
+export default TablePagination;

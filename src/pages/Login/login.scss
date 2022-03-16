@@ -33,6 +33,10 @@
 
 .btn-login {
   background: rgb(44, 52, 59);
+  color: white;
+  padding: 0.8rem 1rem;
+  font-size: 2rem;
+  cursor: pointer;
 
   &:hover {
     background: rgba(44, 52, 59, 0.8);

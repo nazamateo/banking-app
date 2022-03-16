@@ -17,6 +17,7 @@ import SuccessTransactionPage from "../Success/TransactionComplete";
 import NotFoundPage from "../NotFound/NotFound";
 import SuccessAddUserPage from "../UsersForm/AddUserSuccessful";
 import IndividualUserPage from "../IndividualUser/IndividualUser";
+import EditFormPage from "../EditUserDetails/EditForm";
 
 function MainPage() {
   const [sideBarWidth, setSideBarWidth] = useState(0);
@@ -40,6 +41,7 @@ function MainPage() {
             path="users/newaccount/success/:accountNumber"
             element={<SuccessAddUserPage />}
           />
+          <Route path="users/edit/:accountNumber" element={<EditFormPage />} />
           <Route path="deposit" element={<DepositPage />} />
           <Route path="withdraw" element={<WithdrawPage />} />
           <Route path="transfer" element={<TransferPage />} />
