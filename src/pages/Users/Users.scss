@@ -75,3 +75,14 @@
   box-shadow: #29ffc6, 0 3px 7px inset;
   transform: translateY(2px);
 }
+
+#add-account {
+  border-radius: 2.4rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: solid gray 1px;
+
+  &:hover {
+    background-color: rgba(29, 27, 27, 0.05);
+  }
+}

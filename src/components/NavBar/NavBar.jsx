@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../General/Logo/Logo";
+import logo from "../../assets/images/placeholder.jpg";
 import "./NavBar.scss";
 
 function NavBar({ navBarWidth }) {
@@ -13,10 +15,18 @@ function NavBar({ navBarWidth }) {
 
   return (
     <nav className="top-nav" style={{ width: `calc(100% - ${navBarWidth}px)` }}>
-      <ul>Top Nav Bar</ul>
-      <button type="button" onClick={e => signOut(e)}>
+      <button type="button" onClick={signOut}>
         Sign Out
       </button>
+      <ul className="nav-elements">
+        <li>
+          <i className="las la-bell"></i>
+        </li>
+        <li>
+          <i className="las la-envelope" />
+        </li>
+        <Logo link={logo} name="abc123" />
+      </ul>
     </nav>
   );
 }

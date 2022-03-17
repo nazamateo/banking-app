@@ -32,6 +32,22 @@ function LoginPage() {
     setPassword(e.target.value);
   };
 
+  const loginAuthentication = username => {
+    const adminAccounts = JSON.parse(localStorage.getItem("adminAccounts"));
+
+    const account = adminAccounts.find(
+      account => account.username === username
+    );
+
+    account.isLoggedIn = true;
+
+    const updatedAccounts = adminAccounts.map(adminAccount =>
+      adminAccount.username === username ? { ...account } : adminAccount
+    );
+
+    localStorage.setItem("adminAccounts", JSON.stringify(updatedAccounts));
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     const adminAccounts = getAdminAccounts();
@@ -51,6 +67,8 @@ function LoginPage() {
       )
     ) {
       localStorage.setItem("isAuthenticated", "true");
+      loginAuthentication(username);
+
       navigate("/dashboard");
     } else {
       togglePopup();

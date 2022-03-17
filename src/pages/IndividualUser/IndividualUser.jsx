@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   getBankAccountNumber,
   getBankAccounts,
+  getAdminAccounts,
 } from "../../components/LocalStorage/LocalStorage";
 import capitalizeFirstLetter from "../../components/General/Helpers/CapitalizeFirstLetter";
 import "./individual-user.scss";
@@ -11,23 +12,60 @@ import Popup from "../../components/General/Helpers/ConfirmDelete";
 function IndividualUserPage() {
   const bankAccount = getBankAccountNumber(parseInt(useParams().accountNumber));
   const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [inputAdminPassword, setInputAdminPassword] = useState("");
+  const navigate = useNavigate();
 
-  const deactivateAccount = (accountNumber) => {
+  const deactivateAccount = accountNumber => {
     const newAccountList = bankAccounts.filter(
-      (account) => account.accountNumber !== accountNumber
+      account => account.accountNumber !== accountNumber
     );
 
     localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
     setBankAccounts(newAccountList);
     navigate("/users");
   };
+
   function togglePopup() {
     setIsOpen(!isOpen);
   }
+
+  const confirmDelete = e => {
+    e.preventDefault();
+
+    const adminAccount = getAdminAccounts().find(adminAccount => {
+      adminAccount.isLoggedIn === true &&
+        adminAccount.password === inputAdminPassword;
+    });
+
+    if (!adminAccount.length) {
+      //lagay mo na dito yung error
+      return;
+    }
+
+    deactivateAccount(bankAccount.accountNumber);
+  };
+
   return (
     <div className="page">
+      {isOpen && (
+        <Popup
+          content={
+            <>
+              <p>Please confirm delete account request</p>
+              <input
+                type="password"
+                placeholder="Enter admin password"
+                onChange={e => setInputAdminPassword(e.target.value)}
+              />
+              <button className="buttonu" onClick={confirmDelete}>
+                Confirm Delete
+              </button>
+            </>
+          }
+          handleClose={togglePopup}
+        />
+      )}
       <h1>STATEMENT OF ACCOUNT</h1>
 
       <p>Name: {bankAccount.name}</p>
@@ -49,7 +87,7 @@ function IndividualUserPage() {
           </tr>
         </thead>
 
-        {bankAccount.transactionHistory.map((transaction) => {
+        {bankAccount.transactionHistory.map(transaction => {
           return (
             <tbody>
               <tr>
@@ -70,22 +108,6 @@ function IndividualUserPage() {
       <button className="buttonu" onClick={() => togglePopup()}>
         Delete
       </button>
-      {isOpen && (
-        <Popup
-          content={
-            <>
-              <p>Please confirm delete account request</p>
-              <button
-                className="buttonu"
-                onClick={() => deactivateAccount(bankAccount.accountNumber)}
-              >
-                Confirm Delete
-              </button>
-            </>
-          }
-          handleClose={togglePopup}
-        />
-      )}
     </div>
   );
 }
