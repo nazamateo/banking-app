@@ -33,12 +33,13 @@ function IndividualUserPage() {
   const confirmDelete = e => {
     e.preventDefault();
 
-    const adminAccount = getAdminAccounts().find(adminAccount => {
-      adminAccount.isLoggedIn === true &&
-        adminAccount.password === inputAdminPassword;
-    });
+    const adminAccounts = getAdminAccounts().find(
+      adminAccount =>
+        adminAccount.isLoggedIn === true &&
+        adminAccount.password === inputAdminPassword
+    );
 
-    if (!adminAccount.length) {
+    if (!adminAccounts.length) {
       //lagay mo na dito yung error
       return;
     }
