@@ -56,7 +56,7 @@ function MainPage() {
       <NavBar navBarWidth={sideBarWidth} />
       <div className="main-layout">
         <SideBar getWidth={getSideBarWidth} />
-        <TransitionGroup className="page">
+        <TransitionGroup component={null}>
           <CSSTransition key={location.key} classNames="next" timeout={300}>
             <Routes location={location}>
               {routes.map((route, i) => (
