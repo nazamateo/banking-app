@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import "./SideBar.scss";
 import Logo from "../General/Logo/Logo";
-import "../../assets/images/placeholder.jpg";
+import logo from "../../assets/images/placeholder.jpg";
 
 function SideBar({ getWidth }) {
   const widthRef = useRef();
@@ -23,10 +23,10 @@ function SideBar({ getWidth }) {
 
   return (
     <nav className="nav-sidebar" ref={widthRef}>
-      <Logo link="https://via.placeholder.com/48" name="Digibank" />
+      <Logo link={logo} name="Digibank" />
       <ul className="nav-links-sidebar">
         <li>
-          <i className="las la-university"> </i>
+          <i className="las la-university" />
           <NavLink
             to="dashboard"
             className={({ isActive }) => (isActive ? "active" : "inactive")}
@@ -35,7 +35,7 @@ function SideBar({ getWidth }) {
           </NavLink>
         </li>
         <li>
-          <i className="las la-users"></i>
+          <i className="las la-users" />
           <NavLink
             to="users"
             className={({ isActive }) => (isActive ? "active" : "inactive")}
@@ -43,24 +43,31 @@ function SideBar({ getWidth }) {
             Accounts
           </NavLink>
         </li>
-        <NavLink
-          to="deposit"
-          className={({ isActive }) => (isActive ? "active" : "inactive")}
-        >
-          Deposit
-        </NavLink>
+        <li>
+          <i className="las la-share"></i>
+          <NavLink
+            to="deposit"
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+          >
+            Deposit
+          </NavLink>
+        </li>
+
         <NavLink
           to="withdraw"
           className={({ isActive }) => (isActive ? "active" : "inactive")}
         >
           Withdraw
         </NavLink>
-        <NavLink
-          to="transfer"
-          className={({ isActive }) => (isActive ? "active" : "inactive")}
-        >
-          Transfer
-        </NavLink>
+        <li>
+          <i className="las la-exchange-alt" />
+          <NavLink
+            to="transfer"
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+          >
+            Transfer
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

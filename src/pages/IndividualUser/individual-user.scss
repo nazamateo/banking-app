@@ -1,51 +1,32 @@
-.page {
-  background: #0cebeb; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #29ffc6,
-    #20e3b2,
-    #0cebeb
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #29ffc6,
-    #20e3b2,
-    #0cebeb
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  margin-top: 64px;
-  overflow-y: auto;
-  width: 100%;
+.statement {
+  border-collapse: collapse;
+  text-align: center;
+  max-width: 100%;
+  white-space: nowrap;
   font-size: 2rem;
-  .statement {
-    border-collapse: collapse;
-    text-align: center;
-    max-width: 100%;
-    white-space: nowrap;
-    font-size: 2rem;
-    margin: auto;
+  margin: auto;
 
-    th {
-      padding: 2px 60px;
-      background-color: #04aa6d;
+  th {
+    padding: 2px 60px;
+    background-color: #04aa6d;
+    border: 1px solid #ddd;
+    color: white;
+  }
+
+  tbody {
+    overflow-y: scroll;
+
+    td {
       border: 1px solid #ddd;
-      color: white;
+      padding: 2px 60px;
+      text-align: center;
     }
 
-    tbody {
-      overflow-y: scroll;
-
-      td {
-        border: 1px solid #ddd;
-        padding: 2px 60px;
-        text-align: center;
-      }
-
-      tr:hover {
-        background-color: #b0ebd5;
-      }
+    tr:hover {
+      background-color: #b0ebd5;
     }
   }
+
   h1 {
     width: 80vw;
     display: flex;

@@ -85,7 +85,7 @@ const TableBalance = () => {
     <>
       <input
         value={inputNameValue}
-        onChange={e => handleChange(e)}
+        onChange={handleChange}
         placeholder="Search by name"
       />
 
