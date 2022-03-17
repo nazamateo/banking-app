@@ -25,18 +25,24 @@ function SideBar({ getWidth }) {
     <nav className="nav-sidebar" ref={widthRef}>
       <Logo link="https://via.placeholder.com/48" name="Digibank" />
       <ul className="nav-links-sidebar">
-        <NavLink
-          to="dashboard"
-          className={({ isActive }) => (isActive ? "active" : "inactive")}
-        >
-          Dashboard
-        </NavLink>
-        <NavLink
-          to="users"
-          className={({ isActive }) => (isActive ? "active" : "inactive")}
-        >
-          Accounts
-        </NavLink>
+        <li>
+          <i className="las la-university"> </i>
+          <NavLink
+            to="dashboard"
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+          >
+            Dashboard
+          </NavLink>
+        </li>
+        <li>
+          <i className="las la-users"></i>
+          <NavLink
+            to="users"
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+          >
+            Accounts
+          </NavLink>
+        </li>
         <NavLink
           to="deposit"
           className={({ isActive }) => (isActive ? "active" : "inactive")}
