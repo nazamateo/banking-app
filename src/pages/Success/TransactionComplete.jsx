@@ -17,7 +17,7 @@ function SuccessTransactionPage() {
 function DepositWithdrawSuccessfulPage({ info }) {
   return (
     <div className="page">
-      <h1>{capitalizeFirstLetter(info.action)} Successful!</h1>
+      <h1>{capitalizeFirstLetter(info.action)} SUCCESSFUL!</h1>
       <div>
         <p>Name: {info.accountName}</p>
         <p>Account Number: {info.accountNumber}</p>

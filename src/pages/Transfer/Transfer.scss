@@ -1,6 +1,9 @@
 .formt {
   width: 80vw;
   height: 50vh;
+  position: relative;
+  top: 10vh;
+  margin: auto;
   font-size: 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -9,7 +12,7 @@
     "fromname fromacct date"
     "toname toacct ."
     "amount . ."
-    "submit . .";
+    "submitt . .";
 
   justify-items: center;
   justify-items: stretch;
@@ -38,16 +41,53 @@
 .divamount {
   grid-area: amount;
 }
-
-.submit {
-  grid-area: submit;
+.submitt {
+  grid-area: submitt;
+  align-items: center;
+  appearance: none;
   background-color: #4caf50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
   border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #4caf50 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395a;
   cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+}
+
+.submitt:focus {
+  box-shadow: #29ffc6, 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #29ffc6, 0 -3px 0 inset;
+}
+
+.submitt:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #29ffc6, 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.submitt:active {
+  box-shadow: #29ffc6, 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 .form-fields {

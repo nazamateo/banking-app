@@ -29,12 +29,12 @@ const WithdrawFunc = () => {
   function togglePopup() {
     setIsOpen(!isOpen);
   }
-  function clearErrors(){
-    setIsOpen(!isOpen)
-    setErrorMessage([])
+  function clearErrors() {
+    setIsOpen(!isOpen);
+    setErrorMessage([]);
   }
 
-  const WithdrawThis = e => {
+  const WithdrawThis = (e) => {
     e.preventDefault();
 
     //user already exists
@@ -43,29 +43,32 @@ const WithdrawFunc = () => {
 
     if (!nameChecker) {
       togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Account Name does not exist"
-      ])
-    } 
-    if(nameChecker.accountNumber !== parseInt(accountNumber)){
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Account Name does not exist",
+      ]);
+    }
+    if (nameChecker.accountNumber !== parseInt(accountNumber)) {
       togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Account Number does not match"
-      ])
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Account Number does not match",
+      ]);
     }
     if (nameChecker.balance < parseInt(withdraw)) {
       togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Insufficient Balance"
-      ])
-    } 
-    if(parseInt(withdraw)<0){
-      togglePopup();
-      setErrorMessage((displayerror)=>[
-        ...displayerror,"Invalid Withdraw Amount"
-      ])
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Insufficient Balance",
+      ]);
     }
-    else {
+    if (parseInt(withdraw) < 0) {
+      togglePopup();
+      setErrorMessage((displayerror) => [
+        ...displayerror,
+        "Invalid Withdraw Amount",
+      ]);
+    } else {
       transactionObject = {
         accountName: name,
         accountNumber: accountNumber,
@@ -96,10 +99,12 @@ const WithdrawFunc = () => {
   return (
     <div>
       {isOpen && (
-        <Popup content={errormessage.map(displayed=>{return(
-          <p>{displayed}</p>
-          )}
-          )} handleClose={clearErrors} />
+        <Popup
+          content={errormessage.map((displayed) => {
+            return <p>{displayed}</p>;
+          })}
+          handleClose={clearErrors}
+        />
       )}
       <form className="formd" onSubmit={WithdrawThis}>
         <div className="divname">
@@ -112,7 +117,7 @@ const WithdrawFunc = () => {
             className="form-fields"
             id="name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             required
             autoComplete="off"
           />
@@ -131,7 +136,7 @@ const WithdrawFunc = () => {
             className="form-fields"
             id="accountNumber"
             value={accountNumber}
-            onChange={e => setAccountNumber(e.target.value)}
+            onChange={(e) => setAccountNumber(e.target.value)}
             autoComplete="off"
           />
           <datalist id="listacct">
@@ -149,7 +154,7 @@ const WithdrawFunc = () => {
             id="transactionDate"
             value={transactionDate}
             disabled
-            onChange={e => setTransactionDate(e.target.value)}
+            onChange={(e) => setTransactionDate(e.target.value)}
             required
           />
         </div>
@@ -164,13 +169,13 @@ const WithdrawFunc = () => {
             className="form-fields"
             id="withdraw"
             value={withdraw}
-            onChange={e => setWithdraw(e.target.value)}
+            onChange={(e) => setWithdraw(e.target.value)}
             required
             autoComplete="off"
           />
         </div>
 
-        <button type="submit" className="submit">
+        <button type="submit" className="submitd">
           Submit
         </button>
       </form>

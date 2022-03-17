@@ -237,7 +237,7 @@ const TransferFunc = () => {
           />
         </div>
 
-        <button type="submit" className="submit">
+        <button type="submit" className="submitt">
           Submit
         </button>
       </form>

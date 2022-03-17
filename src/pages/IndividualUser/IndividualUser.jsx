@@ -5,28 +5,31 @@ import {
   getBankAccounts,
 } from "../../components/LocalStorage/LocalStorage";
 import capitalizeFirstLetter from "../../components/General/Helpers/CapitalizeFirstLetter";
+import "./individual-user.scss";
+import Popup from "../../components/General/Helpers/ConfirmDelete";
 
 function IndividualUserPage() {
   const bankAccount = getBankAccountNumber(parseInt(useParams().accountNumber));
   const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const deactivateAccount = accountNumber => {
+  const deactivateAccount = (accountNumber) => {
     const newAccountList = bankAccounts.filter(
-      account => account.accountNumber !== accountNumber
+      (account) => account.accountNumber !== accountNumber
     );
 
     localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
     setBankAccounts(newAccountList);
     navigate("/users");
   };
-
+  function togglePopup() {
+    setIsOpen(!isOpen);
+  }
   return (
     <div className="page">
-      <h1>User details</h1>
-      <button onClick={() => deactivateAccount(bankAccount.accountNumber)}>
-        Delete
-      </button>
+      <h1>STATEMENT OF ACCOUNT</h1>
+
       <p>Name: {bankAccount.name}</p>
       <p>E-mail: {bankAccount.email}</p>
       <p>Birthday: {bankAccount.bday}</p>
@@ -35,7 +38,7 @@ function IndividualUserPage() {
       <p>Account Number: {bankAccount.accountNumber}</p>
       <p>Balance: {bankAccount.balance}</p>
 
-      <table>
+      <table className="statement">
         <thead>
           <tr>
             <td>Account Number</td>
@@ -46,7 +49,7 @@ function IndividualUserPage() {
           </tr>
         </thead>
 
-        {bankAccount.transactionHistory.map(transaction => {
+        {bankAccount.transactionHistory.map((transaction) => {
           return (
             <tbody>
               <tr>
@@ -64,6 +67,25 @@ function IndividualUserPage() {
           );
         })}
       </table>
+      <button className="buttonu" onClick={() => togglePopup()}>
+        Delete
+      </button>
+      {isOpen && (
+        <Popup
+          content={
+            <>
+              <p>Please confirm delete account request</p>
+              <button
+                className="buttonu"
+                onClick={() => deactivateAccount(bankAccount.accountNumber)}
+              >
+                Confirm Delete
+              </button>
+            </>
+          }
+          handleClose={togglePopup}
+        />
+      )}
     </div>
   );
 }
