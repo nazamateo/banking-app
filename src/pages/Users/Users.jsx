@@ -10,13 +10,14 @@ function AllUsersPage() {
   };
 
   return (
-    <div className="page">
+    <div>
       <button
         type="button"
         id="add-account"
         onClick={e => directToAddAccountPage(e)}
       >
-        <i className="las la-plus"></i>Add New Account
+        <i className="las la-plus" />
+        Add New Account
       </button>
       <TableBalance />
     </div>

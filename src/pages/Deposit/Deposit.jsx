@@ -1,12 +1,7 @@
-import "../pages.scss";
 import DepositFunc from "./DepositFunctions";
 
 function DepositPage() {
-  return (
-    <div className="page">
-      <DepositFunc />
-    </div>
-  );
+  return <DepositFunc />;
 }
 
 export default DepositPage;
