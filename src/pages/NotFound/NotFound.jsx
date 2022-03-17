@@ -2,11 +2,7 @@ import React from "react";
 import "./not-found.scss";
 
 function NotFoundPage() {
-  return (
-    <div className="page not-found">
-      <h1> Page Not Found! </h1>
-    </div>
-  );
+  return <h1> Page Not Found! </h1>;
 }
 
 export default NotFoundPage;

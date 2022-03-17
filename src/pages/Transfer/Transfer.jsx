@@ -1,11 +1,7 @@
 import TransferFunc from "./TransferFunction";
 
 function TransferPage() {
-  return (
-    <div className="page">
-      <TransferFunc />
-    </div>
-  );
+  return <TransferFunc />;
 }
 
 export default TransferPage;

@@ -1,10 +1,6 @@
 .form {
-  width: 80vw;
-  height: 50vh;
   font-size: 2rem;
-  position: relative;
-  margin: auto;
-  top: 10vh;
+  padding: 5rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr auto;
@@ -65,7 +61,7 @@
   overflow: hidden;
   padding-left: 16px;
   padding-right: 16px;
-  position: relative;
+
   text-align: left;
   text-decoration: none;
   transition: box-shadow 0.15s, transform 0.15s;
@@ -101,5 +97,5 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  cursor: pointer;
+  cursor: text;
 }

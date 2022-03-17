@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./Users.scss";
 import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TablePagination from "../../components/Pagination/Pagination";
 
-const RowsBalance = ({ searchParams, inputValue }) => {
+const RowsBalance = ({ inputNameValue, inputValue }) => {
   const [bankAccounts] = useState(getBankAccounts());
   const [filteredBankAccounts, setFilterBankAccounts] = useState(bankAccounts);
 
   const filterFromInput = filterUserInfo => {
-    const input = searchParams.get("filter");
-
-    if (!input) {
+    if (!inputNameValue) {
       return filterUserInfo;
     }
 
     const filteredAccounts = filterUserInfo.filter(info =>
-      info.name.toLowerCase().includes(input.toLowerCase())
+      info.name.toLowerCase().includes(inputNameValue.toLowerCase())
     );
 
     return filteredAccounts;
@@ -66,19 +64,9 @@ function TableRow({ userInfo }) {
 }
 
 const TableBalance = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [inputNameValue, setInputNameValue] = useState(
-    searchParams.get("filter") || ""
-  );
-
+  const [inputNameValue, setInputNameValue] = useState("");
   const handleChange = e => {
-    let input = e.target.value;
-    if (input) {
-      setSearchParams({ filter: input });
-    } else {
-      setSearchParams({});
-    }
-    setInputNameValue(input);
+    setInputNameValue(e.target.value);
   };
 
   return (
@@ -89,7 +77,10 @@ const TableBalance = () => {
         placeholder="Search by name"
       />
 
-      <RowsBalance searchParams={searchParams} inputValue={inputNameValue} />
+      <RowsBalance
+        inputNameValue={inputNameValue}
+        inputValue={inputNameValue}
+      />
     </>
   );
 };
