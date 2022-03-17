@@ -167,7 +167,7 @@ const DepositFunc = () => {
           />
         </div>
 
-        <button type="submit" className="submit">
+        <button type="submit" className="submitd">
           Submit
         </button>
       </form>
