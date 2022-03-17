@@ -1,7 +1,11 @@
 import DepositFunc from "./DepositFunctions";
 
 function DepositPage() {
-  return <DepositFunc />;
+  return (
+    <div className="page">
+      <DepositFunc />
+    </div>
+  );
 }
 
 export default DepositPage;

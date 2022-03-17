@@ -10,7 +10,7 @@ function AllUsersPage() {
   };
 
   return (
-    <div>
+    <div className="page">
       <button
         type="button"
         id="add-account"
