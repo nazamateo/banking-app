@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
 
 import "./Editform.scss";
-import Popup from "../../components/General/Helpers/ErrorPopup";
 
 const EditForm = () => {
   const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
@@ -18,7 +17,7 @@ const EditForm = () => {
 
   const getAccountDetails = () => {
     const selectedBankAccount = bankAccounts.find(
-      bankAccount => bankAccount.accountNumber === accountNumber
+      (bankAccount) => bankAccount.accountNumber === accountNumber
     );
 
     setName(selectedBankAccount.name);
@@ -33,11 +32,10 @@ const EditForm = () => {
     getAccountDetails();
   }, []);
 
-  //updates object values based on input field
-  const handleSubmitData = e => {
+  const handleSubmitData = (e) => {
     e.preventDefault();
     const selectedUser = bankAccounts.find(
-      user => user.accountNumber === accountNumber
+      (user) => user.accountNumber === accountNumber
     );
 
     selectedUser.name = name;
@@ -45,15 +43,13 @@ const EditForm = () => {
     selectedUser.bday = bday;
     selectedUser.address = address;
 
-    //updates object on the bank accounts array
-    const updatedUsers = bankAccounts.map(account =>
+    const updatedUsers = bankAccounts.map((account) =>
       account.accountNumber === accountNumber ? { ...selectedUser } : account
     );
 
     setBankAccounts(updatedUsers);
     localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
 
-    //temporary URL
     navigate(`/users`);
   };
 
@@ -70,7 +66,7 @@ const EditForm = () => {
             className="form-fields"
             id="name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             autoComplete="off"
             required
           />
@@ -85,7 +81,7 @@ const EditForm = () => {
             className="form-fields"
             id="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             autoComplete="off"
             required
           />
@@ -100,7 +96,7 @@ const EditForm = () => {
             className="form-fields"
             id="age"
             value={bday}
-            onChange={e => setBday(e.target.value)}
+            onChange={(e) => setBday(e.target.value)}
             required
           />
         </div>
@@ -114,7 +110,7 @@ const EditForm = () => {
             className="form-fields"
             id="address"
             value={address}
-            onChange={e => setAddress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
             autoComplete="off"
             required
           />

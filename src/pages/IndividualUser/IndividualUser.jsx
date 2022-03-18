@@ -16,9 +16,9 @@ function IndividualUserPage() {
   const [inputAdminPassword, setInputAdminPassword] = useState("");
   const navigate = useNavigate();
 
-  const deactivateAccount = accountNumber => {
+  const deactivateAccount = (accountNumber) => {
     const newAccountList = bankAccounts.filter(
-      account => account.accountNumber !== accountNumber
+      (account) => account.accountNumber !== accountNumber
     );
 
     localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
@@ -30,11 +30,11 @@ function IndividualUserPage() {
     setIsOpen(!isOpen);
   }
 
-  const confirmDelete = e => {
+  const confirmDelete = (e) => {
     e.preventDefault();
 
     const adminAccounts = getAdminAccounts().find(
-      adminAccount =>
+      (adminAccount) =>
         adminAccount.isLoggedIn === true &&
         adminAccount.password === inputAdminPassword
     );
@@ -57,7 +57,7 @@ function IndividualUserPage() {
               <input
                 type="password"
                 placeholder="Enter admin password"
-                onChange={e => setInputAdminPassword(e.target.value)}
+                onChange={(e) => setInputAdminPassword(e.target.value)}
               />
               <button className="buttonu" onClick={confirmDelete}>
                 Confirm Delete
@@ -88,7 +88,7 @@ function IndividualUserPage() {
           </tr>
         </thead>
 
-        {bankAccount.transactionHistory.map(transaction => {
+        {bankAccount.transactionHistory.map((transaction) => {
           return (
             <tbody>
               <tr>
@@ -106,7 +106,7 @@ function IndividualUserPage() {
           );
         })}
       </table>
-      <button className="buttonu" onClick={() => togglePopup()}>
+      <button className="buttonu" onClick={togglePopup}>
         Delete
       </button>
     </div>

@@ -152,14 +152,14 @@ let bankAccounts = [
   },
 ];
 
-const formatmyBalance = balance => {
+const formatmyBalance = (balance) => {
   return Intl.NumberFormat("en-PH", {
     currency: "PHP",
     style: "currency",
   }).format(balance);
 };
 
-bankAccounts = bankAccounts.map(user => {
+bankAccounts = bankAccounts.map((user) => {
   return {
     ...user,
     formattedbalance: formatmyBalance(user.balance),
@@ -177,7 +177,7 @@ function getAdminAccounts() {
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return (
       bankAccount.accountNumber === accountNumber &&
       bankAccount.name === accountName
@@ -188,7 +188,7 @@ function getBankAccount(accountName, accountNumber) {
 function getBankAccountName(accountName) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return bankAccount.name === accountName;
   });
 }
@@ -196,7 +196,7 @@ function getBankAccountName(accountName) {
 function getBankAccountNumber(accountNumber) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return bankAccount.accountNumber === accountNumber;
   });
 }
@@ -210,7 +210,7 @@ function updateBankAccountBalance(
 ) {
   const bankAccounts = getBankAccounts();
   const foundAccount = getBankAccount(accountName, accountNumber);
-  const index = bankAccounts.findIndex(obj => {
+  const index = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === accountNumber;
   });
 
@@ -220,11 +220,7 @@ function updateBankAccountBalance(
     foundAccount.balance -= amount;
   }
 
-  foundAccount.formattedbalance = Intl.NumberFormat("en-PH", {
-    currency: "PHP",
-    style: "currency",
-  }).format(foundAccount.balance);
-
+  foundAccount.formattedbalance = formatmyBalance(foundAccount.balance);
   foundAccount.transactionHistory.push(transaction);
   bankAccounts[index] = foundAccount;
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
@@ -242,28 +238,22 @@ function transferBankAccountBalance(
   const bankAccounts = getBankAccounts();
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
-  const fromIndex = bankAccounts.findIndex(obj => {
+  const fromIndex = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
-  fromAccount.formattedbalance = Intl.NumberFormat("en-PH", {
-    currency: "PHP",
-    style: "currency",
-  }).format(fromAccount.balance);
+  fromAccount.formattedbalance = formatmyBalance(fromAccount.balance);
   fromAccount.transactionHistory.push(senderTransaction);
   bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
-  const toIndex = bankAccounts.findIndex(obj => {
+  const toIndex = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === toaccountNumber;
   });
 
   toAccount.balance += amount;
-  toAccount.formattedbalance = Intl.NumberFormat("en-PH", {
-    currency: "PHP",
-    style: "currency",
-  }).format(toAccount.balance);
 
+  toAccount.formattedbalance = formatmyBalance(toAccount.balance);
   toAccount.transactionHistory.push(receiverTransaction);
   bankAccounts[toIndex] = toAccount;
 
@@ -271,7 +261,7 @@ function transferBankAccountBalance(
 }
 
 function LoadDataButton() {
-  const onClickBtn = e => {
+  const onClickBtn = (e) => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(adminAccounts));
@@ -280,7 +270,7 @@ function LoadDataButton() {
   };
 
   return (
-    <button type="button" onClick={e => onClickBtn(e)} className="btn-login">
+    <button type="button" onClick={(e) => onClickBtn(e)} className="btn-login">
       Load Data
     </button>
   );
