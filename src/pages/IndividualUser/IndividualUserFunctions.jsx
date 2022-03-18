@@ -16,6 +16,10 @@ function IndividualUser() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [inputAdminPassword, setInputAdminPassword] = useState("");
+  const [displayError, setDisplayError] = useState(
+    "Please confirm delete account request"
+  );
+  let [num, setNum] = useState(3);
   const navigate = useNavigate();
 
   const deactivateAccount = (accountNumber) => {
@@ -40,7 +44,15 @@ function IndividualUser() {
     );
 
     if (!adminAccounts) {
-      //lagay mo na dito yung error
+      if (Number(num) > 0) {
+        setNum(Number(num) - 1);
+      } else {
+        localStorage.setItem("isAuthenticated", "");
+        navigate("/login");
+      }
+      setDisplayError(
+        `Incorrect password. Please try again. Retries left:${num}`
+      );
       return;
     }
 
@@ -53,7 +65,7 @@ function IndividualUser() {
         <Popup
           content={
             <>
-              <p>Please confirm delete account request</p>
+              <p>{displayError}</p>
               <input
                 type="password"
                 placeholder="Enter admin password"

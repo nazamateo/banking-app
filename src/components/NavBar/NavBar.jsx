@@ -7,7 +7,7 @@ import "./NavBar.scss";
 function NavBar({ navBarWidth }) {
   let navigate = useNavigate();
 
-  const signOut = e => {
+  const signOut = (e) => {
     e.preventDefault();
     localStorage.setItem("isAuthenticated", "");
     navigate("/login");
