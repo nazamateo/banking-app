@@ -52,13 +52,15 @@ function SideBar({ getWidth }) {
             Deposit
           </NavLink>
         </li>
-
-        <NavLink
-          to="withdraw"
-          className={({ isActive }) => (isActive ? "active" : "inactive")}
-        >
-          Withdraw
-        </NavLink>
+        <li>
+          <i className="las la-receipt" />
+          <NavLink
+            to="withdraw"
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+          >
+            Withdraw
+          </NavLink>
+        </li>
         <li>
           <i className="las la-exchange-alt" />
           <NavLink

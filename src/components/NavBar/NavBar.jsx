@@ -15,6 +15,7 @@ function NavBar({ navBarWidth }) {
 
   return (
     <nav className="top-nav" style={{ width: `calc(100% - ${navBarWidth}px)` }}>
+      <i className="las la-bars" />
       <button type="button" onClick={signOut}>
         Sign Out
       </button>
@@ -32,3 +33,16 @@ function NavBar({ navBarWidth }) {
 }
 
 export default NavBar;
+
+//NOTES
+
+/* gagawa ng isang state na isClicked
+ so sa kapag kinlick mo yung menu icon babaguhin mo yung state and then 
+ sa className gawa ng ternary operator 
+ 
+ className=`${isClicked ? 'active' : 'hide'}` 
+ 
+ or parang ganito 
+
+ className={({ isActive }) => (isActive ? "active" : "inactive")}
+ */
