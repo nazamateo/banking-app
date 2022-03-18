@@ -1,36 +1,45 @@
-import IndividualUser from "./IndividualUserFunctions";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  getBankAccountNumber,
+  getBankAccounts,
+  getAdminAccounts,
+} from "../../components/LocalStorage/LocalStorage";
+import capitalizeFirstLetter from "../../components/General/Helpers/CapitalizeFirstLetter";
+import "./individual-user.scss";
+import Popup from "../../components/General/Helpers/ConfirmDelete";
 
-function IndividualUserPage() {
-  const bankAccount = getBankAccountNumber(parseInt(useParams().accountNumber));
+function IndividualUser() {
+  const bankAccount = getBankAccountNumber(Number(useParams().accountNumber));
+
   const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
+
   const [isOpen, setIsOpen] = useState(false);
   const [inputAdminPassword, setInputAdminPassword] = useState("");
   const navigate = useNavigate();
 
-  const deactivateAccount = (accountNumber) => {
+  const deactivateAccount = accountNumber => {
     const newAccountList = bankAccounts.filter(
-      (account) => account.accountNumber !== accountNumber
+      account => account.accountNumber !== accountNumber
     );
 
     localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
-    setBankAccounts(newAccountList);
-    navigate("/users");
+    window.location.pathname = "/users";
   };
 
   function togglePopup() {
     setIsOpen(!isOpen);
   }
 
-  const confirmDelete = (e) => {
+  const confirmDelete = e => {
     e.preventDefault();
-
     const adminAccounts = getAdminAccounts().find(
-      (adminAccount) =>
+      adminAccount =>
         adminAccount.isLoggedIn === true &&
         adminAccount.password === inputAdminPassword
     );
 
-    if (!adminAccounts.length) {
+    if (!adminAccounts) {
       //lagay mo na dito yung error
       return;
     }
@@ -39,7 +48,7 @@ function IndividualUserPage() {
   };
 
   return (
-    <div className="page">
+    <>
       {isOpen && (
         <Popup
           content={
@@ -48,7 +57,8 @@ function IndividualUserPage() {
               <input
                 type="password"
                 placeholder="Enter admin password"
-                onChange={(e) => setInputAdminPassword(e.target.value)}
+                onChange={e => setInputAdminPassword(e.target.value)}
+                value={inputAdminPassword}
               />
               <button className="buttonu" onClick={confirmDelete}>
                 Confirm Delete
@@ -79,9 +89,9 @@ function IndividualUserPage() {
           </tr>
         </thead>
 
-        {bankAccount.transactionHistory.map((transaction) => {
+        {bankAccount.transactionHistory.map((transaction, i) => {
           return (
-            <tbody>
+            <tbody key={i}>
               <tr>
                 <td>{transaction.accountNumber}</td>
                 <td>
@@ -97,14 +107,11 @@ function IndividualUserPage() {
           );
         })}
       </table>
-      <button className="buttonu" onClick={togglePopup}>
+      <button className="buttonu" onClick={() => togglePopup()}>
         Delete
       </button>
-  return (
-    <div className="page">
-      <IndividualUser />
-    </div>
+    </>
   );
 }
 
-export default IndividualUserPage;
+export default IndividualUser;

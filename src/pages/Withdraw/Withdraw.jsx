@@ -1,4 +1,3 @@
-import "../pages.scss";
 import WithdrawFunc from "./WithdrawFunction";
 
 function WithdrawPage() {

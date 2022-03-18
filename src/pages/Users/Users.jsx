@@ -16,7 +16,8 @@ function AllUsersPage() {
         id="add-account"
         onClick={e => directToAddAccountPage(e)}
       >
-        <i className="las la-plus"></i>Add New Account
+        <i className="las la-plus" />
+        Add New Account
       </button>
       <TableBalance />
     </div>

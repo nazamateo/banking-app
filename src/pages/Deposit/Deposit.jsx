@@ -1,4 +1,3 @@
-import "../pages.scss";
 import DepositFunc from "./DepositFunctions";
 
 function DepositPage() {
