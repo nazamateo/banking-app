@@ -122,13 +122,8 @@ function LoginPage() {
       <LoadDataButton />
       {isOpen && (
         <Popup
-
           content={error.map((displayed) => {
             return <p>{displayed}</p>;
-
-          content={error.map((displayed, i) => {
-            return <p key={i}>{displayed}</p>;
-
           })}
           handleClose={clearErrors}
         />

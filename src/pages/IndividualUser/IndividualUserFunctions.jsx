@@ -18,9 +18,9 @@ function IndividualUser() {
   const [inputAdminPassword, setInputAdminPassword] = useState("");
   const navigate = useNavigate();
 
-  const deactivateAccount = accountNumber => {
+  const deactivateAccount = (accountNumber) => {
     const newAccountList = bankAccounts.filter(
-      account => account.accountNumber !== accountNumber
+      (account) => account.accountNumber !== accountNumber
     );
 
     localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
@@ -31,10 +31,10 @@ function IndividualUser() {
     setIsOpen(!isOpen);
   }
 
-  const confirmDelete = e => {
+  const confirmDelete = (e) => {
     e.preventDefault();
     const adminAccounts = getAdminAccounts().find(
-      adminAccount =>
+      (adminAccount) =>
         adminAccount.isLoggedIn === true &&
         adminAccount.password === inputAdminPassword
     );
@@ -57,7 +57,7 @@ function IndividualUser() {
               <input
                 type="password"
                 placeholder="Enter admin password"
-                onChange={e => setInputAdminPassword(e.target.value)}
+                onChange={(e) => setInputAdminPassword(e.target.value)}
                 value={inputAdminPassword}
               />
               <button className="buttonu" onClick={confirmDelete}>
