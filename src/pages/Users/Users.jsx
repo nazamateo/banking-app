@@ -11,15 +11,22 @@ function AllUsersPage() {
 
   return (
     <div className="page">
-      <button
-        type="button"
-        id="add-account"
-        onClick={e => directToAddAccountPage(e)}
-      >
-        <i className="las la-plus" />
-        Add New Account
-      </button>
-      <TableBalance />
+      <h1 className="account-list-title">Account List</h1>
+      <div className="page-main-content">
+        <div className="balance-container-header">
+          <h2>Account Details</h2>
+          <button
+            type="button"
+            id="add-account"
+            onClick={e => directToAddAccountPage(e)}
+          >
+            <i className="las la-plus" />
+            Add New Account
+          </button>
+        </div>
+
+        <TableBalance />
+      </div>
     </div>
   );
 }

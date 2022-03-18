@@ -22,7 +22,7 @@ const RowsBalance = ({ inputNameValue, inputValue }) => {
 
   useEffect(() => {
     setFilterBankAccounts(filterFromInput(bankAccounts));
-  }, [inputValue]);
+  }, [inputNameValue]);
 
   return (
     <TablePagination
@@ -56,6 +56,7 @@ function TableRow({ userInfo }) {
           className="action-button"
           onClick={() => handleEdit(userInfo.accountNumber)}
         >
+          <i className="las la-edit" />
           Edit
         </button>
       </td>
@@ -65,23 +66,22 @@ function TableRow({ userInfo }) {
 
 const TableBalance = () => {
   const [inputNameValue, setInputNameValue] = useState("");
-  const handleChange = e => {
-    setInputNameValue(e.target.value);
-  };
 
   return (
     <>
-      <input
-        value={inputNameValue}
-        onChange={handleChange}
-        placeholder="Search by name"
-      />
+      <div className="search-container">
+        <label htmlFor="search-name">Search: &nbsp;</label>
+        <input
+          value={inputNameValue}
+          onChange={e => setInputNameValue(e.target.value)}
+          placeholder="Search by name"
+          id="search-name"
+        />
+      </div>
 
-      <RowsBalance
-        inputNameValue={inputNameValue}
-        inputValue={inputNameValue}
-      />
+      <RowsBalance inputNameValue={inputNameValue} />
     </>
   );
 };
+
 export default TableBalance;

@@ -73,7 +73,7 @@ const UserForm = () => {
   };
 
   return (
-    <div>
+    <div className="page">
       <form className="form" onSubmit={addUserdata}>
         <div className="divname">
           <label htmlFor="name" className="form-label">

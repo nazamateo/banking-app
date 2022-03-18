@@ -47,20 +47,22 @@ function TablePagination({
 
   return (
     <>
-      <table className={classNames.table}>
-        <thead>
-          <tr>
-            {headers.map((header, i) => (
-              <th key={i}>{header}</th>
+      <div>
+        <table className={classNames.table}>
+          <thead>
+            <tr>
+              {headers.map((header, i) => (
+                <th key={i}>{header}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {getPaginatedData().map((data, i) => (
+              <Component key={i} userInfo={data} />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {getPaginatedData().map((data, i) => (
-            <Component key={i} userInfo={data} />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
       <PageNumbers
         classNames={classNames.pageNumbers}
         pages={pages}
