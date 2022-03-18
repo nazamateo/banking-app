@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DateToday from "../../components/General/Helpers/DateToday";
-// import { getFromLocalStorage } from "../Users/DisplayUsersBalance";
 import {
   getBankAccountName,
   getBankAccounts,
@@ -25,16 +24,23 @@ const UserForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-
+  let nameChecker = getBankAccountName(name);
+  let bankAccounts = getBankAccounts();
   function togglePopup() {
     setIsOpen(!isOpen);
   }
-  //onsubmit dapat mag rerender si DisplayUserBalance para maupdate yung accountnumber
-  const addUserdata = e => {
-    e.preventDefault();
+  function stateResetter() {
+    setName("");
+    setEmail("");
+    setBday("");
+    setAddress("");
+    setCreationDate(DateToday);
+    setAccountNumber(accountNumCount + 1);
+    setBalance("");
+  }
 
-    let nameChecker = getBankAccountName(name);
-    console.log(nameChecker);
+  const addUserdata = (e) => {
+    e.preventDefault();
 
     if (!nameChecker) {
       addThis = {
@@ -51,21 +57,10 @@ const UserForm = () => {
           style: "currency",
         }).format(balance),
       };
-
-      let bankAccounts = getBankAccounts();
       bankAccounts.push(addThis);
-
       localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
-
+      stateResetter();
       navigate(`success/${accountNumber}`);
-
-      setName("");
-      setEmail("");
-      setBday("");
-      setAddress("");
-      setCreationDate(DateToday);
-      setAccountNumber(accountNumCount + 1);
-      setBalance("");
     } else {
       togglePopup();
       setErrorMessage("User already exists");
@@ -85,7 +80,7 @@ const UserForm = () => {
             className="form-fields"
             id="name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             autoComplete="off"
             required
           />
@@ -100,7 +95,7 @@ const UserForm = () => {
             className="form-fields"
             id="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             autoComplete="off"
             required
           />
@@ -115,7 +110,7 @@ const UserForm = () => {
             className="form-fields"
             id="age"
             value={bday}
-            onChange={e => setBday(e.target.value)}
+            onChange={(e) => setBday(e.target.value)}
             autoComplete="off"
             required
           />
@@ -130,7 +125,7 @@ const UserForm = () => {
             className="form-fields"
             id="address"
             value={address}
-            onChange={e => setAddress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
             autoComplete="off"
             required
           />
@@ -146,7 +141,7 @@ const UserForm = () => {
             id="creationDate"
             value={creationDate}
             disabled
-            onChange={e => setCreationDate(e.target.value)}
+            onChange={(e) => setCreationDate(e.target.value)}
           />
         </div>
 
@@ -172,7 +167,7 @@ const UserForm = () => {
             className="form-fields"
             id="balance"
             value={balance}
-            onChange={e => setBalance(e.target.value)}
+            onChange={(e) => setBalance(e.target.value)}
             autoComplete="off"
           />
         </div>

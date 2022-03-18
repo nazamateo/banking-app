@@ -26,7 +26,7 @@ const DepositFunc = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
   let navigate = useNavigate();
-
+  let nameChecker = getBankAccountName(name);
   function togglePopup() {
     setIsOpen(!isOpen);
   }
@@ -35,32 +35,50 @@ const DepositFunc = () => {
     setErrorMessage([]);
   }
 
+  function stateResetter() {
+    setName("");
+    setTransactionDate(DateToday());
+    setAccountNumber("");
+    setDeposit("");
+    setTransactionId(uuidv4());
+  }
+
+  function errorHandler() {
+    if (
+      !nameChecker ||
+      nameChecker.accountNumber !== parseInt(accountNumber) ||
+      deposit < 0
+    ) {
+      if (!nameChecker) {
+        togglePopup();
+        setErrorMessage((displayerror) => [
+          ...displayerror,
+          "Account Name does not exist",
+        ]);
+        console.log(nameChecker);
+      }
+      if (nameChecker.accountNumber !== parseInt(accountNumber)) {
+        togglePopup();
+        setErrorMessage((displayerror) => [
+          ...displayerror,
+          "Account Number does not match",
+        ]);
+      }
+      if (deposit < 0) {
+        togglePopup();
+        setErrorMessage((displayerror) => [
+          ...displayerror,
+          "Invalid deposit amount",
+        ]);
+      }
+      return true;
+    }
+    return false;
+  }
+
   const DepositThis = (e) => {
     e.preventDefault();
-
-    let nameChecker = getBankAccountName(name);
-
-    if (!nameChecker) {
-      togglePopup();
-      setErrorMessage((displayerror) => [
-        ...displayerror,
-        "Account Name does not exist",
-      ]);
-    }
-    if (nameChecker.accountNumber !== parseInt(accountNumber)) {
-      togglePopup();
-      setErrorMessage((displayerror) => [
-        ...displayerror,
-        "Account Number does not match",
-      ]);
-    }
-    if (deposit < 0) {
-      togglePopup();
-      setErrorMessage((displayerror) => [
-        ...displayerror,
-        "Invalid deposit amount",
-      ]);
-    } else {
+    if (!errorHandler()) {
       transactionDetail = {
         accountName: name,
         accountNumber: accountNumber,
@@ -70,7 +88,6 @@ const DepositFunc = () => {
         oldBalance: nameChecker.balance,
         newBalance: nameChecker.balance + parseInt(deposit),
       };
-
       updateBankAccountBalance(
         name,
         parseInt(accountNumber),
@@ -78,14 +95,8 @@ const DepositFunc = () => {
         "deposit",
         transactionDetail
       );
-
+      stateResetter();
       navigate(`/complete/${transactionId}`);
-
-      setName("");
-      setTransactionDate(DateToday());
-      setAccountNumber("");
-      setDeposit("");
-      setTransactionId(uuidv4());
     }
   };
 

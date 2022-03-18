@@ -13,7 +13,6 @@ import {
   AccntNumDataListGenerator,
 } from "../../components/General/Helpers/Datalist";
 
-//add value on options
 export let nameChecker;
 export let transactionObject;
 const WithdrawFunc = () => {
@@ -25,50 +24,66 @@ const WithdrawFunc = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
   let navigate = useNavigate();
+  let nameChecker = getBankAccountName(name);
 
   function togglePopup() {
-    setIsOpen(!isOpen);
+    setIsOpen(true);
   }
   function clearErrors() {
-    setIsOpen(!isOpen);
+    setIsOpen(false);
     setErrorMessage([]);
+  }
+
+  function errorHandler() {
+    if (
+      !nameChecker ||
+      nameChecker.accountNumber !== parseInt(accountNumber) ||
+      nameChecker.balance < parseInt(withdraw) ||
+      parseInt(withdraw) < 0
+    ) {
+      if (!nameChecker) {
+        togglePopup();
+        setErrorMessage((displayerror) => [
+          ...displayerror,
+          "Account Name does not exist",
+        ]);
+      }
+      if (nameChecker.accountNumber !== parseInt(accountNumber)) {
+        togglePopup();
+        setErrorMessage((displayerror) => [
+          ...displayerror,
+          "Account Number does not match",
+        ]);
+      }
+      if (nameChecker.balance < parseInt(withdraw)) {
+        togglePopup();
+        setErrorMessage((displayerror) => [
+          ...displayerror,
+          "Insufficient Balance",
+        ]);
+      }
+      if (parseInt(withdraw) < 0) {
+        togglePopup();
+        setErrorMessage((displayerror) => [
+          ...displayerror,
+          "Invalid Withdraw Amount",
+        ]);
+      }
+      return true;
+    }
+    return false;
+  }
+  function stateResetter() {
+    setName("");
+    setTransactionDate(DateToday);
+    setAccountNumber("");
+    setWithdraw("");
+    setTransactionId(uuidv4());
   }
 
   const WithdrawThis = (e) => {
     e.preventDefault();
-
-    //user already exists
-    nameChecker = getBankAccountName(name);
-    console.log(nameChecker); //object
-
-    if (!nameChecker) {
-      togglePopup();
-      setErrorMessage((displayerror) => [
-        ...displayerror,
-        "Account Name does not exist",
-      ]);
-    }
-    if (nameChecker.accountNumber !== parseInt(accountNumber)) {
-      togglePopup();
-      setErrorMessage((displayerror) => [
-        ...displayerror,
-        "Account Number does not match",
-      ]);
-    }
-    if (nameChecker.balance < parseInt(withdraw)) {
-      togglePopup();
-      setErrorMessage((displayerror) => [
-        ...displayerror,
-        "Insufficient Balance",
-      ]);
-    }
-    if (parseInt(withdraw) < 0) {
-      togglePopup();
-      setErrorMessage((displayerror) => [
-        ...displayerror,
-        "Invalid Withdraw Amount",
-      ]);
-    } else {
+    if (!errorHandler()) {
       transactionObject = {
         accountName: name,
         accountNumber: accountNumber,
@@ -86,14 +101,8 @@ const WithdrawFunc = () => {
         "withdraw",
         transactionObject
       );
-
+      stateResetter();
       navigate(`/complete/${transactionId}`);
-
-      setName("");
-      setTransactionDate(DateToday);
-      setAccountNumber("");
-      setWithdraw("");
-      setTransactionId(uuidv4());
     }
   };
   return (
