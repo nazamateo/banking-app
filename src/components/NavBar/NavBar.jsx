@@ -13,20 +13,26 @@ function NavBar({ navBarWidth }) {
     navigate("/login");
   };
 
+  const hideTextInSideBar = () => console.log("yes");
   return (
     <nav className="top-nav" style={{ width: `calc(100% - ${navBarWidth}px)` }}>
       <i className="las la-bars" />
-      <button type="button" onClick={signOut}>
-        Sign Out
-      </button>
+
       <ul className="nav-elements">
-        <li>
-          <i className="las la-bell"></i>
+        <li onClick={() => hideTextInSideBar}>
+          <i className="las la-bell" />
         </li>
         <li>
           <i className="las la-envelope" />
         </li>
-        <Logo link={logo} name="abc123" />
+        <li>
+          <Logo link={logo} name="abc123" />
+        </li>
+        <li>
+          <button type="button" onClick={signOut}>
+            Sign Out
+          </button>
+        </li>
       </ul>
     </nav>
   );
