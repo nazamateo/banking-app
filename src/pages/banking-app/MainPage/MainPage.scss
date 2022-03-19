@@ -1,4 +1,4 @@
-@use "../../assets/sass/main.scss";
+@use "../../../assets/sass/main.scss";
 
 .main-layout {
   height: 100vh;
@@ -37,7 +37,7 @@
 //we add transition here (transition when the page is active)
 .next-enter-active {
   opacity: 1;
-  transition: opacity 300ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 
 // fires before the element leaves the DOM (like standby mode)
@@ -48,7 +48,7 @@
 // fires as element leaves the DOM
 .next-exit-active {
   opacity: 0;
-  transition: opacity 300ms ease-in;
+  transition: opacity 500ms ease-in;
   z-index: 0;
 }
 

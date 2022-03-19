@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DateToday from "../../components/General/Helpers/DateToday";
+import DateToday from "../../../components/General/Helpers/DateToday";
 import {
   getBankAccountName,
   getBankAccounts,
-} from "../../components/LocalStorage/LocalStorage";
+} from "../../../services/LocalStorage";
 
 import "./UsersForm.scss";
-import Popup from "../../components/General/Helpers/ErrorPopup";
+import Popup from "../../../components/General/Helpers/ErrorPopup";
 
 export let addThis;
 
@@ -39,7 +39,7 @@ const UserForm = () => {
     setBalance("");
   }
 
-  const addUserdata = (e) => {
+  const addUserdata = e => {
     e.preventDefault();
 
     if (!nameChecker) {
@@ -80,7 +80,7 @@ const UserForm = () => {
             className="form-fields"
             id="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             autoComplete="off"
             required
           />
@@ -95,7 +95,7 @@ const UserForm = () => {
             className="form-fields"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             autoComplete="off"
             required
           />
@@ -110,7 +110,7 @@ const UserForm = () => {
             className="form-fields"
             id="age"
             value={bday}
-            onChange={(e) => setBday(e.target.value)}
+            onChange={e => setBday(e.target.value)}
             autoComplete="off"
             required
           />
@@ -125,7 +125,7 @@ const UserForm = () => {
             className="form-fields"
             id="address"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={e => setAddress(e.target.value)}
             autoComplete="off"
             required
           />
@@ -141,7 +141,7 @@ const UserForm = () => {
             id="creationDate"
             value={creationDate}
             disabled
-            onChange={(e) => setCreationDate(e.target.value)}
+            onChange={e => setCreationDate(e.target.value)}
           />
         </div>
 
@@ -167,7 +167,7 @@ const UserForm = () => {
             className="form-fields"
             id="balance"
             value={balance}
-            onChange={(e) => setBalance(e.target.value)}
+            onChange={e => setBalance(e.target.value)}
             autoComplete="off"
           />
         </div>

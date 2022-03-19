@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./MainPage.scss";
 
 //COMPONENTS
-import SideBar from "../../components/SideBar/SideBar";
-import NavBar from "../../components/NavBar/NavBar";
+import SideBar from "../../../components/SideBar/SideBar";
+import NavBar from "../../../components/NavBar/NavBar";
 
 //PAGES
 import FormPage from "../UsersForm/DisplayForm";
@@ -20,7 +20,7 @@ import SuccessAddUserPage from "../UsersForm/AddUserSuccessful";
 import IndividualUserPage from "../IndividualUser/IndividualUser";
 import EditFormPage from "../EditUserDetails/EditForm";
 
-const routes = [
+const ROUTES = [
   {
     path: "/dashboard",
     element: <DashboardPage />,
@@ -44,7 +44,6 @@ const routes = [
 function MainPage() {
   const [sideBarWidth, setSideBarWidth] = useState(0);
   const location = useLocation();
-  const nodeRef = useRef(null);
 
   const getSideBarWidth = (obtainedSideBarWidth) => {
     const newWidth = obtainedSideBarWidth;
@@ -57,15 +56,10 @@ function MainPage() {
       <div className="main-layout">
         <SideBar getWidth={getSideBarWidth} />
         <TransitionGroup component={null}>
-          <CSSTransition key={location.key} classNames="next" timeout={300}>
+          <CSSTransition key={location.key} classNames="next" timeout={500}>
             <Routes location={location}>
-              {routes.map((route, i) => (
-                <Route
-                  key={i}
-                  path={route.path}
-                  element={route.element}
-                  nodeRef={nodeRef}
-                />
+              {ROUTES.map((route, i) => (
+                <Route key={i} path={route.path} element={route.element} />
               ))}
             </Routes>
           </CSSTransition>

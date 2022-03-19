@@ -1,5 +1,5 @@
 import React from "react";
-import { getBankAccounts } from "../../LocalStorage/LocalStorage";
+import { getBankAccounts } from "../../../services/LocalStorage";
 
 const NameDataListGenerator = () => {
   return getBankAccounts().map(users => (

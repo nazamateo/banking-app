@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import {
   LoadDataButton,
   getAdminAccounts,
-} from "../../components/LocalStorage/LocalStorage";
+} from "../../../services/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
-import Popup from "../../components/General/Helpers/ErrorPopup";
+import Popup from "../../../components/General/Helpers/ErrorPopup";
 
 function LoginPage() {
   const [username, setUserName] = useState("");
@@ -28,48 +28,48 @@ function LoginPage() {
     if (password === "" || username === "") {
       if (password === "") {
         togglePopup();
-        setError((displayerror) => [...displayerror, "Empty password field"]);
+        setError(displayerror => [...displayerror, "Empty password field"]);
       }
       if (username === "") {
         togglePopup();
-        setError((displayerror) => [...displayerror, "Empty username field"]);
+        setError(displayerror => [...displayerror, "Empty username field"]);
       }
       return true;
     }
     return false;
   }
 
-  const handleUsernameChange = (e) => {
+  const handleUsernameChange = e => {
     setUserName(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = e => {
     setPassword(e.target.value);
   };
 
-  const loginAuthentication = (username) => {
+  const loginAuthentication = username => {
     const adminAccounts = JSON.parse(localStorage.getItem("adminAccounts"));
 
     const account = adminAccounts.find(
-      (account) => account.username === username
+      account => account.username === username
     );
 
     account.isLoggedIn = true;
 
-    const updatedAccounts = adminAccounts.map((adminAccount) =>
+    const updatedAccounts = adminAccounts.map(adminAccount =>
       adminAccount.username === username ? { ...account } : adminAccount
     );
 
     localStorage.setItem("adminAccounts", JSON.stringify(updatedAccounts));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const adminAccounts = getAdminAccounts();
     if (!errorHandler()) {
       if (
         adminAccounts.find(
-          (account) =>
+          account =>
             account.username === username && account.password === password
         )
       ) {
@@ -78,10 +78,7 @@ function LoginPage() {
         navigate("/dashboard");
       } else {
         togglePopup();
-        setError((displayerror) => [
-          ...displayerror,
-          "Invalid userame/password",
-        ]);
+        setError(displayerror => [...displayerror, "Invalid userame/password"]);
         return;
       }
     }
@@ -122,7 +119,7 @@ function LoginPage() {
       <LoadDataButton />
       {isOpen && (
         <Popup
-          content={error.map((displayed) => {
+          content={error.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}

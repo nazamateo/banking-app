@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Users.scss";
-import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
+import { getBankAccounts } from "../../../services/LocalStorage";
 import { Link, useNavigate } from "react-router-dom";
-import TablePagination from "../../components/Pagination/Pagination";
+import TablePagination from "../../../components/Pagination/Pagination";
 
 const RowsBalance = ({ inputNameValue, inputValue }) => {
   const [bankAccounts] = useState(getBankAccounts());

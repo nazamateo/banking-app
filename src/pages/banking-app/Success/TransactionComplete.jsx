@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import getInfo from "./transactComplete";
-import capitalizeFirstLetter from "../../components/General/Helpers/CapitalizeFirstLetter";
+import capitalizeFirstLetter from "../../../components/General/Helpers/CapitalizeFirstLetter";
 
 function SuccessTransactionPage() {
   let transactionId = useParams().transactionId;
