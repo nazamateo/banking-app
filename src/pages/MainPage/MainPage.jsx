@@ -46,7 +46,7 @@ function MainPage() {
   const location = useLocation();
   const nodeRef = useRef(null);
 
-  const getSideBarWidth = obtainedSideBarWidth => {
+  const getSideBarWidth = (obtainedSideBarWidth) => {
     const newWidth = obtainedSideBarWidth;
     setSideBarWidth(newWidth);
   };

@@ -98,6 +98,8 @@ function IndividualUser() {
             <td>Date</td>
             <td>Type</td>
             <td>Transaction ID</td>
+            <td>Old Balance</td>
+            <td>New Balance</td>
           </tr>
         </thead>
 
@@ -114,6 +116,8 @@ function IndividualUser() {
                 <td>{transaction.transactionDate}</td>
                 <td>{capitalizeFirstLetter(transaction.action)}</td>
                 <td>{transaction.transactionId}</td>
+                <td>{transaction.oldBalance}</td>
+                <td>{transaction.newBalance}</td>
               </tr>
             </tbody>
           );
