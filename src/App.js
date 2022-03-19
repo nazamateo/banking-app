@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/General/Helpers/PrivateRoute";
 
-import MainPage from "./pages/MainPage/MainPage";
-import LoginPage from "./pages/Login/Login";
+import MainPage from "./pages/banking-app/MainPage/MainPage";
+import LoginPage from "./pages/banking-app/Login/Login";
 function App() {
   return (
     <Routes>

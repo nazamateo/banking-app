@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
+import { getBankAccounts } from "../../../services/LocalStorage";
 
 import "./Editform.scss";
 
@@ -17,7 +17,7 @@ const EditForm = () => {
 
   const getAccountDetails = () => {
     const selectedBankAccount = bankAccounts.find(
-      (bankAccount) => bankAccount.accountNumber === accountNumber
+      bankAccount => bankAccount.accountNumber === accountNumber
     );
 
     setName(selectedBankAccount.name);
@@ -32,10 +32,10 @@ const EditForm = () => {
     getAccountDetails();
   }, []);
 
-  const handleSubmitData = (e) => {
+  const handleSubmitData = e => {
     e.preventDefault();
     const selectedUser = bankAccounts.find(
-      (user) => user.accountNumber === accountNumber
+      user => user.accountNumber === accountNumber
     );
 
     selectedUser.name = name;
@@ -43,7 +43,7 @@ const EditForm = () => {
     selectedUser.bday = bday;
     selectedUser.address = address;
 
-    const updatedUsers = bankAccounts.map((account) =>
+    const updatedUsers = bankAccounts.map(account =>
       account.accountNumber === accountNumber ? { ...selectedUser } : account
     );
 
@@ -66,7 +66,7 @@ const EditForm = () => {
             className="form-fields"
             id="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             autoComplete="off"
             required
           />
@@ -81,7 +81,7 @@ const EditForm = () => {
             className="form-fields"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             autoComplete="off"
             required
           />
@@ -96,7 +96,7 @@ const EditForm = () => {
             className="form-fields"
             id="age"
             value={bday}
-            onChange={(e) => setBday(e.target.value)}
+            onChange={e => setBday(e.target.value)}
             required
           />
         </div>
@@ -110,7 +110,7 @@ const EditForm = () => {
             className="form-fields"
             id="address"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={e => setAddress(e.target.value)}
             autoComplete="off"
             required
           />

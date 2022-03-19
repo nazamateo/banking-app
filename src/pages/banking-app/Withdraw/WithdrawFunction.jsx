@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import {
   updateBankAccountBalance,
   getBankAccountName,
-} from "../../components/LocalStorage/LocalStorage";
-import DateToday from "../../components/General/Helpers/DateToday";
+} from "../../../services/LocalStorage";
+import DateToday from "../../../components/General/Helpers/DateToday";
 import "../Deposit/Deposit.scss";
 import { v4 as uuidv4 } from "uuid";
-import Popup from "../../components/General/Helpers/ErrorPopup";
+import Popup from "../../../components/General/Helpers/ErrorPopup";
 import {
   NameDataListGenerator,
   AccntNumDataListGenerator,
-} from "../../components/General/Helpers/Datalist";
+} from "../../../components/General/Helpers/Datalist";
 
 export let nameChecker;
 export let transactionObject;
@@ -43,28 +43,28 @@ const WithdrawFunc = () => {
     ) {
       if (!nameChecker) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Account Name does not exist",
         ]);
       }
       if (nameChecker.accountNumber !== parseInt(accountNumber)) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Account Number does not match",
         ]);
       }
       if (nameChecker.balance < parseInt(withdraw)) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Insufficient Balance",
         ]);
       }
       if (parseInt(withdraw) < 0) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Invalid Withdraw Amount",
         ]);
@@ -81,7 +81,7 @@ const WithdrawFunc = () => {
     setTransactionId(uuidv4());
   }
 
-  const WithdrawThis = (e) => {
+  const WithdrawThis = e => {
     e.preventDefault();
     if (!errorHandler()) {
       transactionObject = {
@@ -109,7 +109,7 @@ const WithdrawFunc = () => {
     <div>
       {isOpen && (
         <Popup
-          content={errormessage.map((displayed) => {
+          content={errormessage.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}
@@ -126,7 +126,7 @@ const WithdrawFunc = () => {
             className="form-fields"
             id="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             required
             autoComplete="off"
           />
@@ -145,7 +145,7 @@ const WithdrawFunc = () => {
             className="form-fields"
             id="accountNumber"
             value={accountNumber}
-            onChange={(e) => setAccountNumber(e.target.value)}
+            onChange={e => setAccountNumber(e.target.value)}
             autoComplete="off"
           />
           <datalist id="listacct">
@@ -163,7 +163,7 @@ const WithdrawFunc = () => {
             id="transactionDate"
             value={transactionDate}
             disabled
-            onChange={(e) => setTransactionDate(e.target.value)}
+            onChange={e => setTransactionDate(e.target.value)}
             required
           />
         </div>
@@ -178,7 +178,7 @@ const WithdrawFunc = () => {
             className="form-fields"
             id="withdraw"
             value={withdraw}
-            onChange={(e) => setWithdraw(e.target.value)}
+            onChange={e => setWithdraw(e.target.value)}
             required
             autoComplete="off"
           />
