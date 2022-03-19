@@ -93,7 +93,6 @@ function IndividualUser() {
       <table className="statement">
         <thead>
           <tr>
-            <td>Account Number</td>
             <td>Amount</td>
             <td>Date</td>
             <td>Type</td>
@@ -107,7 +106,6 @@ function IndividualUser() {
           return (
             <tbody key={i}>
               <tr>
-                <td>{transaction.accountNumber}</td>
                 <td>
                   {`₱${Math.abs(
                     transaction.newBalance - transaction.oldBalance
@@ -116,8 +114,8 @@ function IndividualUser() {
                 <td>{transaction.transactionDate}</td>
                 <td>{capitalizeFirstLetter(transaction.action)}</td>
                 <td>{transaction.transactionId}</td>
-                <td>{transaction.oldBalance}</td>
-                <td>{transaction.newBalance}</td>
+                <td>{`₱${transaction.oldBalance}`}</td>
+                <td>{`₱${transaction.newBalance}`}</td>
               </tr>
             </tbody>
           );
