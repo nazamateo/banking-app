@@ -4,10 +4,10 @@ import {
   getBankAccountNumber,
   getBankAccounts,
   getAdminAccounts,
-} from "../../components/LocalStorage/LocalStorage";
-import capitalizeFirstLetter from "../../components/General/Helpers/CapitalizeFirstLetter";
+} from "../../../services/LocalStorage";
+import capitalizeFirstLetter from "../../../components/General/Helpers/CapitalizeFirstLetter";
 import "./individual-user.scss";
-import Popup from "../../components/General/Helpers/ConfirmDelete";
+import Popup from "../../../components/General/Helpers/ConfirmDelete";
 
 function IndividualUser() {
   const bankAccount = getBankAccountNumber(Number(useParams().accountNumber));
@@ -22,9 +22,9 @@ function IndividualUser() {
   let [num, setNum] = useState(3);
   const navigate = useNavigate();
 
-  const deactivateAccount = (accountNumber) => {
+  const deactivateAccount = accountNumber => {
     const newAccountList = bankAccounts.filter(
-      (account) => account.accountNumber !== accountNumber
+      account => account.accountNumber !== accountNumber
     );
 
     localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
@@ -35,10 +35,10 @@ function IndividualUser() {
     setIsOpen(!isOpen);
   }
 
-  const confirmDelete = (e) => {
+  const confirmDelete = e => {
     e.preventDefault();
     const adminAccounts = getAdminAccounts().find(
-      (adminAccount) =>
+      adminAccount =>
         adminAccount.isLoggedIn === true &&
         adminAccount.password === inputAdminPassword
     );
@@ -69,7 +69,7 @@ function IndividualUser() {
               <input
                 type="password"
                 placeholder="Enter admin password"
-                onChange={(e) => setInputAdminPassword(e.target.value)}
+                onChange={e => setInputAdminPassword(e.target.value)}
                 value={inputAdminPassword}
               />
               <button className="buttonu" onClick={confirmDelete}>

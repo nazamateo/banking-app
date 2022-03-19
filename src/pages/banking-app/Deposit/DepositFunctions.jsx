@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DateToday from "../../components/General/Helpers/DateToday";
+import DateToday from "../../../components/General/Helpers/DateToday";
 import {
   getBankAccountName,
   updateBankAccountBalance,
-} from "../../components/LocalStorage/LocalStorage";
+} from "../../../services/LocalStorage";
 import "./Deposit.scss";
 import { v4 as uuidv4 } from "uuid";
-import Popup from "../../components/General/Helpers/ErrorPopup";
+import Popup from "../../../components/General/Helpers/ErrorPopup";
 import {
   NameDataListGenerator,
   AccntNumDataListGenerator,
-} from "../../components/General/Helpers/Datalist";
+} from "../../../components/General/Helpers/Datalist";
 
 //add value on options
 export let transactionDetail;
@@ -27,6 +27,7 @@ const DepositFunc = () => {
   const [errormessage, setErrorMessage] = useState("");
   let navigate = useNavigate();
   let nameChecker = getBankAccountName(name);
+
   function togglePopup() {
     setIsOpen(!isOpen);
   }
@@ -51,7 +52,7 @@ const DepositFunc = () => {
     ) {
       if (!nameChecker) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Account Name does not exist",
         ]);
@@ -59,14 +60,14 @@ const DepositFunc = () => {
       }
       if (nameChecker.accountNumber !== parseInt(accountNumber)) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Account Number does not match",
         ]);
       }
       if (deposit < 0) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Invalid deposit amount",
         ]);
@@ -76,7 +77,7 @@ const DepositFunc = () => {
     return false;
   }
 
-  const DepositThis = (e) => {
+  const DepositThis = e => {
     e.preventDefault();
     if (!errorHandler()) {
       transactionDetail = {
@@ -104,7 +105,7 @@ const DepositFunc = () => {
     <div>
       {isOpen && (
         <Popup
-          content={errormessage.map((displayed) => {
+          content={errormessage.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}
@@ -121,7 +122,7 @@ const DepositFunc = () => {
             className="form-fields"
             id="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             required
             autoComplete="off"
           />
@@ -140,7 +141,7 @@ const DepositFunc = () => {
             className="form-fields"
             id="accountNumber"
             value={accountNumber}
-            onChange={(e) => setAccountNumber(e.target.value)}
+            onChange={e => setAccountNumber(e.target.value)}
             autoComplete="off"
           />
           <datalist id="listacct">
@@ -158,7 +159,7 @@ const DepositFunc = () => {
             id="transactionDate"
             value={transactionDate}
             disabled
-            onChange={(e) => setTransactionDate(e.target.value)}
+            onChange={e => setTransactionDate(e.target.value)}
           />
         </div>
 
@@ -172,7 +173,7 @@ const DepositFunc = () => {
             className="form-fields"
             id="deposit"
             value={deposit}
-            onChange={(e) => setDeposit(e.target.value)}
+            onChange={e => setDeposit(e.target.value)}
             required
             autoComplete="off"
           />

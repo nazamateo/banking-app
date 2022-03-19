@@ -1,35 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../General/Logo/Logo";
 import logo from "../../assets/images/placeholder.jpg";
 import "./NavBar.scss";
 
 function NavBar({ navBarWidth }) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const [isShown, setIsShown] = useState(false);
 
-  const signOut = (e) => {
+  const showMenu = () => {};
+
+  const signOut = e => {
     e.preventDefault();
     localStorage.setItem("isAuthenticated", "");
     navigate("/login");
   };
 
-  const hideTextInSideBar = () => console.log("yes");
   return (
     <nav className="top-nav" style={{ width: `calc(100% - ${navBarWidth}px)` }}>
       <i className="las la-bars" />
 
       <ul className="nav-elements">
-        <li onClick={() => hideTextInSideBar}>
+        <li>
           <i className="las la-bell" />
         </li>
         <li>
           <i className="las la-envelope" />
         </li>
-        <li>
+        <li onClick={showMenu}>
           <Logo link={logo} name="abc123" />
         </li>
         <li>
-          <button type="button" onClick={signOut}>
+          <button type="button" onClick={signOut} id="sign-out-btn">
             Sign Out
           </button>
         </li>
@@ -52,3 +54,6 @@ export default NavBar;
 
  className={({ isActive }) => (isActive ? "active" : "inactive")}
  */
+
+//onMouseEnter, show the class, display:flex the signout link
+//onMouseLeave, do not show the class, display:none?

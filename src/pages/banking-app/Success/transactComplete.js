@@ -1,4 +1,4 @@
-import { getBankAccounts } from "../../components/LocalStorage/LocalStorage";
+import { getBankAccounts } from "../../../services/LocalStorage";
 
 function getInfo(transactionId) {
   const bankAccounts = getBankAccounts();

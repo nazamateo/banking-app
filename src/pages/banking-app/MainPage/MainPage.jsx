@@ -4,8 +4,8 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./MainPage.scss";
 
 //COMPONENTS
-import SideBar from "../../components/SideBar/SideBar";
-import NavBar from "../../components/NavBar/NavBar";
+import SideBar from "../../../components/SideBar/SideBar";
+import NavBar from "../../../components/NavBar/NavBar";
 
 //PAGES
 import FormPage from "../UsersForm/DisplayForm";
@@ -20,7 +20,7 @@ import SuccessAddUserPage from "../UsersForm/AddUserSuccessful";
 import IndividualUserPage from "../IndividualUser/IndividualUser";
 import EditFormPage from "../EditUserDetails/EditForm";
 
-const routes = [
+const ROUTES = [
   {
     path: "/dashboard",
     element: <DashboardPage />,
@@ -58,7 +58,7 @@ function MainPage() {
         <TransitionGroup component={null}>
           <CSSTransition key={location.key} classNames="next" timeout={500}>
             <Routes location={location}>
-              {routes.map((route, i) => (
+              {ROUTES.map((route, i) => (
                 <Route key={i} path={route.path} element={route.element} />
               ))}
             </Routes>

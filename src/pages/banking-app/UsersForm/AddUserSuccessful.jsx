@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getBankAccountNumber } from "../../components/LocalStorage/LocalStorage";
+import { getBankAccountNumber } from "../../../services/LocalStorage";
 
 function SuccessAddUserPage() {
   const accountNumber = parseInt(useParams().accountNumber);
