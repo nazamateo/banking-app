@@ -181,14 +181,14 @@ let bankAccounts = [
   },
 ];
 
-const formatmyBalance = (balance) => {
+const formatmyBalance = balance => {
   return Intl.NumberFormat("en-PH", {
     currency: "PHP",
     style: "currency",
   }).format(balance);
 };
 
-bankAccounts = bankAccounts.map((user) => {
+bankAccounts = bankAccounts.map(user => {
   return {
     ...user,
     formattedbalance: formatmyBalance(user.balance),
@@ -206,7 +206,7 @@ function getAdminAccounts() {
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return (
       bankAccount.accountNumber === accountNumber &&
       bankAccount.name === accountName
@@ -217,7 +217,7 @@ function getBankAccount(accountName, accountNumber) {
 function getBankAccountName(accountName) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return bankAccount.name === accountName;
   });
 }
@@ -225,7 +225,7 @@ function getBankAccountName(accountName) {
 function getBankAccountNumber(accountNumber) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return bankAccount.accountNumber === accountNumber;
   });
 }
@@ -239,7 +239,7 @@ function updateBankAccountBalance(
 ) {
   const bankAccounts = getBankAccounts();
   const foundAccount = getBankAccount(accountName, accountNumber);
-  const index = bankAccounts.findIndex((obj) => {
+  const index = bankAccounts.findIndex(obj => {
     return obj.accountNumber === accountNumber;
   });
 
@@ -267,7 +267,7 @@ function transferBankAccountBalance(
   const bankAccounts = getBankAccounts();
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
-  const fromIndex = bankAccounts.findIndex((obj) => {
+  const fromIndex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
@@ -276,7 +276,7 @@ function transferBankAccountBalance(
   bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
-  const toIndex = bankAccounts.findIndex((obj) => {
+  const toIndex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === toaccountNumber;
   });
 
@@ -289,8 +289,16 @@ function transferBankAccountBalance(
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
 
-function LoadDataButton() {
-  const onClickBtn = (e) => {
+function addUser(userDetails) {
+  const bankAccounts = getBankAccounts();
+
+  bankAccounts.push(userDetails);
+
+  localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
+}
+
+function LoadDataButton({ className }) {
+  const onClickBtn = e => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
@@ -299,7 +307,7 @@ function LoadDataButton() {
   };
 
   return (
-    <button type="button" onClick={(e) => onClickBtn(e)} className="btn-login">
+    <button type="button" onClick={e => onClickBtn(e)} className={className}>
       Load Data
     </button>
   );
@@ -314,4 +322,5 @@ export {
   transferBankAccountBalance,
   getBankAccountName,
   getBankAccountNumber,
+  addUser,
 };

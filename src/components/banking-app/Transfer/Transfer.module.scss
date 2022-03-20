@@ -1,0 +1,90 @@
+.formt {
+  width: 80vw;
+  height: 50vh;
+  position: relative;
+  top: 10vh;
+  margin: auto;
+  font-size: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr auto;
+  grid-template-areas:
+    "fromname fromacct date"
+    "toname toacct ."
+    "amount . ."
+    "submitt . .";
+
+  justify-items: center;
+  justify-items: stretch;
+  gap: 3rem;
+}
+.fromdivname {
+  grid-area: fromname;
+}
+
+.todivname {
+  grid-area: toname;
+}
+
+.fromacct {
+  grid-area: fromacct;
+}
+
+.toacct {
+  grid-area: toacct;
+}
+
+.divdate {
+  grid-area: date;
+}
+
+.divamount {
+  grid-area: amount;
+}
+
+.submitt {
+  grid-area: submitt;
+  background-color: #4caf50;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #4caf50 0 -3px 0 inset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "JetBrains Mono", monospace;
+  padding: 0.8rem 1.4rem;
+  transition: box-shadow 0.15s, transform 0.15s;
+  font-size: 18px;
+}
+
+.submitt:focus {
+  box-shadow: #29ffc6, 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #29ffc6, 0 -3px 0 inset;
+}
+
+.submitt:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #29ffc6, 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.submitt:active {
+  box-shadow: #29ffc6, 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.field {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: text;
+}
+
+.label {
+  font-size: 1.5rem;
+}
