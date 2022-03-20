@@ -78,3 +78,25 @@
   border-radius: 10px;
   background: rgba(94, 94, 95, 0.4);
 }
+
+.log-in {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(244, 245, 250);
+}
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+}
+
+.title {
+  letter-spacing: 1px;
+  font-size: 3.4rem;
+  font-weight: 500;
+}

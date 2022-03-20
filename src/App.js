@@ -1,19 +1,18 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
-import PrivateRoute from "./components/General/Helpers/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 
 import MainPage from "./pages/banking-app/MainPage/MainPage";
-import LoginPage from "./pages/banking-app/Login/Login";
+import LoginPage from "./pages/banking-app/Login";
 
 import BudgetMainPage from "./pages/budget-app/MainPage/BudgetMainPage";
 import BudgetLoginPage from "./pages/budget-app/Login/BudgetLogin";
 
-import ChooseLogin from "./components/General/ChooseLoginPage";
+import ChooseLogin from "./pages/ChooseLoginPage";
 
 function App() {
   return (
     <Routes>
-      <Route path="/choose" element={<ChooseLogin />} />
+      {/* <Route path="/choose" element={<ChooseLogin />} />
       <Route path="/login/budget" element={<BudgetLoginPage />} />
       <Route
         path="/*"
@@ -22,7 +21,7 @@ function App() {
             <BudgetMainPage />
           </PrivateRoute>
         }
-      />
+      /> */}
 
       <Route path="/login" element={<LoginPage />} />
       <Route

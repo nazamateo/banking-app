@@ -5,7 +5,7 @@ import {
 } from "../../../services/LocalStorage";
 import { useNavigate } from "react-router-dom";
 //import "./login.scss";
-import Popup from "../../../components/General/Helpers/ErrorPopup";
+import Popup from "../../../components/pop-up/ErrorPopup";
 
 function BudgetLoginPage() {
   const [email, setemail] = useState("");
@@ -28,46 +28,46 @@ function BudgetLoginPage() {
     if (password === "" || email === "") {
       if (password === "") {
         togglePopup();
-        setError((displayerror) => [...displayerror, "Empty password field"]);
+        setError(displayerror => [...displayerror, "Empty password field"]);
       }
       if (email === "") {
         togglePopup();
-        setError((displayerror) => [...displayerror, "Empty email field"]);
+        setError(displayerror => [...displayerror, "Empty email field"]);
       }
       return true;
     }
     return false;
   }
 
-  const handleemailChange = (e) => {
+  const handleemailChange = e => {
     setemail(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = e => {
     setPassword(e.target.value);
   };
 
-  const loginAuthentication = (email) => {
+  const loginAuthentication = email => {
     const userAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-    const account = userAccounts.find((account) => account.email === email);
+    const account = userAccounts.find(account => account.email === email);
 
     account.isLoggedIn = true;
 
-    const updatedAccounts = userAccounts.map((adminAccount) =>
+    const updatedAccounts = userAccounts.map(adminAccount =>
       adminAccount.email === email ? { ...account } : adminAccount
     );
 
     localStorage.setItem("bankAccounts", JSON.stringify(updatedAccounts));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const userAccounts = getBankAccounts();
     if (!errorHandler()) {
       if (
         userAccounts.find(
-          (account) => account.email === email && account.password === password
+          account => account.email === email && account.password === password
         )
       ) {
         localStorage.setItem("isAuthenticated", "true");
@@ -75,10 +75,7 @@ function BudgetLoginPage() {
         navigate("/dashboardbudget");
       } else {
         togglePopup();
-        setError((displayerror) => [
-          ...displayerror,
-          "Invalid userame/password",
-        ]);
+        setError(displayerror => [...displayerror, "Invalid userame/password"]);
         return;
       }
     }
@@ -119,7 +116,7 @@ function BudgetLoginPage() {
       <LoadDataButton />
       {isOpen && (
         <Popup
-          content={error.map((displayed) => {
+          content={error.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}

@@ -4,21 +4,21 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./MainPage.scss";
 
 //COMPONENTS
-import SideBar from "../../../components/SideBar/SideBar";
-import NavBar from "../../../components/NavBar/NavBar";
+import SideBar from "../../../components/layout/SideBar/SideBar";
+import NavBar from "../../../components/layout/NavBar/NavBar";
 
 //PAGES
-import FormPage from "../UsersForm/DisplayForm";
-import AllUsersPage from "../Users/Users";
-import TransferPage from "../Transfer/Transfer";
-import DepositPage from "../Deposit/Deposit";
-import DashboardPage from "../Dashboard/Dashboard";
-import WithdrawPage from "../Withdraw/Withdraw";
-import SuccessTransactionPage from "../Success/TransactionComplete";
-import NotFoundPage from "../NotFound/NotFound";
-import SuccessAddUserPage from "../UsersForm/AddUserSuccessful";
-import IndividualUserPage from "../IndividualUser/IndividualUser";
-import EditFormPage from "../EditUserDetails/EditForm";
+import FormPage from "../AddUserForm";
+import AllUsersPage from "../AllUsers";
+import TransferPage from "../Transfer";
+import DepositPage from "../Deposit";
+import DashboardPage from "../Dashboard";
+import WithdrawPage from "../Withdraw";
+import SuccessTransactionPage from "../TransactionComplete";
+import NotFoundPage from "../NotFound";
+import SuccessAddUserPage from "../AddUserSuccessful";
+import IndividualUserPage from "../IndividualUser";
+import EditFormPage from "../EditForm";
 
 const ROUTES = [
   {
@@ -45,7 +45,7 @@ function MainPage() {
   const [sideBarWidth, setSideBarWidth] = useState(0);
   const location = useLocation();
 
-  const getSideBarWidth = (obtainedSideBarWidth) => {
+  const getSideBarWidth = obtainedSideBarWidth => {
     const newWidth = obtainedSideBarWidth;
     setSideBarWidth(newWidth);
   };

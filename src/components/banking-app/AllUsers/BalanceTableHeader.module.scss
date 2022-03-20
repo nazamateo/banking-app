@@ -1,0 +1,19 @@
+.balanceContainerHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  > h2 {
+    letter-spacing: 0.08rem;
+  }
+}
+
+#addAccount {
+  border-radius: 2.4rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: solid gray 1px;
+
+  &:hover {
+    background-color: rgba(29, 27, 27, 0.05);
+  }
+}

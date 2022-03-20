@@ -1,0 +1,40 @@
+.formContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  gap: 2rem;
+  border-radius: 5px;
+
+  > h1 {
+    text-align: center;
+    font-size: 3rem;
+  }
+}
+
+.label {
+  font-size: 1.6rem;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.loginBtn {
+  background: rgb(44, 52, 59);
+  color: white;
+  padding: 0.8rem 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(44, 52, 59, 0.8);
+  }
+}
+
+.input {
+  font-size: 2rem;
+  padding: 0.5rem;
+}
