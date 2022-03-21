@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../General/Logo/Logo";
 import logo from "../../../assets/images/placeholder.jpg";
-import "./NavBar.scss";
+import styles from "./NavBar.module.scss";
 
-function NavBar({ navBarWidth }) {
+function NavBar({ navBarWidth, linkSelected, adminUsername }) {
   const navigate = useNavigate();
-  const [isShown, setIsShown] = useState(false);
 
-  const showMenu = () => {};
+  const [isShown, setIsShown] = useState(false);
 
   const signOut = e => {
     e.preventDefault();
@@ -17,23 +16,38 @@ function NavBar({ navBarWidth }) {
   };
 
   return (
-    <nav className="top-nav" style={{ width: `calc(100% - ${navBarWidth}px)` }}>
-      <i className="las la-bars" />
+    <nav
+      className={styles.topNav}
+      style={{ width: `calc(100% - ${navBarWidth}px)` }}
+    >
+      <p className={styles.title}>{linkSelected}</p>
 
-      <ul className="nav-elements">
+      <ul className={styles.navElementsContainer}>
         <li>
           <i className="las la-bell" />
         </li>
         <li>
           <i className="las la-envelope" />
         </li>
-        <li onClick={showMenu}>
-          <Logo link={logo} name="abc123" />
-        </li>
-        <li>
-          <button type="button" onClick={signOut} id="sign-out-btn">
-            Sign Out
-          </button>
+        <li
+          onMouseEnter={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}
+          className={`${styles.navElements} ${
+            isShown ? styles.active : styles.inactive
+          }`}
+        >
+          <Logo
+            link={logo}
+            name={adminUsername}
+            className={styles.logoContainer}
+          />
+          {isShown && (
+            <div className={styles.showMenu}>
+              <p onClick={signOut}>
+                <i className="las la-power-off"></i>Sign Out
+              </p>
+            </div>
+          )}
         </li>
       </ul>
     </nav>
@@ -41,19 +55,3 @@ function NavBar({ navBarWidth }) {
 }
 
 export default NavBar;
-
-//NOTES
-
-/* gagawa ng isang state na isClicked
- so sa kapag kinlick mo yung menu icon babaguhin mo yung state and then 
- sa className gawa ng ternary operator 
- 
- className=`${isClicked ? 'active' : 'hide'}` 
- 
- or parang ganito 
-
- className={({ isActive }) => (isActive ? "active" : "inactive")}
- */
-
-//onMouseEnter, show the class, display:flex the signout link
-//onMouseLeave, do not show the class, display:none?

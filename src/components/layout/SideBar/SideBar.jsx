@@ -1,15 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import "./SideBar.scss";
+import styles from "./SideBar.module.scss";
 import Logo from "../../General/Logo/Logo";
-import logo from "../../../assets/images/placeholder.jpg";
+import logo from "../../../assets/images/bank-logo.png";
 
-function SideBar({ getWidth }) {
+function SideBar({ getWidth, getLink }) {
   const widthRef = useRef();
 
   const getWidthSize = (e = "") => {
     e.preventDefault();
     getWidth(widthRef.current.offsetWidth);
+  };
+
+  const getLinkSelected = e => {
+    getLink(e.target.textContent);
+    localStorage.setItem("selectedLink", e.target.textContent);
   };
 
   useEffect(() => {
@@ -22,14 +27,17 @@ function SideBar({ getWidth }) {
   }, []);
 
   return (
-    <nav className="nav-sidebar" ref={widthRef}>
-      <Logo link={logo} name="Digibank" />
-      <ul className="nav-links-sidebar">
+    <nav className={styles.navSidebar} ref={widthRef}>
+      <Logo link={logo} name="DigiBank" className={styles.logoContainer} />
+      <ul className={styles.sideBarLinks}>
         <li>
           <i className="las la-university" />
           <NavLink
             to="dashboard"
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.inactive
+            }
+            onClick={getLinkSelected}
           >
             Dashboard
           </NavLink>
@@ -38,7 +46,10 @@ function SideBar({ getWidth }) {
           <i className="las la-users" />
           <NavLink
             to="users"
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.inactive
+            }
+            onClick={getLinkSelected}
           >
             Accounts
           </NavLink>
@@ -47,7 +58,10 @@ function SideBar({ getWidth }) {
           <i className="las la-share"></i>
           <NavLink
             to="deposit"
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.inactive
+            }
+            onClick={getLinkSelected}
           >
             Deposit
           </NavLink>
@@ -56,7 +70,10 @@ function SideBar({ getWidth }) {
           <i className="las la-receipt" />
           <NavLink
             to="withdraw"
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.inactive
+            }
+            onClick={getLinkSelected}
           >
             Withdraw
           </NavLink>
@@ -65,7 +82,10 @@ function SideBar({ getWidth }) {
           <i className="las la-exchange-alt" />
           <NavLink
             to="transfer"
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.inactive
+            }
+            onClick={getLinkSelected}
           >
             Transfer
           </NavLink>

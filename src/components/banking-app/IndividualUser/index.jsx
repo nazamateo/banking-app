@@ -81,8 +81,6 @@ function IndividualUser() {
         />
       )}
 
-      <h1>STATEMENT OF ACCOUNT</h1>
-
       <p>Name: {bankAccount.name}</p>
       <p>E-mail: {bankAccount.email}</p>
       <p>Birthday: {bankAccount.bday}</p>

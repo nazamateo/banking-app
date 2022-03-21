@@ -1,10 +1,9 @@
 import React from "react";
-import "./Logo.scss";
 
-function Logo({ link, name }) {
+function Logo({ link, name, className }) {
   return (
-    <div className="logo-container">
-      <img src={link} className="logo" />
+    <div className={className}>
+      <img src={link} />
       <p>{name}</p>
     </div>
   );

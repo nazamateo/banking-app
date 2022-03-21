@@ -4,7 +4,7 @@ import BalanceTableHeader from "../../components/banking-app/AllUsers/BalanceTab
 function AllUsersPage() {
   return (
     <div className="page">
-      <h1 className="title">Account List</h1>
+      <h1 className="title">ACCOUNT LIST</h1>
       <div className="page-main-content">
         <BalanceTableHeader />
         <TableBalance />

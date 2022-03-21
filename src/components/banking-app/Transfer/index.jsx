@@ -143,7 +143,7 @@ const TransferFunc = () => {
     }
   };
   return (
-    <div>
+    <>
       {isOpen && (
         <Popup
           content={errormessage.map(displayed => {
@@ -269,7 +269,7 @@ const TransferFunc = () => {
           Submit
         </button>
       </form>
-    </div>
+    </>
   );
 };
 
