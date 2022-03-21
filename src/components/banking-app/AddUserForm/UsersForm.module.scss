@@ -1,3 +1,5 @@
+@use "../../../assets/sass/variables" as *;
+
 .form {
   font-size: 2rem;
   padding: 5rem;
@@ -42,16 +44,13 @@
 }
 .submit {
   grid-area: submit;
-  background-color: #4caf50;
+  background-color: $secondary-color;
   border-radius: 4px;
   border-width: 0;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #4caf50 0 -3px 0 inset;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: "JetBrains Mono", monospace;
   padding: 0.8rem 1.4rem;
   transition: box-shadow 0.15s, transform 0.15s;
   font-size: 18px;

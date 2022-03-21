@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import "./pagination.scss";
+import { useEffect, useState } from "react";
 
 //headers - headers of the table
 //data - array of the data to be in paginated form
@@ -26,7 +25,7 @@ function TablePagination({
     setCurrentPage(page => page - 1);
   }
   function changePage(e) {
-    setCurrentPage(parseInt(e.target.textContent));
+    setCurrentPage(+e.target.textContent);
   }
 
   const getPaginatedData = () => {
@@ -64,7 +63,7 @@ function TablePagination({
         </table>
       </div>
       <PageNumbers
-        classNames={classNames.pageNumbers}
+        className={classNames.pageNumbers}
         pages={pages}
         currentPage={currentPage}
         pageFunctions={{
@@ -79,18 +78,33 @@ function TablePagination({
 }
 
 function PageNumbers({
-  classNames,
+  className,
   pages,
   currentPage,
   pageFunctions,
   getPaginationGroup,
 }) {
+  const [isPrevDisable, setIsPrevDisable] = useState(false);
+  const [isNextDisable, setIsNextDisable] = useState(false);
+
+  useEffect(() => {
+    setIsPrevDisable(false);
+    setIsNextDisable(false);
+
+    if (currentPage === 1) {
+      setIsPrevDisable(true);
+      return;
+    }
+
+    if (currentPage === pages) {
+      setIsNextDisable(true);
+      return;
+    }
+  }, [currentPage]);
+
   return (
-    <div className="pagination">
-      <button
-        onClick={pageFunctions.prevPage}
-        className={`prev ${currentPage === 1 ? "disabled" : ""}`}
-      >
+    <div className={className.container}>
+      <button onClick={pageFunctions.prevPage} disabled={isPrevDisable}>
         ←
       </button>
 
@@ -100,9 +114,12 @@ function PageNumbers({
             <button
               key={index}
               onClick={pageFunctions.changePage}
-              className={`paginationItem ${
-                currentPage === element ? "active" : null
-              }`}
+              // className={`paginationItem ${
+              //   currentPage === element ? "active" : null
+              //   }`}
+              className={
+                currentPage === element ? className.activeElement : null
+              }
             >
               {element}
             </button>
@@ -110,10 +127,7 @@ function PageNumbers({
         }
       })}
 
-      <button
-        onClick={pageFunctions.nextPage}
-        className={`next ${currentPage === pages ? "disabled" : ""}`}
-      >
+      <button onClick={pageFunctions.nextPage} disabled={isNextDisable}>
         →
       </button>
     </div>

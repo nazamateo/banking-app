@@ -21,7 +21,7 @@
 .page-main-content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   height: 80%;
   width: 95%;
   background: white;
@@ -96,7 +96,7 @@
 }
 
 .title {
-  letter-spacing: 1px;
+  letter-spacing: 0.2px;
   font-size: 3.4rem;
-  font-weight: 500;
+  font-weight: 700;
 }

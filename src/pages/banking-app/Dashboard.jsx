@@ -1,7 +1,9 @@
+import Dashboard from "../../components/banking-app/Dashboard/index";
+
 function DashboardPage() {
   return (
     <div className="page">
-      <h1>Bank Name</h1>
+      <Dashboard />
     </div>
   );
 }

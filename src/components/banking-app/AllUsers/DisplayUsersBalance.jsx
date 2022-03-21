@@ -28,7 +28,13 @@ const RowsBalance = ({ inputNameValue }) => {
 
   return (
     <TablePagination
-      classNames={{ table: styles.balanceTable }}
+      classNames={{
+        table: styles.balanceTable,
+        pageNumbers: {
+          container: styles.pageNumbers,
+          activeElement: styles.active,
+        },
+      }}
       headers={["Name", "Account Number", "Account Balance", "Action"]}
       data={filteredBankAccounts}
       Component={TableRow}

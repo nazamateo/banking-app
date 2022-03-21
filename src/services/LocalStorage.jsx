@@ -303,11 +303,12 @@ function LoadDataButton({ className }) {
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
     localStorage.setItem("isAuthenticated", "");
+    localStorage.setItem("selectedLink", "Dashboard");
     e.target.remove();
   };
 
   return (
-    <button type="button" onClick={e => onClickBtn(e)} className={className}>
+    <button type="button" onClick={onClickBtn} className={className}>
       Load Data
     </button>
   );

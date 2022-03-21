@@ -1,15 +1,16 @@
+@use "../../../assets/sass/variables" as *;
+
 .formd {
   font-size: 2rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr auto;
   grid-template-areas:
-    "nname acct date"
-    "divbal . ."
-    "submitd . .";
-
-  justify-items: stretch;
+    "nname acct "
+    " date divbal"
+    " . submitd";
   gap: 3rem;
+  padding: 2rem;
 }
 .divname {
   grid-area: nname;
@@ -29,35 +30,21 @@
 
 .submitd {
   grid-area: submitd;
-  background-color: #4caf50;
+  color: white;
+  justify-self: flex-end;
+  background-color: $secondary-color;
   border-radius: 4px;
   border-width: 0;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #4caf50 0 -3px 0 inset;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: "JetBrains Mono", monospace;
   padding: 0.8rem 1.4rem;
-  transition: box-shadow 0.15s, transform 0.15s;
   font-size: 18px;
-}
 
-.submitd:focus {
-  box-shadow: #29ffc6, 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #29ffc6, 0 -3px 0 inset;
-}
-
-.submitd:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #29ffc6, 0 -3px 0 inset;
-  transform: translateY(-2px);
-}
-
-.submitd:active {
-  box-shadow: #29ffc6, 0 3px 7px inset;
-  transform: translateY(2px);
+  &:hover {
+    opacity: 0.9;
+  }
 }
 
 .field {

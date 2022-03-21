@@ -1,3 +1,5 @@
+@use "../../../assets/sass/variables" as *;
+
 .balanceContainerHeader {
   display: flex;
   justify-content: space-between;
@@ -5,15 +7,17 @@
   > h2 {
     letter-spacing: 0.08rem;
   }
-}
 
-#addAccount {
-  border-radius: 2.4rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border: solid gray 1px;
+  > button {
+    border-radius: 2.4rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: solid gray 1px;
+    background-color: $secondary-color;
+    color: white;
+  }
 
-  &:hover {
-    background-color: rgba(29, 27, 27, 0.05);
+  > button:hover {
+    opacity: 0.95;
   }
 }

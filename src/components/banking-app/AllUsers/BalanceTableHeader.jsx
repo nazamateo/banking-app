@@ -10,11 +10,7 @@ function BalanceTableHeader() {
   return (
     <div className={styles.balanceContainerHeader}>
       <h2>Account Details</h2>
-      <button
-        type="button"
-        id={styles.addAccount}
-        onClick={e => directToAddAccountPage(e)}
-      >
+      <button type="button" onClick={directToAddAccountPage}>
         <i className="las la-plus" />
         Add New Account
       </button>

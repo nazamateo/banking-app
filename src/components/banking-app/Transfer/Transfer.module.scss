@@ -1,21 +1,16 @@
+@use "../../../assets/sass/variables" as *;
+
 .formt {
-  width: 80vw;
-  height: 50vh;
-  position: relative;
-  top: 10vh;
-  margin: auto;
   font-size: 2rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr auto;
   grid-template-areas:
-    "fromname fromacct date"
-    "toname toacct ."
-    "amount . ."
-    "submitt . .";
+    "fromname fromacct "
+    "toname toacct"
+    "date amount"
+    " . submitt";
 
-  justify-items: center;
-  justify-items: stretch;
   gap: 3rem;
 }
 .fromdivname {
@@ -44,35 +39,22 @@
 
 .submitt {
   grid-area: submitt;
-  background-color: #4caf50;
+  justify-self: flex-end;
+  color: white;
+  background-color: $secondary-color;
   border-radius: 4px;
   border-width: 0;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #4caf50 0 -3px 0 inset;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: "JetBrains Mono", monospace;
   padding: 0.8rem 1.4rem;
   transition: box-shadow 0.15s, transform 0.15s;
   font-size: 18px;
-}
 
-.submitt:focus {
-  box-shadow: #29ffc6, 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #29ffc6, 0 -3px 0 inset;
-}
-
-.submitt:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #29ffc6, 0 -3px 0 inset;
-  transform: translateY(-2px);
-}
-
-.submitt:active {
-  box-shadow: #29ffc6, 0 3px 7px inset;
-  transform: translateY(2px);
+  &:hover {
+    opacity: 0.9;
+  }
 }
 
 .field {

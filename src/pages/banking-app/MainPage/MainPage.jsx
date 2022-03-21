@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./MainPage.scss";
+import { getAdminAccounts } from "../../../services/LocalStorage";
 
 //COMPONENTS
 import SideBar from "../../../components/layout/SideBar/SideBar";
@@ -43,18 +44,41 @@ const ROUTES = [
 
 function MainPage() {
   const [sideBarWidth, setSideBarWidth] = useState(0);
+  const [selectedLink, setSelectedLink] = useState(
+    localStorage.getItem("selectedLink")
+  );
+  const [username, setUsername] = useState("");
   const location = useLocation();
 
+  const getLoggedInName = () => {
+    const loggedInAccount = getAdminAccounts().find(
+      adminAccount => adminAccount.isLoggedIn === true
+    );
+
+    setUsername(loggedInAccount.username);
+  };
+
+  useEffect(() => {
+    getLoggedInName();
+  }, []);
+
   const getSideBarWidth = obtainedSideBarWidth => {
-    const newWidth = obtainedSideBarWidth;
-    setSideBarWidth(newWidth);
+    setSideBarWidth(obtainedSideBarWidth);
+  };
+
+  const getSelectedLink = selectedLink => {
+    setSelectedLink(selectedLink);
   };
 
   return (
     <div>
-      <NavBar navBarWidth={sideBarWidth} />
+      <NavBar
+        navBarWidth={sideBarWidth}
+        linkSelected={selectedLink}
+        adminUsername={username}
+      />
       <div className="main-layout">
-        <SideBar getWidth={getSideBarWidth} />
+        <SideBar getWidth={getSideBarWidth} getLink={getSelectedLink} />
         <TransitionGroup component={null}>
           <CSSTransition key={location.key} classNames="next" timeout={500}>
             <Routes location={location}>
