@@ -16,6 +16,8 @@ let bankAccounts = [
     accountNumber: 1,
     balance: 25193.5,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -28,6 +30,8 @@ let bankAccounts = [
     accountNumber: 2,
     balance: 87377.6,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -40,6 +44,8 @@ let bankAccounts = [
     accountNumber: 3,
     balance: 94809.8,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -53,6 +59,8 @@ let bankAccounts = [
     accountNumber: 4,
     balance: 10692.35,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -65,6 +73,8 @@ let bankAccounts = [
     accountNumber: 5,
     balance: 21623.7,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -78,6 +88,8 @@ let bankAccounts = [
     accountNumber: 6,
     balance: 84370.1,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -91,6 +103,8 @@ let bankAccounts = [
     accountNumber: 7,
     balance: 10669.3,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -103,6 +117,8 @@ let bankAccounts = [
     accountNumber: 8,
     balance: 15094.5,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -116,6 +132,8 @@ let bankAccounts = [
     accountNumber: 9,
     balance: 104010.96,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -128,6 +146,8 @@ let bankAccounts = [
     accountNumber: 10,
     balance: 104848.69,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -140,6 +160,8 @@ let bankAccounts = [
     accountNumber: 11,
     balance: 32305.77,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -152,6 +174,8 @@ let bankAccounts = [
     accountNumber: 12,
     balance: 67470.34,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -164,6 +188,8 @@ let bankAccounts = [
     accountNumber: 13,
     balance: 113205.33,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
@@ -176,19 +202,21 @@ let bankAccounts = [
     accountNumber: 14,
     balance: 73788.25,
     transactionHistory: [],
+    budgetHistory: [],
+    budgetBalance: 0,
     password: "user123",
     isLoggedIn: false,
   },
 ];
 
-const formatmyBalance = balance => {
+const formatmyBalance = (balance) => {
   return Intl.NumberFormat("en-PH", {
     currency: "PHP",
     style: "currency",
   }).format(balance);
 };
 
-bankAccounts = bankAccounts.map(user => {
+bankAccounts = bankAccounts.map((user) => {
   return {
     ...user,
     formattedbalance: formatmyBalance(user.balance),
@@ -206,7 +234,7 @@ function getAdminAccounts() {
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return (
       bankAccount.accountNumber === accountNumber &&
       bankAccount.name === accountName
@@ -217,7 +245,7 @@ function getBankAccount(accountName, accountNumber) {
 function getBankAccountName(accountName) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return bankAccount.name === accountName;
   });
 }
@@ -225,7 +253,7 @@ function getBankAccountName(accountName) {
 function getBankAccountNumber(accountNumber) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return bankAccount.accountNumber === accountNumber;
   });
 }
@@ -239,7 +267,7 @@ function updateBankAccountBalance(
 ) {
   const bankAccounts = getBankAccounts();
   const foundAccount = getBankAccount(accountName, accountNumber);
-  const index = bankAccounts.findIndex(obj => {
+  const index = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === accountNumber;
   });
 
@@ -267,7 +295,7 @@ function transferBankAccountBalance(
   const bankAccounts = getBankAccounts();
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
-  const fromIndex = bankAccounts.findIndex(obj => {
+  const fromIndex = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
@@ -276,7 +304,7 @@ function transferBankAccountBalance(
   bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
-  const toIndex = bankAccounts.findIndex(obj => {
+  const toIndex = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === toaccountNumber;
   });
 
@@ -298,7 +326,7 @@ function addUser(userDetails) {
 }
 
 function LoadDataButton({ className }) {
-  const onClickBtn = e => {
+  const onClickBtn = (e) => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
