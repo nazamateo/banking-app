@@ -7,7 +7,7 @@ function ChooseLogin() {
       <h1>THIS IS HOMEPAGE</h1>
       <nav>
         <Link to="/banking/login">Admin Login</Link>
-        <Link to="/login/budget">Customer Login</Link>
+        <Link to="/budget/login">Customer Login</Link>
       </nav>
     </div>
   );

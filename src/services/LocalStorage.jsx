@@ -330,7 +330,8 @@ function LoadDataButton({ className }) {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
-    localStorage.setItem("isAuthenticated", "");
+    localStorage.setItem("isAuthenticatedBank", "");
+    localStorage.setItem("isAuthenticatedBudget", "");
     localStorage.setItem("selectedLink", "Dashboard");
     e.target.remove();
   };

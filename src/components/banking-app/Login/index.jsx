@@ -64,7 +64,7 @@ function Login() {
             account.username === username && account.password === password
         )
       ) {
-        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("isAuthenticatedBank", "true");
         loginAuthentication(username);
         navigate("/banking/dashboard");
       } else {

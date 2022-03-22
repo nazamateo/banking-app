@@ -70,7 +70,7 @@ function BudgetLoginPage() {
           (account) => account.email === email && account.password === password
         )
       ) {
-        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("isAuthenticatedBudget", "true");
         loginAuthentication(email);
         navigate("/budget/dashboard");
       } else {

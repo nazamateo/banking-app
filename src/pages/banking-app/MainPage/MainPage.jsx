@@ -23,23 +23,23 @@ import EditFormPage from "../EditForm";
 
 const ROUTES = [
   {
-    path: "/banking/dashboard",
+    path: "dashboard",
     element: <DashboardPage />,
   },
-  { path: "/banking/users", element: <AllUsersPage /> },
+  { path: "users", element: <AllUsersPage /> },
   ,
-  { path: "/banking/users/:accountNumber", element: <IndividualUserPage /> },
-  { path: "/banking/users/newaccount", element: <FormPage /> },
+  { path: "users/:accountNumber", element: <IndividualUserPage /> },
+  { path: "users/newaccount", element: <FormPage /> },
   {
-    path: "/banking/users/newaccount/success/:accountNumber",
+    path: "users/newaccount/success/:accountNumber",
     element: <SuccessAddUserPage />,
   },
-  { path: "/banking/users/edit/:accountNumber", element: <EditFormPage /> },
-  { path: "/banking/deposit", element: <DepositPage /> },
-  { path: "/banking/withdraw", element: <WithdrawPage /> },
-  { path: "/banking/transfer", element: <TransferPage /> },
+  { path: "users/edit/:accountNumber", element: <EditFormPage /> },
+  { path: "deposit", element: <DepositPage /> },
+  { path: "withdraw", element: <WithdrawPage /> },
+  { path: "transfer", element: <TransferPage /> },
   {
-    path: "/banking/complete/:transactionId",
+    path: "complete/:transactionId",
     element: <SuccessTransactionPage />,
   },
   { path: "*", element: <NotFoundPage /> },
