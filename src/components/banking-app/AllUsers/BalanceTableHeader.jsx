@@ -3,9 +3,9 @@ import styles from "./BalanceTableHeader.module.scss";
 
 function BalanceTableHeader() {
   const navigate = useNavigate();
-  const directToAddAccountPage = e => {
+  const directToAddAccountPage = (e) => {
     e.preventDefault();
-    navigate("newaccount");
+    navigate("/banking/users/newaccount");
   };
   return (
     <div className={styles.balanceContainerHeader}>

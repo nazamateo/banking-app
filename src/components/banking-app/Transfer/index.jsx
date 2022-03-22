@@ -60,35 +60,38 @@ const TransferFunc = () => {
         fromNameChecker.accountNumber !== fromAccountNumber
       ) {
         togglePopup();
-        setErrorMessage(displayerror => [...displayerror, "Sender not found"]);
+        setErrorMessage((displayerror) => [
+          ...displayerror,
+          "Sender not found",
+        ]);
       }
       if (
         toNameChecker == null ||
         toNameChecker.accountNumber !== toAccountNumber
       ) {
         togglePopup();
-        setErrorMessage(displayerror => [
+        setErrorMessage((displayerror) => [
           ...displayerror,
           "Receiver not found",
         ]);
       }
       if (fromNameChecker.balance < amount) {
         togglePopup();
-        setErrorMessage(displayerror => [
+        setErrorMessage((displayerror) => [
           ...displayerror,
           "Insufficient sender balance",
         ]);
       }
       if (fromNameChecker.name === toNameChecker.name) {
         togglePopup();
-        setErrorMessage(displayerror => [
+        setErrorMessage((displayerror) => [
           ...displayerror,
           "Invalid transaction, sender and receiver same account",
         ]);
       }
       if (amount < 0) {
         togglePopup();
-        setErrorMessage(displayerror => [
+        setErrorMessage((displayerror) => [
           ...displayerror,
           "Invalid Transfer Amount",
         ]);
@@ -107,7 +110,7 @@ const TransferFunc = () => {
     setTransactionId(uuidv4());
   }
 
-  const logTransaction = e => {
+  const logTransaction = (e) => {
     e.preventDefault();
 
     if (!errorHandler()) {
@@ -119,6 +122,7 @@ const TransferFunc = () => {
         receiverAccountNumber: toAccountNumber,
         oldBalance: fromNameChecker.balance,
         newBalance: fromNameChecker.balance - amount,
+        mode: "over the counter",
       };
       const receiverTransactionObject = {
         transactionDate: transactionDate,
@@ -128,6 +132,7 @@ const TransferFunc = () => {
         senderAccountNumber: fromAccountNumber,
         oldBalance: toNameChecker.balance,
         newBalance: toNameChecker.balance + amount,
+        mode: "over the counter",
       };
       transferBankAccountBalance(
         toName,
@@ -139,14 +144,14 @@ const TransferFunc = () => {
         receiverTransactionObject
       );
       stateResetter();
-      navigate(`/complete/${transactionId}`);
+      navigate(`/banking/complete/${transactionId}`);
     }
   };
   return (
     <>
       {isOpen && (
         <Popup
-          content={errormessage.map(displayed => {
+          content={errormessage.map((displayed) => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}
@@ -163,7 +168,7 @@ const TransferFunc = () => {
             }}
             label="From"
             value={fromName}
-            onChange={e => setfromName(e.target.value)}
+            onChange={(e) => setfromName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
@@ -184,7 +189,7 @@ const TransferFunc = () => {
             }}
             label="From Account Number"
             value={fromAccountNumber}
-            onChange={e => setfromAccountNumber(+e.target.value)}
+            onChange={(e) => setfromAccountNumber(+e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -203,7 +208,7 @@ const TransferFunc = () => {
             }}
             label="To"
             value={toName}
-            onChange={e => setToName(e.target.value)}
+            onChange={(e) => setToName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
@@ -224,7 +229,7 @@ const TransferFunc = () => {
             }}
             label="To Account Number"
             value={toAccountNumber}
-            onChange={e => settoAccountNumber(+e.target.value)}
+            onChange={(e) => settoAccountNumber(+e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -259,7 +264,7 @@ const TransferFunc = () => {
             label="Amount"
             value={amount}
             autoComplete="off"
-            onChange={e => setAmount(+e.target.value)}
+            onChange={(e) => setAmount(+e.target.value)}
             required={true}
             pattern="[0-9.]+"
           />

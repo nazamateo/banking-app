@@ -4,52 +4,27 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 //import "./MainPage.scss";
 
 //COMPONENTS
-//import SideBar from "../../../components/SideBar/SideBar";
-import SideBar from "../../../components/layout/SideBar/SideBar";
 import NavBar from "../../../components/layout/NavBar/NavBar";
 
-//PAGES
-//import FormPage from "../UsersForm/DisplayForm";
-//import AllUsersPage from "../Users/Users";
-//import TransferPage from "../Transfer/Transfer";
-//import DepositPage from "../Deposit/Deposit";
-//import DashboardPage from "../Dashboard/Dashboard";
-//import WithdrawPage from "../Withdraw/Withdraw";
-//import SuccessTransactionPage from "../Success/TransactionComplete";
-//import NotFoundPage from "../NotFound/NotFound";
-//import SuccessAddUserPage from "../UsersForm/AddUserSuccessful";
-// import IndividualUserPage from "../../banking-app/IndividualUser";
-// import EditFormPage from "../../banking-app/EditUserDetails/EditForm";
-//import EditFormPage from "../EditUserDetails/EditForm";
-
-import DashboardBudget from "../Dashboard/Dashboard";
-import BudgetTable from "../BudgetTable/BudgetTable";
-
-import ExpenseForm from "../ExpenseForm/Expense";
-import IncomeForm from "../IncomeForm/Income";
-// import NotFoundPage from "../../banking-app/NotFound";
+import DashboardBudget from "../Dashboard/BudgetDashboard";
+//import BudgetTable from "../BudgetTable/BudgetTable";
+//import NotFoundPage from "../../banking-app/NotFound";
 
 //PAGES
 
-const ROUTES = [
+const ROUTESBUDGET = [
   {
-    path: "/dashboardbudget",
+    path: "/budget/dashboard",
     element: <DashboardBudget />,
   },
   // { path: "users/:accountNumber", element: <IndividualUserPage /> },
-  { path: "users/:accountnumber/:type/:category", element: <BudgetTable /> },
-
-  { path: "/expense:/category", element: <ExpenseForm /> },
-  { path: "/income:/category", element: <IncomeForm /> },
-
-  // { path: "*", element: <NotFoundPage /> },
 ];
 
-function MainPage() {
+function BudgetMainPage() {
   const [sideBarWidth, setSideBarWidth] = useState(0);
   const location = useLocation();
 
-  const getSideBarWidth = obtainedSideBarWidth => {
+  const getSideBarWidth = (obtainedSideBarWidth) => {
     const newWidth = obtainedSideBarWidth;
     setSideBarWidth(newWidth);
   };
@@ -58,11 +33,10 @@ function MainPage() {
     <div>
       <NavBar navBarWidth={sideBarWidth} />
       <div className="main-layout">
-        <SideBar getWidth={getSideBarWidth} />
         <TransitionGroup component={null}>
           <CSSTransition key={location.key} classNames="next" timeout={500}>
             <Routes location={location}>
-              {ROUTES.map((route, i) => (
+              {ROUTESBUDGET.map((route, i) => (
                 <Route key={i} path={route.path} element={route.element} />
               ))}
             </Routes>
@@ -73,4 +47,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default BudgetMainPage;

@@ -1,5 +1,4 @@
-import React from "react";
-import { getBankAccounts } from "../../../services/LocalStorage";
+import { getBankAccounts } from "./LocalStorage";
 function getMonth(date) {
   let month;
   month = date.getMonth();
@@ -19,25 +18,37 @@ function getBudgetAppUSer() {
   });
 }
 
-function saveBudgetEntry(date, amount, type, category) {
+function saveBudgetEntry(date, amount, type) {
+  let currentAppUser = getBudgetAppUSer();
   let newBudgetEntry = [];
-  newBudgetEntry.month = getMonth(date);
-  newBudgetEntry.year = getYear(date);
+  //newBudgetEntry.month = getMonth(date);
+  //newBudgetEntry.year = getYear(date);
+  newBudgetEntry.transactionDate = date;
+  newBudgetEntry.action = "?";
+  //newBudgetEntry.transactionId = transactionId;
+  newBudgetEntry.mode = "Online";
   newBudgetEntry.amount = amount;
-  newBudgetEntry.type = type;
-  newBudgetEntry.category = category;
+
+  if (type === "EXPENSE") {
+    newBudgetEntry.oldBalance = currentAppUser.balance;
+    newBudgetEntry.newBalance = currentAppUser.balance - amount;
+  } else if (type === "INCOME") {
+    newBudgetEntry.oldBalance = currentAppUser.balance;
+    newBudgetEntry.newBalance = currentAppUser.balance + amount;
+  }
+
   return newBudgetEntry;
 }
 
-function updateBudgetBalance(date, amount, type, category) {
+function updateBudgetBalance(date, amount, type) {
   let bankAccounts = getBankAccounts();
   let currentAppUser = getBudgetAppUSer();
-  let newBudgetEntry = saveBudgetEntry(date, amount, type, category);
+  let newBudgetEntry = saveBudgetEntry(date, amount, type);
   currentAppUser.budgetHistory.push(newBudgetEntry);
   if (type === "INCOME") {
-    currentAppUser.Budgetbalance += amount;
+    currentAppUser.balance += amount;
   } else if (type === "EXPENSE") {
-    currentAppUser.Budgetbalance -= amount;
+    currentAppUser.balance -= amount;
   }
   const index = bankAccounts.findIndex((bankAccount) => {
     return bankAccount.isLoggedIn === true;
@@ -46,6 +57,8 @@ function updateBudgetBalance(date, amount, type, category) {
   bankAccounts[index] = currentAppUser;
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
+
+/**
 
 function sumTypeCategory(type, category, month, year) {
   let currentAppUser = getBudgetAppUSer();
@@ -84,6 +97,6 @@ function sumTypeCategory(type, category, month, year) {
     return sum + current.amount;
   });
   return sumTypeCategory;
-}
+} */
 
-export { updateBudgetBalance, sumTypeCategory };
+export { updateBudgetBalance, getBudgetAppUSer };

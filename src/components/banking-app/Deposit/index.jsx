@@ -53,21 +53,21 @@ const DepositFunc = () => {
     ) {
       if (!nameChecker) {
         togglePopup();
-        setErrorMessage(displayerror => [
+        setErrorMessage((displayerror) => [
           ...displayerror,
           "Account Name does not exist",
         ]);
       }
       if (nameChecker.accountNumber !== accountNumber) {
         togglePopup();
-        setErrorMessage(displayerror => [
+        setErrorMessage((displayerror) => [
           ...displayerror,
           "Account Number does not match",
         ]);
       }
       if (deposit < 0) {
         togglePopup();
-        setErrorMessage(displayerror => [
+        setErrorMessage((displayerror) => [
           ...displayerror,
           "Invalid deposit amount",
         ]);
@@ -77,7 +77,7 @@ const DepositFunc = () => {
     return false;
   }
 
-  const logTransaction = e => {
+  const logTransaction = (e) => {
     e.preventDefault();
 
     if (!errorHandler()) {
@@ -89,6 +89,7 @@ const DepositFunc = () => {
         action: "deposit",
         oldBalance: nameChecker.balance,
         newBalance: nameChecker.balance + deposit,
+        mode: "over the counter",
       };
       updateBankAccountBalance(
         name,
@@ -98,7 +99,7 @@ const DepositFunc = () => {
         transactionDetail
       );
       stateResetter();
-      navigate(`/complete/${transactionId}`);
+      navigate(`/banking/complete/${transactionId}`);
     }
   };
 
@@ -106,7 +107,7 @@ const DepositFunc = () => {
     <>
       {isOpen && (
         <Popup
-          content={errormessage.map(displayed => {
+          content={errormessage.map((displayed) => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}
@@ -123,7 +124,7 @@ const DepositFunc = () => {
             }}
             label="Name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
@@ -144,7 +145,7 @@ const DepositFunc = () => {
             }}
             label="Account Number"
             value={accountNumber}
-            onChange={e => setAccountNumber(+e.target.value)}
+            onChange={(e) => setAccountNumber(+e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -179,7 +180,7 @@ const DepositFunc = () => {
             label="Deposit Amount"
             value={deposit}
             autoComplete="off"
-            onChange={e => setDeposit(+e.target.value)}
+            onChange={(e) => setDeposit(+e.target.value)}
             required={true}
             pattern="[0-9.]+"
           />

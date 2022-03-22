@@ -1,10 +1,11 @@
 import React from "react";
+import DashboardBudgetFunc from "../../../components/budget-app/Dashboard/BudgetDashboard";
 //import "./dashboard.scss";
 
 function DashboardBudget() {
   return (
     <div className="page">
-      <h1>DashboardBudget</h1>
+      <DashboardBudgetFunc />
     </div>
   );
 }

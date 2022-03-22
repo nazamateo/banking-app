@@ -12,7 +12,7 @@ function SideBar({ getWidth, getLink }) {
     getWidth(widthRef.current.offsetWidth);
   };
 
-  const getLinkSelected = e => {
+  const getLinkSelected = (e) => {
     getLink(e.target.textContent);
     localStorage.setItem("selectedLink", e.target.textContent);
   };
@@ -33,7 +33,7 @@ function SideBar({ getWidth, getLink }) {
         <li>
           <i className="las la-university" />
           <NavLink
-            to="dashboard"
+            to="/banking/dashboard"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
@@ -45,7 +45,7 @@ function SideBar({ getWidth, getLink }) {
         <li>
           <i className="las la-users" />
           <NavLink
-            to="users"
+            to="/banking/users"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
@@ -57,7 +57,7 @@ function SideBar({ getWidth, getLink }) {
         <li>
           <i className="las la-share"></i>
           <NavLink
-            to="deposit"
+            to="/banking/deposit"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
@@ -69,7 +69,7 @@ function SideBar({ getWidth, getLink }) {
         <li>
           <i className="las la-receipt" />
           <NavLink
-            to="withdraw"
+            to="/banking/withdraw"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
@@ -81,7 +81,7 @@ function SideBar({ getWidth, getLink }) {
         <li>
           <i className="las la-exchange-alt" />
           <NavLink
-            to="transfer"
+            to="/banking/transfer"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
