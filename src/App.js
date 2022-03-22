@@ -16,7 +16,6 @@ function App() {
       <Route path="/" element={<ChooseLogin />} />
       <Route path="/budget/login" element={<BudgetLoginPage />} />
       {
-        //hide this if want to access banking app (need help from Olan)
         <Route
           path="/budget/*"
           element={
