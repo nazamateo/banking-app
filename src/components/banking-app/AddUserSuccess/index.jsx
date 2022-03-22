@@ -1,23 +1,49 @@
 import { useParams } from "react-router-dom";
 import { getBankAccountNumber } from "../../../services/LocalStorage";
+import styles from "./AddUserSuccess.module.scss";
 
 function AddUserSuccess() {
   const accountNumber = +useParams().accountNumber;
   const account = getBankAccountNumber(accountNumber);
 
   return (
-    <>
-      <h1>Account Successfully Added!</h1>
-      <div>
-        <p>Name: {account.name} </p>
-        <p>Email: {account.email}</p>
-        <p>Birthday: {account.bday}</p>
-        <p>Address: {account.address}</p>
-        <p>Creation Date: {account.creationDate}</p>
-        <p>Account Number: {account.accountNumber}</p>
-        <p>Balance: ₱{account.balance}</p>
+    <div className={styles.mainContainer}>
+      <div className={styles.container}>
+        <i className="las la-check-circle" />
+        <h1>Account Successfully Added!</h1>
       </div>
-    </>
+      <div className={styles.detailsContainer}>
+        <h1>Account Details</h1>
+        <p>
+          <span>Name: </span>
+          <span>{account.name}</span>
+        </p>
+        <p>
+          <span>Email: </span>
+          <span>{account.email}</span>
+        </p>
+        <p>
+          <span>Birthday: </span>
+          <span>{account.bday}</span>
+        </p>
+        <p>
+          <span>Address: </span>
+          <span>{account.address}</span>
+        </p>
+        <p>
+          <span>Creation Date: </span>
+          <span>{account.creationDate}</span>
+        </p>
+        <p>
+          <span>Account Number: </span>
+          <span>{account.accountNumber}</span>
+        </p>
+        <p>
+          <span>Balance: </span>
+          <span>₱{account.balance}</span>
+        </p>
+      </div>
+    </div>
   );
 }
 

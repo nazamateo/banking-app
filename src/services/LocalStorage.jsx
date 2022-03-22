@@ -235,7 +235,7 @@ function updateBankAccountBalance(
     foundAccount.balance -= amount;
   }
 
-  foundAccount.transactionHistory.push(transaction);
+  foundAccount.transactionHistory.unshift(transaction);
   bankAccounts[index] = foundAccount;
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
@@ -256,7 +256,7 @@ function transferBankAccountBalance(
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
-  fromAccount.transactionHistory.push(senderTransaction);
+  fromAccount.transactionHistory.unshift(senderTransaction);
   bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
@@ -266,7 +266,7 @@ function transferBankAccountBalance(
 
   toAccount.balance += amount;
 
-  toAccount.transactionHistory.push(receiverTransaction);
+  toAccount.transactionHistory.unshift(receiverTransaction);
   bankAccounts[toIndex] = toAccount;
 
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
@@ -293,7 +293,7 @@ function LoadDataButton({ className }) {
 
   return (
     <button type="button" onClick={onClickBtn} className={className}>
-      Load Data
+      Load Initial Data to LocalStorage
     </button>
   );
 }

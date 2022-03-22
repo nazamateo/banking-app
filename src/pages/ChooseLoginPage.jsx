@@ -1,16 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import ChooseLogin from "../components/ChoosePage";
 
-function ChooseLogin() {
+function ChooseAppPage() {
   return (
-    <div className="Choose">
-      <h1>THIS IS HOMEPAGE</h1>
-      <nav>
-        <Link to="/banking/login">Admin Login</Link>
-        <Link to="/budget/login">Customer Login</Link>
-      </nav>
+    <div className="choose-page">
+      <ChooseLogin />
     </div>
   );
 }
 
-export default ChooseLogin;
+export default ChooseAppPage;
