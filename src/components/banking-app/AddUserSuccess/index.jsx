@@ -15,7 +15,7 @@ function AddUserSuccess() {
         <p>Address: {account.address}</p>
         <p>Creation Date: {account.creationDate}</p>
         <p>Account Number: {account.accountNumber}</p>
-        <p>Balance: {account.formattedbalance}</p>
+        <p>Balance: ₱{account.balance}</p>
       </div>
     </>
   );

@@ -42,7 +42,7 @@ const UserForm = () => {
     setBalance("");
   }
 
-  const addUserdata = (e) => {
+  const addUserdata = e => {
     e.preventDefault();
 
     if (!nameChecker) {
@@ -55,10 +55,6 @@ const UserForm = () => {
         accountNumber: accountNumber,
         balance: balance,
         transactionHistory: [],
-        formattedbalance: Intl.NumberFormat("en-PH", {
-          currency: "PHP",
-          style: "currency",
-        }).format(balance),
       };
 
       addUser(userObject);
@@ -83,7 +79,7 @@ const UserForm = () => {
             }}
             label="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
@@ -100,7 +96,7 @@ const UserForm = () => {
             }}
             label="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -116,7 +112,7 @@ const UserForm = () => {
             }}
             label="Birthday"
             value={bday}
-            onChange={(e) => setBday(e.target.value)}
+            onChange={e => setBday(e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -132,7 +128,7 @@ const UserForm = () => {
             }}
             label="Address"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={e => setAddress(e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -175,7 +171,7 @@ const UserForm = () => {
             }}
             label="Balance"
             value={balance}
-            onChange={(e) => setBalance(+e.target.value)}
+            onChange={e => setBalance(+e.target.value)}
             autoComplete="off"
           />
         </div>
