@@ -17,7 +17,7 @@ const EditForm = () => {
 
   const getAccountDetails = () => {
     const selectedBankAccount = bankAccounts.find(
-      bankAccount => bankAccount.accountNumber === accountNumber
+      (bankAccount) => bankAccount.accountNumber === accountNumber
     );
 
     setName(selectedBankAccount.name);
@@ -32,10 +32,10 @@ const EditForm = () => {
     getAccountDetails();
   }, []);
 
-  const handleSubmitData = e => {
+  const handleSubmitData = (e) => {
     e.preventDefault();
     const selectedUser = bankAccounts.find(
-      user => user.accountNumber === accountNumber
+      (user) => user.accountNumber === accountNumber
     );
 
     selectedUser.name = name;
@@ -43,14 +43,14 @@ const EditForm = () => {
     selectedUser.bday = bday;
     selectedUser.address = address;
 
-    const updatedUsers = bankAccounts.map(account =>
+    const updatedUsers = bankAccounts.map((account) =>
       account.accountNumber === accountNumber ? { ...selectedUser } : account
     );
 
     setBankAccounts(updatedUsers);
     localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
 
-    navigate(`/users`);
+    navigate(`/banking/users`);
   };
 
   return (
@@ -66,7 +66,7 @@ const EditForm = () => {
             }}
             label="Name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
@@ -83,7 +83,7 @@ const EditForm = () => {
             }}
             label="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -99,7 +99,7 @@ const EditForm = () => {
             }}
             label="Birthday"
             value={bday}
-            onChange={e => setBday(e.target.value)}
+            onChange={(e) => setBday(e.target.value)}
             required={true}
           />
         </div>
@@ -114,7 +114,7 @@ const EditForm = () => {
             }}
             label="Address"
             value={address}
-            onChange={e => setAddress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
             autoComplete="off"
             required={true}
           />

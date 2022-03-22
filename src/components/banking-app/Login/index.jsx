@@ -27,49 +27,52 @@ function Login() {
     if (password === "" || username === "") {
       if (password === "") {
         togglePopup();
-        setError(displayerror => [...displayerror, "Empty password field"]);
+        setError((displayerror) => [...displayerror, "Empty password field"]);
       }
       if (username === "") {
         togglePopup();
-        setError(displayerror => [...displayerror, "Empty username field"]);
+        setError((displayerror) => [...displayerror, "Empty username field"]);
       }
       return true;
     }
     return false;
   }
 
-  const loginAuthentication = username => {
+  const loginAuthentication = (username) => {
     const adminAccounts = JSON.parse(localStorage.getItem("adminAccounts"));
 
     const account = adminAccounts.find(
-      account => account.username === username
+      (account) => account.username === username
     );
 
     account.isLoggedIn = true;
 
-    const updatedAccounts = adminAccounts.map(adminAccount =>
+    const updatedAccounts = adminAccounts.map((adminAccount) =>
       adminAccount.username === username ? { ...account } : adminAccount
     );
 
     localStorage.setItem("adminAccounts", JSON.stringify(updatedAccounts));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const adminAccounts = getAdminAccounts();
     if (!errorHandler()) {
       if (
         adminAccounts.find(
-          account =>
+          (account) =>
             account.username === username && account.password === password
         )
       ) {
         localStorage.setItem("isAuthenticated", "true");
         loginAuthentication(username);
-        navigate("/dashboard");
+        navigate("/banking/dashboard");
       } else {
         togglePopup();
-        setError(displayerror => [...displayerror, "Invalid userame/password"]);
+        setError((displayerror) => [
+          ...displayerror,
+          "Invalid userame/password",
+        ]);
         return;
       }
     }
@@ -87,7 +90,7 @@ function Login() {
             classNames={{ label: styles.label, input: styles.input }}
             placeholder="Username"
             autoComplete="off"
-            onChange={e => setUserName(e.target.value)}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -97,7 +100,7 @@ function Login() {
             label="Password:"
             classNames={{ label: styles.label, input: styles.input }}
             placeholder="Password"
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
@@ -108,7 +111,7 @@ function Login() {
       <LoadDataButton className={styles.loginBtn} />
       {isOpen && (
         <Popup
-          content={error.map(displayed => {
+          content={error.map((displayed) => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}

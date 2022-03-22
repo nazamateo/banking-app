@@ -23,22 +23,25 @@ import EditFormPage from "../EditForm";
 
 const ROUTES = [
   {
-    path: "/dashboard",
+    path: "/banking/dashboard",
     element: <DashboardPage />,
   },
-  { path: "users", element: <AllUsersPage /> },
+  { path: "/banking/users", element: <AllUsersPage /> },
   ,
-  { path: "users/:accountNumber", element: <IndividualUserPage /> },
-  { path: "users/newaccount", element: <FormPage /> },
+  { path: "/banking/users/:accountNumber", element: <IndividualUserPage /> },
+  { path: "/banking/users/newaccount", element: <FormPage /> },
   {
-    path: "users/newaccount/success/:accountNumber",
+    path: "/banking/users/newaccount/success/:accountNumber",
     element: <SuccessAddUserPage />,
   },
-  { path: "users/edit/:accountNumber", element: <EditFormPage /> },
-  { path: "deposit", element: <DepositPage /> },
-  { path: "withdraw", element: <WithdrawPage /> },
-  { path: "transfer", element: <TransferPage /> },
-  { path: "complete/:transactionId", element: <SuccessTransactionPage /> },
+  { path: "/banking/users/edit/:accountNumber", element: <EditFormPage /> },
+  { path: "/banking/deposit", element: <DepositPage /> },
+  { path: "/banking/withdraw", element: <WithdrawPage /> },
+  { path: "/banking/transfer", element: <TransferPage /> },
+  {
+    path: "/banking/complete/:transactionId",
+    element: <SuccessTransactionPage />,
+  },
   { path: "*", element: <NotFoundPage /> },
 ];
 
@@ -52,7 +55,7 @@ function MainPage() {
 
   const getLoggedInName = () => {
     const loggedInAccount = getAdminAccounts().find(
-      adminAccount => adminAccount.isLoggedIn === true
+      (adminAccount) => adminAccount.isLoggedIn === true
     );
 
     setUsername(loggedInAccount.username);
@@ -62,11 +65,11 @@ function MainPage() {
     getLoggedInName();
   }, []);
 
-  const getSideBarWidth = obtainedSideBarWidth => {
+  const getSideBarWidth = (obtainedSideBarWidth) => {
     setSideBarWidth(obtainedSideBarWidth);
   };
 
-  const getSelectedLink = selectedLink => {
+  const getSelectedLink = (selectedLink) => {
     setSelectedLink(selectedLink);
   };
 

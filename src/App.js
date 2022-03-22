@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
+import PrivateRouteBudget from "./components/PrivateRouteBudget";
 
 import MainPage from "./pages/banking-app/MainPage/MainPage";
 import LoginPage from "./pages/banking-app/Login";
@@ -12,18 +13,20 @@ import ChooseLogin from "./pages/ChooseLoginPage";
 function App() {
   return (
     <Routes>
-      {/* <Route path="/choose" element={<ChooseLogin />} />
+      <Route path="/" element={<ChooseLogin />} />
       <Route path="/login/budget" element={<BudgetLoginPage />} />
-      <Route
-        path="/*"
-        element={
-          <PrivateRoute>
-            <BudgetMainPage />
-          </PrivateRoute>
-        }
-      /> */}
-
-      <Route path="/login" element={<LoginPage />} />
+      {
+        //hide this if want to access banking app (need help from Olan)
+        <Route
+          path="/*"
+          element={
+            <PrivateRouteBudget>
+              <BudgetMainPage />
+            </PrivateRouteBudget>
+          }
+        />
+      }
+      <Route path="/banking/login" element={<LoginPage />} />
       <Route
         path="/*"
         element={

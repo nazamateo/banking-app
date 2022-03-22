@@ -5,17 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import TablePagination from "../../../components/Pagination/Pagination";
 import styles from "./DisplayUsersBalance.module.scss";
 
-const BANK_ACCOUNTS = getBankAccounts();
-
 const RowsBalance = ({ inputNameValue }) => {
+  const BANK_ACCOUNTS = getBankAccounts();
   const [filteredBankAccounts, setFilterBankAccounts] = useState(BANK_ACCOUNTS);
 
-  const filterFromInput = filterUserInfo => {
+  const filterFromInput = (filterUserInfo) => {
     if (!inputNameValue) {
       return filterUserInfo;
     }
 
-    const filteredAccounts = filterUserInfo.filter(info =>
+    const filteredAccounts = filterUserInfo.filter((info) =>
       info.name.toLowerCase().includes(inputNameValue.toLowerCase())
     );
 
@@ -47,8 +46,8 @@ const RowsBalance = ({ inputNameValue }) => {
 function TableRow({ userInfo }) {
   const navigate = useNavigate();
 
-  const handleEdit = accountNumber => {
-    navigate(`edit/${accountNumber}`);
+  const handleEdit = (accountNumber) => {
+    navigate(`/banking/users/edit/${accountNumber}`);
   };
 
   return (
@@ -83,7 +82,7 @@ const TableBalance = () => {
           label="Search: "
           classNames={{ label: styles.label, input: styles.input }}
           value={inputNameValue}
-          onChange={e => setInputNameValue(e.target.value)}
+          onChange={(e) => setInputNameValue(e.target.value)}
           placeholder="Search by name"
         />
       </div>

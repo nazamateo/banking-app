@@ -21,13 +21,13 @@ function IndividualUser() {
   let [num, setNum] = useState(3);
   const navigate = useNavigate();
 
-  const deactivateAccount = accountNumber => {
+  const deactivateAccount = (accountNumber) => {
     const newAccountList = BANK_ACCOUNTS.filter(
-      account => account.accountNumber !== accountNumber
+      (account) => account.accountNumber !== accountNumber
     );
 
     localStorage.setItem("bankAccounts", JSON.stringify(newAccountList));
-    window.location.pathname = "/users";
+    window.location.pathname = "/banking/users";
   };
 
   function togglePopup(e) {
@@ -35,10 +35,10 @@ function IndividualUser() {
     setIsOpen(!isOpen);
   }
 
-  const confirmDelete = e => {
+  const confirmDelete = (e) => {
     e.preventDefault();
     const adminAccounts = getAdminAccounts().find(
-      adminAccount =>
+      (adminAccount) =>
         adminAccount.isLoggedIn === true &&
         adminAccount.password === inputAdminPassword
     );
@@ -48,7 +48,7 @@ function IndividualUser() {
         setNum(+num - 1);
       } else {
         localStorage.setItem("isAuthenticated", "");
-        navigate("/login");
+        navigate("/banking/login");
       }
       setDisplayError(
         `Incorrect password. Please try again. Retries left:${num}`
@@ -69,7 +69,7 @@ function IndividualUser() {
               <input
                 type="password"
                 placeholder="Enter admin password"
-                onChange={e => setInputAdminPassword(e.target.value)}
+                onChange={(e) => setInputAdminPassword(e.target.value)}
                 value={inputAdminPassword}
               />
               <button className={styles.buttonu} onClick={confirmDelete}>
@@ -92,9 +92,10 @@ function IndividualUser() {
       <table className={styles.statement}>
         <thead>
           <tr>
-            <td>Amount</td>
             <td>Date</td>
+            <td>Mode</td>
             <td>Type</td>
+            <td>Amount</td>
             <td>Transaction ID</td>
             <td>Old Balance</td>
             <td>New Balance</td>
@@ -105,13 +106,15 @@ function IndividualUser() {
           return (
             <tbody key={i}>
               <tr>
+                <td>{transaction.transactionDate}</td>
+                <td>{transaction.mode}</td>
+                <td>{capitalizeFirstLetter(transaction.action)}</td>
+
                 <td>
                   {`₱${Math.abs(
                     transaction.newBalance - transaction.oldBalance
                   )}`}
                 </td>
-                <td>{transaction.transactionDate}</td>
-                <td>{capitalizeFirstLetter(transaction.action)}</td>
                 <td>{transaction.transactionId}</td>
                 <td>{`₱${transaction.oldBalance}`}</td>
                 <td>{`₱${transaction.newBalance}`}</td>

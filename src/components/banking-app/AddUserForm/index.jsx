@@ -9,10 +9,8 @@ import {
 import Popup from "../../pop-up/ErrorPopup";
 import FormInput from "../../forms/FormInput";
 import styles from "./UsersForm.module.scss";
-
 const accountNumCount =
   getBankAccounts()[getBankAccounts().length - 1].accountNumber;
-
 const UserForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +42,7 @@ const UserForm = () => {
     setBalance("");
   }
 
-  const addUserdata = e => {
+  const addUserdata = (e) => {
     e.preventDefault();
 
     if (!nameChecker) {
@@ -65,7 +63,7 @@ const UserForm = () => {
 
       addUser(userObject);
       stateResetter();
-      navigate(`success/${accountNumber}`);
+      navigate(`/banking/users/newaccount/success/${accountNumber}`);
     } else {
       togglePopup();
       setErrorMessage("User already exists");
@@ -85,7 +83,7 @@ const UserForm = () => {
             }}
             label="Name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
@@ -102,7 +100,7 @@ const UserForm = () => {
             }}
             label="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -118,7 +116,7 @@ const UserForm = () => {
             }}
             label="Birthday"
             value={bday}
-            onChange={e => setBday(e.target.value)}
+            onChange={(e) => setBday(e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -134,7 +132,7 @@ const UserForm = () => {
             }}
             label="Address"
             value={address}
-            onChange={e => setAddress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -177,7 +175,7 @@ const UserForm = () => {
             }}
             label="Balance"
             value={balance}
-            onChange={e => setBalance(+e.target.value)}
+            onChange={(e) => setBalance(+e.target.value)}
             autoComplete="off"
           />
         </div>
