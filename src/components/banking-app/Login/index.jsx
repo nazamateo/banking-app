@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import {
-  LoadDataButton,
-  getAdminAccounts,
-} from "../../../services/LocalStorage";
+import React, { useEffect, useState } from "react";
+import { getAdminAccounts } from "../../../services/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../../forms/FormInput";
 import styles from "./Login.module.scss";
@@ -14,6 +11,14 @@ function Login() {
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAuth = localStorage.getItem("isAuthenticatedBank");
+
+    if (isAuth) {
+      navigate("/banking/dashboard");
+    }
+  });
 
   function togglePopup() {
     setIsOpen(!isOpen);
@@ -27,40 +32,40 @@ function Login() {
     if (password === "" || username === "") {
       if (password === "") {
         togglePopup();
-        setError((displayerror) => [...displayerror, "Empty password field"]);
+        setError(displayerror => [...displayerror, "Empty password field"]);
       }
       if (username === "") {
         togglePopup();
-        setError((displayerror) => [...displayerror, "Empty username field"]);
+        setError(displayerror => [...displayerror, "Empty username field"]);
       }
       return true;
     }
     return false;
   }
 
-  const loginAuthentication = (username) => {
+  const loginAuthentication = username => {
     const adminAccounts = JSON.parse(localStorage.getItem("adminAccounts"));
 
     const account = adminAccounts.find(
-      (account) => account.username === username
+      account => account.username === username
     );
 
     account.isLoggedIn = true;
 
-    const updatedAccounts = adminAccounts.map((adminAccount) =>
+    const updatedAccounts = adminAccounts.map(adminAccount =>
       adminAccount.username === username ? { ...account } : adminAccount
     );
 
     localStorage.setItem("adminAccounts", JSON.stringify(updatedAccounts));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const adminAccounts = getAdminAccounts();
     if (!errorHandler()) {
       if (
         adminAccounts.find(
-          (account) =>
+          account =>
             account.username === username && account.password === password
         )
       ) {
@@ -69,9 +74,9 @@ function Login() {
         navigate("/banking/dashboard");
       } else {
         togglePopup();
-        setError((displayerror) => [
+        setError(displayerror => [
           ...displayerror,
-          "Invalid userame/password",
+          "Invalid username/password",
         ]);
         return;
       }
@@ -90,7 +95,7 @@ function Login() {
             classNames={{ label: styles.label, input: styles.input }}
             placeholder="Username"
             autoComplete="off"
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={e => setUserName(e.target.value)}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -100,7 +105,7 @@ function Login() {
             label="Password:"
             classNames={{ label: styles.label, input: styles.input }}
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
         </div>
 
@@ -108,10 +113,10 @@ function Login() {
           Log In
         </button>
       </form>
-      <LoadDataButton className={styles.loginBtn} />
+
       {isOpen && (
         <Popup
-          content={error.map((displayed) => {
+          content={error.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}

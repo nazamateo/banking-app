@@ -4,7 +4,7 @@ function SuccessTransactionPage() {
   return (
     <div className="page">
       <h1 className="title">TRANSACTION COMPLETE</h1>
-      <div className="page-main-content">
+      <div className="page-main-content align-center ">
         <SuccessTransaction />
       </div>
     </div>

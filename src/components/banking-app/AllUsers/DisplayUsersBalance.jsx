@@ -47,7 +47,7 @@ function TableRow({ userInfo }) {
   const navigate = useNavigate();
 
   const handleEdit = accountNumber => {
-    navigate(`/banking/users/edit/${accountNumber}`);
+    navigate(`edit/${accountNumber}`);
   };
 
   return (

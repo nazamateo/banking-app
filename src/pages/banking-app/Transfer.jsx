@@ -4,7 +4,7 @@ function TransferPage() {
   return (
     <div className="page">
       <h1 className="title">TRANSFER FORM</h1>
-      <div className="page-main-content">
+      <div className="page-main-content ">
         <TransferFunc />
       </div>
     </div>
