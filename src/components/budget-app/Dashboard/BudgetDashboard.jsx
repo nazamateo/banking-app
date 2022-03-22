@@ -5,12 +5,12 @@ import BudgetForm from "../Form/Index";
 
 function DashboardBudgetFunc() {
   let currentAppUser = getBudgetAppUSer();
-  let budgetBalance = currentAppUser.formattedbalance;
+  let budgetBalance = currentAppUser.balance;
 
   console.log(currentAppUser);
   return (
     <div className="page">
-      <h1>{budgetBalance}</h1>
+      <h1>₱{budgetBalance}</h1>
       <h1>Hello</h1>
       <BudgetForm />
     </div>
