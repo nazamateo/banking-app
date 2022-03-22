@@ -12,7 +12,7 @@ const BudgetForm = () => {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <button type="submit" className={styles.add}>
+        <button type="button" className={styles.add}>
           Add
         </button>
         <br></br>

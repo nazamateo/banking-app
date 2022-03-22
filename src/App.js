@@ -14,11 +14,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<ChooseLogin />} />
-      <Route path="/login/budget" element={<BudgetLoginPage />} />
+      <Route path="/budget/login" element={<BudgetLoginPage />} />
       {
         //hide this if want to access banking app (need help from Olan)
         <Route
-          path="/*"
+          path="/budget/*"
           element={
             <PrivateRouteBudget>
               <BudgetMainPage />
@@ -28,7 +28,7 @@ function App() {
       }
       <Route path="/banking/login" element={<LoginPage />} />
       <Route
-        path="/*"
+        path="/banking/*"
         element={
           <PrivateRoute>
             <MainPage />

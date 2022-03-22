@@ -11,7 +11,7 @@ function NavBar({ navBarWidth, linkSelected, adminUsername }) {
 
   const signOut = (e) => {
     e.preventDefault();
-    localStorage.setItem("isAuthenticated", "");
+    localStorage.setItem("isAuthenticatedBank", "");
     navigate("/");
   };
 
