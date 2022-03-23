@@ -14,7 +14,7 @@ import DashboardBudget from "../Dashboard/BudgetDashboard";
 
 const ROUTESBUDGET = [
   {
-    path: "/budget/dashboard",
+    path: "/dashboard",
     element: <DashboardBudget />,
   },
   // { path: "users/:accountNumber", element: <IndividualUserPage /> },

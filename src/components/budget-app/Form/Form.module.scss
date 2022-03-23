@@ -1,13 +1,16 @@
 @use "../../../assets/sass/variables" as *;
 
 .form {
-  position: fixed;
+  position: absolute;
+  height: 50vh;
+  width: 25vw;
   top: 10vh;
   left: 5vw;
+  display: block;
   font-size: 1rem;
   padding: 2rem;
-  display: block;
   justify-items: center;
+  overflow-y: scroll;
   background-color: black;
 }
 .submit {
@@ -19,6 +22,8 @@
   transition: box-shadow 0.15s, transform 0.15s;
   font-size: 18px;
   float: right;
+  position: relative;
+  top: 5vh;
 }
 .add {
   background-color: $secondary-color;
@@ -28,12 +33,24 @@
   padding: 0.8rem 1.4rem;
   transition: box-shadow 0.15s, transform 0.15s;
   font-size: 18px;
-  float: inline-start;
+  float: left;
+  position: relative;
+  top: 5vh;
+}
+.delete {
+  display: inline-block;
+  background-color: $secondary-color;
+  border-radius: 4px;
+  border-width: 0;
+  cursor: pointer;
+  padding: 0.8rem 1.4rem;
+  transition: box-shadow 0.15s, transform 0.15s;
+  font-size: 18px;
 }
 
 .field {
-  width: 20rem;
-  padding: 12px 20px;
+  width: 15rem;
+  padding: 12px 12px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -41,8 +58,8 @@
   cursor: text;
 }
 .fieldcost {
-  width: 15rem;
-  padding: 12px 20px;
+  width: 10rem;
+  padding: 12px 12px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -55,9 +72,25 @@
 
 .total {
   color: white;
-  float: left;
+  position: relative;
+  left: 5vw;
+  display: inline;
+  font-size: 2rem;
 }
 .amountsum {
   color: white;
-  float: right;
+  display: inline;
+  position: relative;
+  left: 10vw;
+  font-size: 2rem;
+}
+.expensesheading {
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.hellow {
+  background-color: black;
+  color: white;
 }
