@@ -93,19 +93,17 @@ function PageNumbers({
 
     if (currentPage === 1) {
       setIsPrevDisable(true);
-      return;
     }
 
-    if (currentPage === pages) {
+    if (currentPage === pages || pages === 0) {
       setIsNextDisable(true);
-      return;
     }
   }, [currentPage]);
 
   return (
     <div className={className.container}>
       <button onClick={pageFunctions.prevPage} disabled={isPrevDisable}>
-        ←
+        <i className="las la-arrow-left" />
       </button>
 
       {getPaginationGroup().map((element, index) => {
@@ -114,9 +112,6 @@ function PageNumbers({
             <button
               key={index}
               onClick={pageFunctions.changePage}
-              // className={`paginationItem ${
-              //   currentPage === element ? "active" : null
-              //   }`}
               className={
                 currentPage === element ? className.activeElement : null
               }
@@ -125,10 +120,11 @@ function PageNumbers({
             </button>
           );
         }
+        return false;
       })}
 
       <button onClick={pageFunctions.nextPage} disabled={isNextDisable}>
-        →
+        <i className="las la-arrow-right" />
       </button>
     </div>
   );

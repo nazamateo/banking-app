@@ -5,23 +5,23 @@ import { Link, useNavigate } from "react-router-dom";
 import TablePagination from "../../../components/Pagination/Pagination";
 import styles from "./DisplayUsersBalance.module.scss";
 
+const BANK_ACCOUNTS = getBankAccounts();
+
 const RowsBalance = ({ inputNameValue }) => {
-  const BANK_ACCOUNTS = getBankAccounts();
   const [filteredBankAccounts, setFilterBankAccounts] = useState(BANK_ACCOUNTS);
 
-  const filterFromInput = filterUserInfo => {
-    if (!inputNameValue) {
-      return filterUserInfo;
-    }
-
-    const filteredAccounts = filterUserInfo.filter(info =>
-      info.name.toLowerCase().includes(inputNameValue.toLowerCase())
-    );
-
-    return filteredAccounts;
-  };
-
   useEffect(() => {
+    const filterFromInput = filterUserInfo => {
+      if (!inputNameValue) {
+        return filterUserInfo;
+      }
+
+      const filteredAccounts = filterUserInfo.filter(info =>
+        info.name.toLowerCase().includes(inputNameValue.toLowerCase())
+      );
+
+      return filteredAccounts;
+    };
     setFilterBankAccounts(filterFromInput(BANK_ACCOUNTS));
   }, [inputNameValue]);
 
@@ -47,7 +47,7 @@ function TableRow({ userInfo }) {
   const navigate = useNavigate();
 
   const handleEdit = accountNumber => {
-    navigate(`/banking/users/edit/${accountNumber}`);
+    navigate(`edit/${accountNumber}`);
   };
 
   return (

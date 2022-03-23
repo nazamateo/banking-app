@@ -13,6 +13,7 @@ import FormPage from "../AddUserForm";
 import AllUsersPage from "../AllUsers";
 import TransferPage from "../Transfer";
 import DepositPage from "../Deposit";
+import DepositQrPage from "../DepositQr";
 import DashboardPage from "../Dashboard";
 import WithdrawPage from "../Withdraw";
 import SuccessTransactionPage from "../TransactionComplete";
@@ -36,6 +37,7 @@ const ROUTES = [
   },
   { path: "users/edit/:accountNumber", element: <EditFormPage /> },
   { path: "deposit", element: <DepositPage /> },
+  { path: "deposit/qr", element: <DepositQrPage /> },
   { path: "withdraw", element: <WithdrawPage /> },
   { path: "transfer", element: <TransferPage /> },
   {
@@ -55,7 +57,7 @@ function MainPage() {
 
   const getLoggedInName = () => {
     const loggedInAccount = getAdminAccounts().find(
-      (adminAccount) => adminAccount.isLoggedIn === true
+      adminAccount => adminAccount.isLoggedIn === true
     );
 
     setUsername(loggedInAccount.username);
@@ -65,11 +67,11 @@ function MainPage() {
     getLoggedInName();
   }, []);
 
-  const getSideBarWidth = (obtainedSideBarWidth) => {
+  const getSideBarWidth = obtainedSideBarWidth => {
     setSideBarWidth(obtainedSideBarWidth);
   };
 
-  const getSelectedLink = (selectedLink) => {
+  const getSelectedLink = selectedLink => {
     setSelectedLink(selectedLink);
   };
 
