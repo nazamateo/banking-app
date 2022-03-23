@@ -16,6 +16,18 @@ let bankAccounts = [
     accountNumber: 1,
     balance: 25193.5,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -28,6 +40,18 @@ let bankAccounts = [
     accountNumber: 2,
     balance: 87377.6,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -40,6 +64,18 @@ let bankAccounts = [
     accountNumber: 3,
     balance: 94809.8,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -53,6 +89,18 @@ let bankAccounts = [
     accountNumber: 4,
     balance: 10692.35,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -65,6 +113,18 @@ let bankAccounts = [
     accountNumber: 5,
     balance: 21623.7,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -78,6 +138,18 @@ let bankAccounts = [
     accountNumber: 6,
     balance: 84370.1,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -91,6 +163,18 @@ let bankAccounts = [
     accountNumber: 7,
     balance: 10669.3,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -103,6 +187,18 @@ let bankAccounts = [
     accountNumber: 8,
     balance: 15094.5,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -116,6 +212,18 @@ let bankAccounts = [
     accountNumber: 9,
     balance: 104010.96,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -128,6 +236,18 @@ let bankAccounts = [
     accountNumber: 10,
     balance: 104848.69,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -140,6 +260,18 @@ let bankAccounts = [
     accountNumber: 11,
     balance: 32305.77,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -152,6 +284,18 @@ let bankAccounts = [
     accountNumber: 12,
     balance: 67470.34,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -164,6 +308,18 @@ let bankAccounts = [
     accountNumber: 13,
     balance: 113205.33,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -176,6 +332,18 @@ let bankAccounts = [
     accountNumber: 14,
     balance: 73788.25,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -188,6 +356,18 @@ let bankAccounts = [
     accountNumber: 14,
     balance: 500000,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
