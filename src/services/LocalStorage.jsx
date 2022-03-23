@@ -16,6 +16,18 @@ let bankAccounts = [
     accountNumber: 1,
     balance: 25193.5,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -28,6 +40,18 @@ let bankAccounts = [
     accountNumber: 2,
     balance: 87377.6,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -40,6 +64,18 @@ let bankAccounts = [
     accountNumber: 3,
     balance: 94809.8,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -53,6 +89,18 @@ let bankAccounts = [
     accountNumber: 4,
     balance: 10692.35,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -65,6 +113,18 @@ let bankAccounts = [
     accountNumber: 5,
     balance: 21623.7,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -78,6 +138,18 @@ let bankAccounts = [
     accountNumber: 6,
     balance: 84370.1,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -91,6 +163,18 @@ let bankAccounts = [
     accountNumber: 7,
     balance: 10669.3,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -103,6 +187,18 @@ let bankAccounts = [
     accountNumber: 8,
     balance: 15094.5,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -116,6 +212,18 @@ let bankAccounts = [
     accountNumber: 9,
     balance: 104010.96,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -128,6 +236,18 @@ let bankAccounts = [
     accountNumber: 10,
     balance: 104848.69,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -140,6 +260,18 @@ let bankAccounts = [
     accountNumber: 11,
     balance: 32305.77,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -152,6 +284,18 @@ let bankAccounts = [
     accountNumber: 12,
     balance: 67470.34,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -164,6 +308,18 @@ let bankAccounts = [
     accountNumber: 13,
     balance: 113205.33,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -176,6 +332,42 @@ let bankAccounts = [
     accountNumber: 14,
     balance: 73788.25,
     transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
+    password: "user123",
+    isLoggedIn: false,
+  },
+  {
+    name: "Nazareno Mateo",
+    email: "nrma@gmail.com",
+    bday: "1995-01-10",
+    address: "New Zealand",
+    creationDate: "02/02/22",
+    accountNumber: 14,
+    balance: 500000,
+    transactionHistory: [],
+    billersArray: [
+      {
+        bankname: "BDO",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201100074",
+      },
+      {
+        bankname: "NETFLIX",
+        billeraccountname: "Mateo",
+        billeraccountnum: "201423728",
+      },
+    ],
     password: "user123",
     isLoggedIn: false,
   },
@@ -192,7 +384,7 @@ function getAdminAccounts() {
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return (
       bankAccount.accountNumber === accountNumber &&
       bankAccount.name === accountName
@@ -203,7 +395,7 @@ function getBankAccount(accountName, accountNumber) {
 function getBankAccountName(accountName) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return bankAccount.name === accountName;
   });
 }
@@ -211,7 +403,7 @@ function getBankAccountName(accountName) {
 function getBankAccountNumber(accountNumber) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return bankAccount.accountNumber === accountNumber;
   });
 }
@@ -225,7 +417,7 @@ function updateBankAccountBalance(
 ) {
   const bankAccounts = getBankAccounts();
   const foundAccount = getBankAccount(accountName, accountNumber);
-  const index = bankAccounts.findIndex(obj => {
+  const index = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === accountNumber;
   });
 
@@ -252,7 +444,7 @@ function transferBankAccountBalance(
   const bankAccounts = getBankAccounts();
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
-  const fromIndex = bankAccounts.findIndex(obj => {
+  const fromIndex = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
@@ -260,7 +452,7 @@ function transferBankAccountBalance(
   bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
-  const toIndex = bankAccounts.findIndex(obj => {
+  const toIndex = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === toaccountNumber;
   });
 
@@ -281,6 +473,7 @@ function addUser(userDetails) {
 }
 
 function LoadDataButton({ className }) {
+
   const array = [];
   const onClickBtn = e => {
     e.preventDefault();
