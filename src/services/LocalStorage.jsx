@@ -473,13 +473,16 @@ function addUser(userDetails) {
 }
 
 function LoadDataButton({ className }) {
-  const onClickBtn = (e) => {
+
+  const array = [];
+  const onClickBtn = e => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
     localStorage.setItem("isAuthenticatedBank", "");
     localStorage.setItem("isAuthenticatedBudget", "");
     localStorage.setItem("selectedLink", "Dashboard");
+    localStorage.setItem("depositTracker", JSON.stringify(array));
     e.target.remove();
   };
 
