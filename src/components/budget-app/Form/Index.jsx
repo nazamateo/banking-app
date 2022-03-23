@@ -2,25 +2,48 @@ import React, { useEffect, useState } from "react";
 import { getBudgetAppUSer } from "../../../services/BudgetAppFunctions";
 import styles from "../Form/Form.module.scss";
 import ProgressBar from "../../General/Helpers/Progressbar";
-
+import {
+  AccntDataListGenerator,
+  BillerDataListGenerator,
+} from "../../General/Helpers/Datalist";
+import Popup from "../../General/Helpers/ConfirmExpense";
+import { getBankAccounts } from "../../../services/LocalStorage";
+import DateToday from "../../General/Helpers/DateToday";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 function BudgetForm() {
   const [formValues, setFormValues] = useState([
-    { description: "", number: "" },
+    { description: "", number: "", biller: "", account: "" },
   ]);
   const [amountSum, setAmountSum] = useState(0);
-  let currentAppUser = getBudgetAppUSer();
-  let budgetBalance = currentAppUser.balance;
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputAdminPassword, setInputAdminPassword] = useState("");
+  const [displayError, setDisplayError] = useState(
+    "Please confirm delete account request"
+  );
+  let [num, setNum] = useState(3);
+  let [currentAppUser, setCurrentAppUser] = useState(getBudgetAppUSer());
+  let [budgetBalance, setBudgetBalance] = useState(currentAppUser.balance);
 
-  function ColorChanger() {}
+  const confirmExpense = (index, e) => {
+    let bankAccounts = getBankAccounts();
+    let newFormValues = [...formValues];
+    let thisExpense = newFormValues[index].number;
+    const indexofuser = currentAppUser.accountNumber;
+    currentAppUser.balance -= thisExpense;
+
+    bankAccounts[indexofuser] = currentAppUser;
+
+    localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
+    setBudgetBalance(currentAppUser.balance);
+    removeFormFields(index);
+  };
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
-    ColorChanger();
   };
 
   let handleBlur = (i, e) => {
@@ -36,7 +59,10 @@ function BudgetForm() {
     setAmountSum(total);
   };
   let addFormFields = () => {
-    setFormValues([...formValues, { description: "", number: "" }]);
+    setFormValues([
+      ...formValues,
+      { description: "", number: "", biller: "", account: "" },
+    ]);
   };
 
   let removeFormFields = (i) => {
@@ -75,6 +101,21 @@ function BudgetForm() {
                 onChange={(e) => handleChange(index, e)}
               />
               <input
+                className={styles.field}
+                type="text"
+                list="accountlist"
+                name="account"
+                placeholder="BILLER"
+                value={element.account || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <datalist id="accountlist">
+                <option className={styles.optiongroup}>BILLERS</option>
+                <BillerDataListGenerator />
+                <option className={styles.optiongroup}>PEERS</option>
+                <AccntDataListGenerator />
+              </datalist>
+              <input
                 className={styles.fieldcost}
                 type="number"
                 name="number"
@@ -83,13 +124,20 @@ function BudgetForm() {
                 onChange={(e) => handleChange(index, e)}
                 onBlur={(e) => handleBlur(index, e)}
               />
+              <button
+                type="button"
+                className={styles.delete}
+                onClick={() => confirmExpense(index)}
+              >
+                Confirm
+              </button>
               {index ? (
                 <button
                   type="button"
                   className={styles.delete}
                   onClick={() => removeFormFields(index)}
                 >
-                  Delete
+                  Del
                 </button>
               ) : null}
             </div>
@@ -113,25 +161,35 @@ function BudgetForm() {
               Add
             </button>
             <button className={styles.submit} type="submit">
-              Submit
+              Withdraw
             </button>
           </div>
         </form>
       </div>{" "}
-      <h1 className={styles.hellow}>Hello {currentAppUser.name}!</h1>
-      <h1 className={styles.hellow}>Your projected account balance is:</h1>
-      <CircularProgressbar
-        value={Math.round((100 * (budgetBalance - amountSum)) / budgetBalance)}
-        text={Intl.NumberFormat("en-PH", {
-          currency: "PHP",
-          style: "currency",
-        }).format(budgetBalance - amountSum)}
-        styles={buildStyles({
-          // Text size
-          textSize: "15px",
-        })}
-      />
-      ;
+      <div className={styles.statcontainer}>
+        <h1 className={styles.hellow}>Hello {currentAppUser.name}!</h1>
+        <h1 className={styles.hellow}>
+          Your bank account balance is:
+          {Intl.NumberFormat("en-PH", {
+            currency: "PHP",
+            style: "currency",
+          }).format(currentAppUser.balance)}
+        </h1>
+        <h1 className={styles.hellow}>Your projected account balance is:</h1>
+        <CircularProgressbar
+          value={Math.round(
+            (100 * (budgetBalance - amountSum)) / budgetBalance
+          )}
+          text={Intl.NumberFormat("en-PH", {
+            currency: "PHP",
+            style: "currency",
+          }).format(budgetBalance - amountSum)}
+          styles={buildStyles({
+            // Text size
+            textSize: "15px",
+          })}
+        />
+      </div>
     </>
   );
 }

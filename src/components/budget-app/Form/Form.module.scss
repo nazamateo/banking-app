@@ -2,10 +2,10 @@
 
 .form {
   position: absolute;
-  height: 50vh;
-  width: 25vw;
+  height: 80vh;
+  width: 40vw;
   top: 10vh;
-  left: 5vw;
+  left: 15vw;
   display: block;
   font-size: 1rem;
   padding: 2rem;
@@ -48,7 +48,8 @@
   font-size: 18px;
 }
 
-.field {
+.field,
+.fieldcost {
   width: 15rem;
   padding: 12px 12px;
   margin: 8px 0;
@@ -57,14 +58,11 @@
   border-radius: 4px;
   cursor: text;
 }
+.field {
+  width: 15rem;
+}
 .fieldcost {
   width: 10rem;
-  padding: 12px 12px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: text;
 }
 .label {
   font-size: 1.5rem;
@@ -81,7 +79,7 @@
   color: white;
   display: inline;
   position: relative;
-  left: 10vw;
+  left: 20vw;
   font-size: 2rem;
 }
 .expensesheading {
@@ -93,4 +91,16 @@
 .hellow {
   background-color: black;
   color: white;
+}
+
+.optiongroup {
+  background-color: wheat;
+  color: green;
+}
+
+.statcontainer {
+  display: block;
+  position: absolute;
+  top: 20vh;
+  left: 60vw;
 }
