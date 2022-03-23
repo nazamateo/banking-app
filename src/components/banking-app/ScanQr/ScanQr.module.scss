@@ -1,0 +1,76 @@
+@use "../../../assets/sass/variables" as *;
+
+.QrContainer {
+  > div {
+    border: none !important;
+  }
+  > div > div:first-child > img {
+    display: none;
+  }
+
+  > div > div:nth-child(2) > img {
+    height: 96px;
+    width: 96px;
+    margin-bottom: 2rem;
+  }
+
+  > div > div:nth-child(3) > div button {
+    border: 0;
+    border-radius: 5px;
+    background-color: $secondary-color;
+    padding: 0.5em 1em;
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  > div a {
+    font-size: 2rem;
+    color: $secondary-color;
+    text-decoration: none !important;
+  }
+
+  > div a:hover {
+    color: blue;
+  }
+
+  input {
+    margin-bottom: 0.5rem;
+  }
+
+  input::file-selector-button {
+    border: 0;
+    border-radius: 5px;
+    background-color: $secondary-color;
+    padding: 0.5em 1em;
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+
+  input > button {
+    cursor: pointer;
+  }
+
+  input + span {
+    display: none;
+  }
+
+  // > div > div > img:nth-child(2) {
+  //   display: none;
+  // }
+  // img {
+  //   border: solid red 1px;
+  // }
+
+  // a {
+  //   font-size: 2rem;
+  //   color: $secondary-color;
+  // }
+}

@@ -5,10 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import TablePagination from "../../../components/Pagination/Pagination";
 import styles from "./DisplayUsersBalance.module.scss";
 
-const BANK_ACCOUNTS = getBankAccounts();
-
 const RowsBalance = ({ inputNameValue }) => {
-  const [filteredBankAccounts, setFilterBankAccounts] = useState(BANK_ACCOUNTS);
+  const [bankAccounts] = useState(getBankAccounts());
+  const [filteredBankAccounts, setFilterBankAccounts] = useState(bankAccounts);
 
   useEffect(() => {
     const filterFromInput = filterUserInfo => {
@@ -22,7 +21,7 @@ const RowsBalance = ({ inputNameValue }) => {
 
       return filteredAccounts;
     };
-    setFilterBankAccounts(filterFromInput(BANK_ACCOUNTS));
+    setFilterBankAccounts(filterFromInput(bankAccounts));
   }, [inputNameValue]);
 
   return (

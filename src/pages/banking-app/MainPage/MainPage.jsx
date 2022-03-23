@@ -4,11 +4,9 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./MainPage.scss";
 import { getAdminAccounts } from "../../../services/LocalStorage";
 
-//COMPONENTS
 import SideBar from "../../../components/layout/SideBar/SideBar";
 import NavBar from "../../../components/layout/NavBar/NavBar";
 
-//PAGES
 import FormPage from "../AddUserForm";
 import AllUsersPage from "../AllUsers";
 import TransferPage from "../Transfer";
@@ -55,15 +53,15 @@ function MainPage() {
   const [username, setUsername] = useState("");
   const location = useLocation();
 
-  const getLoggedInName = () => {
-    const loggedInAccount = getAdminAccounts().find(
-      adminAccount => adminAccount.isLoggedIn === true
-    );
-
-    setUsername(loggedInAccount.username);
-  };
-
   useEffect(() => {
+    const getLoggedInName = () => {
+      const loggedInAccount = getAdminAccounts().find(
+        adminAccount => adminAccount.isLoggedIn === true
+      );
+
+      setUsername(loggedInAccount.username);
+    };
+
     getLoggedInName();
   }, []);
 

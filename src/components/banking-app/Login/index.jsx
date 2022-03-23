@@ -5,7 +5,7 @@ import FormInput from "../../forms/FormInput";
 import styles from "./Login.module.scss";
 import Popup from "../../pop-up/ErrorPopup";
 import Logo from "../../General/Logo/Logo";
-import logo from "../../../assets/images/bank-logo.png";
+import logo from "../../../assets/images/bank-logo-white.png";
 
 function Login() {
   const [username, setUserName] = useState("");

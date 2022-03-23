@@ -281,6 +281,7 @@ function addUser(userDetails) {
 }
 
 function LoadDataButton({ className }) {
+  const array = [];
   const onClickBtn = e => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
@@ -288,6 +289,7 @@ function LoadDataButton({ className }) {
     localStorage.setItem("isAuthenticatedBank", "");
     localStorage.setItem("isAuthenticatedBudget", "");
     localStorage.setItem("selectedLink", "Dashboard");
+    localStorage.setItem("depositTracker", JSON.stringify(array));
     e.target.remove();
   };
 

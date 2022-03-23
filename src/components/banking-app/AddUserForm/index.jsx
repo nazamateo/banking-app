@@ -9,15 +9,16 @@ import {
 import Popup from "../../pop-up/ErrorPopup";
 import FormInput from "../../forms/FormInput";
 import styles from "./UsersForm.module.scss";
-const accountNumCount =
-  getBankAccounts()[getBankAccounts().length - 1].accountNumber;
+
 const UserForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
   const [address, setAddress] = useState("");
   const [creationDate, setCreationDate] = useState(DateToday);
-  const [accountNumber, setAccountNumber] = useState(accountNumCount + 1);
+  const [accountNumber, setAccountNumber] = useState(
+    getBankAccounts()[getBankAccounts().length - 1].accountNumber + 1
+  );
   const [balance, setBalance] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
@@ -38,7 +39,7 @@ const UserForm = () => {
     setBday("");
     setAddress("");
     setCreationDate(DateToday);
-    setAccountNumber(accountNumCount + 1);
+    setAccountNumber(accountNumber + 1);
     setBalance("");
   }
 
