@@ -353,7 +353,7 @@ let bankAccounts = [
     bday: "1995-01-10",
     address: "New Zealand",
     creationDate: "02/02/22",
-    accountNumber: 14,
+    accountNumber: 15,
     balance: 500000,
     transactionHistory: [],
     billersArray: [
@@ -384,7 +384,7 @@ function getAdminAccounts() {
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return (
       bankAccount.accountNumber === accountNumber &&
       bankAccount.name === accountName
@@ -395,7 +395,7 @@ function getBankAccount(accountName, accountNumber) {
 function getBankAccountName(accountName) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return bankAccount.name === accountName;
   });
 }
@@ -403,7 +403,7 @@ function getBankAccountName(accountName) {
 function getBankAccountNumber(accountNumber) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return bankAccount.accountNumber === accountNumber;
   });
 }
@@ -417,7 +417,7 @@ function updateBankAccountBalance(
 ) {
   const bankAccounts = getBankAccounts();
   const foundAccount = getBankAccount(accountName, accountNumber);
-  const index = bankAccounts.findIndex((obj) => {
+  const index = bankAccounts.findIndex(obj => {
     return obj.accountNumber === accountNumber;
   });
 
@@ -444,7 +444,7 @@ function transferBankAccountBalance(
   const bankAccounts = getBankAccounts();
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
-  const fromIndex = bankAccounts.findIndex((obj) => {
+  const fromIndex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
@@ -452,7 +452,7 @@ function transferBankAccountBalance(
   bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
-  const toIndex = bankAccounts.findIndex((obj) => {
+  const toIndex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === toaccountNumber;
   });
 
@@ -473,7 +473,6 @@ function addUser(userDetails) {
 }
 
 function LoadDataButton({ className }) {
-
   const array = [];
   const onClickBtn = e => {
     e.preventDefault();
