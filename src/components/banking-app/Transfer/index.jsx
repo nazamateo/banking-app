@@ -23,7 +23,7 @@ const TransferFunc = () => {
   const [amount, setAmount] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
   const [isOpen, setIsOpen] = useState(false);
-  const [errormessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [fromNameChecker, setFromNameChecker] = useState("");
   const [toNameChecker, setToNameChecker] = useState("");
   const navigate = useNavigate();
@@ -148,7 +148,7 @@ const TransferFunc = () => {
     <>
       {isOpen && (
         <Popup
-          content={errormessage.map(displayed => {
+          content={errorMessage.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}

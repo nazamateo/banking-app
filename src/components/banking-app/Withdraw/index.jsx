@@ -21,7 +21,7 @@ const WithdrawFunc = () => {
   const [withdraw, setWithdraw] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
   const [isOpen, setIsOpen] = useState(false);
-  const [errormessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [nameChecker, setnameChecker] = useState("");
   const navigate = useNavigate();
 
@@ -114,7 +114,7 @@ const WithdrawFunc = () => {
     <>
       {isOpen && (
         <Popup
-          content={errormessage.map(displayed => {
+          content={errorMessage.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}

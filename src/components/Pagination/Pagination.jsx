@@ -120,6 +120,7 @@ function PageNumbers({
             </button>
           );
         }
+        return false;
       })}
 
       <button onClick={pageFunctions.nextPage} disabled={isNextDisable}>

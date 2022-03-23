@@ -1,14 +1,17 @@
+@use "../../../assets/sass/variables" as *;
 .formContainer {
   background-color: white;
+  opacity: 0.92;
   display: flex;
   flex-direction: column;
   padding: 3rem;
   gap: 2rem;
-  border-radius: 5px;
+  border-radius: 10px;
 
   > h1 {
     text-align: center;
     font-size: 3rem;
+    letter-spacing: 1.15px;
   }
 }
 
@@ -23,18 +26,52 @@
 }
 
 .loginBtn {
+  border: 0;
   background: rgb(44, 52, 59);
   color: white;
   padding: 0.8rem 1rem;
   font-size: 2rem;
+  border-radius: 5px;
   cursor: pointer;
+  background-color: $secondary-color;
 
   &:hover {
-    background: rgba(44, 52, 59, 0.8);
+    opacity: 0.9;
   }
 }
 
 .input {
   font-size: 2rem;
   padding: 0.5rem;
+}
+
+.header {
+  color: white;
+  text-align: center;
+  margin-bottom: 5rem;
+  font-weight: 500;
+  > p {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+}
+
+.logoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.2rem;
+
+  > img {
+    border-radius: 5px;
+    height: 96px;
+    width: 96px;
+  }
+
+  > p {
+    font-size: 8rem;
+    font-weight: 700;
+  }
 }

@@ -4,8 +4,9 @@ import { getBankAccounts } from "../../../services/LocalStorage";
 import FormInput from "../../forms/FormInput";
 import styles from "./EditUser.module.scss";
 
+const BANK_ACCOUNTS = getBankAccounts();
+
 const EditForm = () => {
-  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
@@ -15,26 +16,25 @@ const EditForm = () => {
   const navigate = useNavigate();
   const accountNumber = +useParams().accountNumber;
 
-  const getAccountDetails = () => {
-    const selectedBankAccount = bankAccounts.find(
-      bankAccount => bankAccount.accountNumber === accountNumber
-    );
-
-    setName(selectedBankAccount.name);
-    setEmail(selectedBankAccount.email);
-    setBday(selectedBankAccount.bday);
-    setAddress(selectedBankAccount.address);
-    setCreationDate(selectedBankAccount.creationDate);
-    setBalance(selectedBankAccount.balance);
-  };
-
   useEffect(() => {
+    const getAccountDetails = () => {
+      const selectedBankAccount = BANK_ACCOUNTS.find(
+        bankAccount => bankAccount.accountNumber === accountNumber
+      );
+
+      setName(selectedBankAccount.name);
+      setEmail(selectedBankAccount.email);
+      setBday(selectedBankAccount.bday);
+      setAddress(selectedBankAccount.address);
+      setCreationDate(selectedBankAccount.creationDate);
+      setBalance(selectedBankAccount.balance);
+    };
     getAccountDetails();
   }, []);
 
   const handleSubmitData = e => {
     e.preventDefault();
-    const selectedUser = bankAccounts.find(
+    const selectedUser = BANK_ACCOUNTS.find(
       user => user.accountNumber === accountNumber
     );
 
@@ -43,11 +43,10 @@ const EditForm = () => {
     selectedUser.bday = bday;
     selectedUser.address = address;
 
-    const updatedUsers = bankAccounts.map(account =>
+    const updatedUsers = BANK_ACCOUNTS.map(account =>
       account.accountNumber === accountNumber ? { ...selectedUser } : account
     );
 
-    setBankAccounts(updatedUsers);
     localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
 
     navigate(`/banking/users`);

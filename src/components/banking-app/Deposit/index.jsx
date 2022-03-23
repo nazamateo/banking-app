@@ -12,6 +12,7 @@ import {
   AccntNumDataListGenerator,
 } from "../../General/Helpers/Datalist";
 import FormInput from "../../forms/FormInput";
+import ScanQr from "./ScanQr";
 import styles from "./Deposit.module.scss";
 
 const DepositFunc = () => {
@@ -21,7 +22,7 @@ const DepositFunc = () => {
   const [deposit, setDeposit] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
   const [isOpen, setIsOpen] = useState(false);
-  const [errormessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [nameChecker, setNameChecker] = useState("");
   const navigate = useNavigate();
 
@@ -107,12 +108,15 @@ const DepositFunc = () => {
     <>
       {isOpen && (
         <Popup
-          content={errormessage.map(displayed => {
+          content={errorMessage.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}
         />
       )}
+      <div className={styles.scanQrContainer}>
+        <ScanQr />
+      </div>
       <form className={styles.formd} onSubmit={logTransaction}>
         <div className={styles.divname}>
           <FormInput
