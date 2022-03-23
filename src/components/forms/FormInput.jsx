@@ -11,6 +11,7 @@ function FormInput({
   pattern,
   required,
   placeholder,
+  error,
 }) {
   return (
     <>
@@ -30,6 +31,7 @@ function FormInput({
         required={required}
         placeholder={placeholder}
       />
+      <p>{error}</p>
     </>
   );
 }

@@ -4,8 +4,9 @@ import { getBankAccounts } from "../../../services/LocalStorage";
 import FormInput from "../../forms/FormInput";
 import styles from "./EditUser.module.scss";
 
+const BANK_ACCOUNTS = getBankAccounts();
+
 const EditForm = () => {
-  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
@@ -15,27 +16,26 @@ const EditForm = () => {
   const navigate = useNavigate();
   const accountNumber = +useParams().accountNumber;
 
-  const getAccountDetails = () => {
-    const selectedBankAccount = bankAccounts.find(
-      (bankAccount) => bankAccount.accountNumber === accountNumber
-    );
-
-    setName(selectedBankAccount.name);
-    setEmail(selectedBankAccount.email);
-    setBday(selectedBankAccount.bday);
-    setAddress(selectedBankAccount.address);
-    setCreationDate(selectedBankAccount.creationDate);
-    setBalance(selectedBankAccount.balance);
-  };
-
   useEffect(() => {
+    const getAccountDetails = () => {
+      const selectedBankAccount = BANK_ACCOUNTS.find(
+        bankAccount => bankAccount.accountNumber === accountNumber
+      );
+
+      setName(selectedBankAccount.name);
+      setEmail(selectedBankAccount.email);
+      setBday(selectedBankAccount.bday);
+      setAddress(selectedBankAccount.address);
+      setCreationDate(selectedBankAccount.creationDate);
+      setBalance(selectedBankAccount.balance);
+    };
     getAccountDetails();
   }, []);
 
-  const handleSubmitData = (e) => {
+  const handleSubmitData = e => {
     e.preventDefault();
-    const selectedUser = bankAccounts.find(
-      (user) => user.accountNumber === accountNumber
+    const selectedUser = BANK_ACCOUNTS.find(
+      user => user.accountNumber === accountNumber
     );
 
     selectedUser.name = name;
@@ -43,11 +43,10 @@ const EditForm = () => {
     selectedUser.bday = bday;
     selectedUser.address = address;
 
-    const updatedUsers = bankAccounts.map((account) =>
+    const updatedUsers = BANK_ACCOUNTS.map(account =>
       account.accountNumber === accountNumber ? { ...selectedUser } : account
     );
 
-    setBankAccounts(updatedUsers);
     localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
 
     navigate(`/banking/users`);
@@ -55,8 +54,8 @@ const EditForm = () => {
 
   return (
     <div>
-      <form className="form" onSubmit={handleSubmitData}>
-        <div className="divname">
+      <form className={styles.form} onSubmit={handleSubmitData}>
+        <div className={styles.divname}>
           <FormInput
             name="name"
             type="text"
@@ -66,14 +65,14 @@ const EditForm = () => {
             }}
             label="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
           />
         </div>
 
-        <div className="divemail">
+        <div className={styles.divemail}>
           <FormInput
             name="email"
             type="email"
@@ -83,13 +82,13 @@ const EditForm = () => {
             }}
             label="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             autoComplete="off"
             required={true}
           />
         </div>
 
-        <div className="divage">
+        <div className={styles.divage}>
           <FormInput
             name="birthday"
             type="date"
@@ -99,12 +98,12 @@ const EditForm = () => {
             }}
             label="Birthday"
             value={bday}
-            onChange={(e) => setBday(e.target.value)}
+            onChange={e => setBday(e.target.value)}
             required={true}
           />
         </div>
 
-        <div className="divaddr">
+        <div className={styles.divaddr}>
           <FormInput
             name="address"
             type="text"
@@ -114,13 +113,13 @@ const EditForm = () => {
             }}
             label="Address"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={e => setAddress(e.target.value)}
             autoComplete="off"
             required={true}
           />
         </div>
 
-        <div className="divdate">
+        <div className={styles.divdate}>
           <FormInput
             name="creationDate"
             type="text"
@@ -134,7 +133,7 @@ const EditForm = () => {
           />
         </div>
 
-        <div className="acct">
+        <div className={styles.acct}>
           <FormInput
             name="accountNumber"
             type="text"
@@ -148,7 +147,7 @@ const EditForm = () => {
           />
         </div>
 
-        <div className="divbal">
+        <div className={styles.divbal}>
           <FormInput
             name="balance"
             type="number"
@@ -162,7 +161,7 @@ const EditForm = () => {
           />
         </div>
 
-        <button type="submit" className="submit">
+        <button type="submit" className={styles.submit}>
           Submit
         </button>
       </form>

@@ -21,7 +21,7 @@ const WithdrawFunc = () => {
   const [withdraw, setWithdraw] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
   const [isOpen, setIsOpen] = useState(false);
-  const [errormessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [nameChecker, setnameChecker] = useState("");
   const navigate = useNavigate();
 
@@ -46,28 +46,28 @@ const WithdrawFunc = () => {
     ) {
       if (!nameChecker) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Account Name does not exist",
         ]);
       }
       if (nameChecker.accountNumber !== accountNumber) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Account Number does not match",
         ]);
       }
       if (nameChecker.balance < withdraw) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Insufficient Balance",
         ]);
       }
       if (withdraw < 0) {
         togglePopup();
-        setErrorMessage((displayerror) => [
+        setErrorMessage(displayerror => [
           ...displayerror,
           "Invalid Withdraw Amount",
         ]);
@@ -84,7 +84,7 @@ const WithdrawFunc = () => {
     setTransactionId(uuidv4());
   }
 
-  const logTransaction = (e) => {
+  const logTransaction = e => {
     e.preventDefault();
 
     if (!errorHandler()) {
@@ -96,7 +96,7 @@ const WithdrawFunc = () => {
         action: "withdraw",
         oldBalance: nameChecker.balance,
         newBalance: nameChecker.balance - withdraw,
-        mode: "over the counter",
+        mode: "OTC",
       };
 
       updateBankAccountBalance(
@@ -114,7 +114,7 @@ const WithdrawFunc = () => {
     <>
       {isOpen && (
         <Popup
-          content={errormessage.map((displayed) => {
+          content={errorMessage.map(displayed => {
             return <p>{displayed}</p>;
           })}
           handleClose={clearErrors}
@@ -131,7 +131,7 @@ const WithdrawFunc = () => {
             }}
             label="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
@@ -152,7 +152,7 @@ const WithdrawFunc = () => {
             }}
             label="Account Number"
             value={accountNumber}
-            onChange={(e) => setAccountNumber(+e.target.value)}
+            onChange={e => setAccountNumber(+e.target.value)}
             autoComplete="off"
             required={true}
           />
@@ -184,10 +184,10 @@ const WithdrawFunc = () => {
               label: styles.label,
               input: styles.field,
             }}
-            label="Withdraw Amount"
+            label="Withdraw Amount (₱)"
             value={withdraw}
             autoComplete="off"
-            onChange={(e) => setWithdraw(+e.target.value)}
+            onChange={e => setWithdraw(+e.target.value)}
             required={true}
             pattern="[0-9.]+"
           />

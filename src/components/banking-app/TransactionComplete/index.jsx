@@ -1,45 +1,93 @@
 import capitalizeFirstLetter from "../../../components/General/Helpers/CapitalizeFirstLetter";
 import { useParams } from "react-router-dom";
 import getInfo from "./transactionFunction";
+import styles from "./TransactionComplete.module.scss";
 
 function DepositWithdrawSuccessfulPage({ info }) {
   return (
-    <>
-      <h1>{capitalizeFirstLetter(info.action)} SUCCESSFUL!</h1>
-      <div>
-        <p>Name: {info.accountName}</p>
-        <p>Account Number: {info.accountNumber}</p>
-        <p>Transaction ID: {info.transactionId}</p>
-        <p>Transaction Date: {info.transactionDate}</p>
-        <p>Old Balance: ₱{info.oldBalance}</p>
-        <p>New Balance: ₱{info.newBalance}</p>
+    <div className={styles.mainContainer}>
+      <div className={styles.container}>
+        <i className="las la-check-circle" />
+        <h1>{capitalizeFirstLetter(info.action)} SUCCESSFUL!</h1>
       </div>
-    </>
+      <div className={styles.detailsContainer}>
+        <h1>Transaction Details</h1>
+        <p>
+          <span>Name:</span>
+          <span>{info.accountName}</span>
+        </p>
+        <p>
+          <span>Account Number:</span> <span>{info.accountNumber}</span>
+        </p>
+        <p>
+          <span>Transaction ID:</span> <span>{info.transactionId}</span>
+        </p>
+        <p>
+          <span>Transaction Date:</span> <span>{info.transactionDate}</span>
+        </p>
+        <p>
+          <span>Old Balance:</span> <span>₱{info.oldBalance}</span>
+        </p>
+        <p>
+          <span>New Balance:</span> <span>₱{info.newBalance}</span>
+        </p>
+      </div>
+    </div>
   );
 }
 
 function TransferSuccessfulPage({ info }) {
   return (
-    <>
-      <h1>{capitalizeFirstLetter(info.action)} Successful!</h1>
-      <p>Transaction ID: {info.sender.transactionId}</p>
-      <p>Transaction Date: {info.sender.transactionDate}</p>
-      <div>
-        <div>
-          <p>From: {info.receiver.sender}</p>
-          <p>From Account Number: {info.receiver.senderAccountNumber}</p>
-          <p>Old Balance: ₱{info.sender.oldBalance}</p>
-          <p>New Balance: ₱{info.sender.newBalance}</p>
+    <div className={styles.mainContainer}>
+      <div className={styles.container}>
+        <i className="las la-check-circle" />
+        <h1>{capitalizeFirstLetter(info.action)} Successful!</h1>
+      </div>
+      <div className={styles.transactionDetail}>
+        <p>
+          <span>Transaction ID: </span>
+          <span>{info.sender.transactionId}</span>
+        </p>
+        <p>
+          <span>Transaction Date: </span>
+          <span>{info.sender.transactionDate}</span>
+        </p>
+      </div>
+      <div className={styles.transferContainer}>
+        <div className={styles.transferDetail}>
+          <p>
+            <span>From: </span> <span>{info.receiver.sender}</span>
+          </p>
+          <p>
+            <span>From Acct. #: </span>
+            <span>{info.receiver.senderAccountNumber}</span>
+          </p>
+          <p>
+            <span>Old Balance:</span> <span>₱{info.sender.oldBalance}</span>
+          </p>
+          <p>
+            <span>New Balance:</span> <span>₱{info.sender.newBalance}</span>
+          </p>
         </div>
-        {/* lagay arrow dito */}
-        <div>
-          <p>To: {info.sender.receiver}</p>
-          <p>To Account Number: {info.sender.receiverAccountNumber}</p>
-          <p>Old Balance: ₱{info.receiver.oldBalance}</p>
-          <p>New Balance: ₱{info.receiver.newBalance}</p>
+        <i className="las la-arrow-right" />
+        <div className={styles.transferDetail}>
+          <p>
+            <span>To: </span>
+            <span>{info.sender.receiver}</span>
+          </p>
+          <p>
+            <span>To Acct. #: </span>
+            <span>{info.sender.receiverAccountNumber}</span>
+          </p>
+          <p>
+            <span>Old Balance:</span> <span>₱{info.receiver.oldBalance}</span>
+          </p>
+          <p>
+            <span>New Balance:</span> <span>₱{info.receiver.newBalance}</span>
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

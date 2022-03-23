@@ -59,7 +59,7 @@ const UserForm = () => {
 
       addUser(userObject);
       stateResetter();
-      navigate(`/banking/users/newaccount/success/${accountNumber}`);
+      navigate(`success/${accountNumber}`);
     } else {
       togglePopup();
       setErrorMessage("User already exists");
