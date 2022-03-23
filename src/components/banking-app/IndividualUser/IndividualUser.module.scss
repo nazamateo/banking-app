@@ -63,19 +63,8 @@
 .detailsContainer {
   margin: 0 auto;
   border: solid $secondary-color 2px;
-
   border-radius: 5px;
   padding: 0.6rem 1rem;
-
-  & + div {
-    overflow-y: auto;
-    height: 500px;
-  }
-
-  h1 {
-    text-align: center;
-    font-size: 2.4rem;
-  }
 
   p {
     display: flex;
@@ -85,11 +74,113 @@
 
   p > span:first-of-type {
     color: gray;
+    margin-right: 3rem;
   }
 
   p > span:last-of-type {
     font-weight: 500;
-    width: 80%;
+
     text-align: right;
+  }
+
+  > button {
+    position: absolute;
+    right: 1rem;
+    top: 2rem;
+    border-radius: 2.4rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: 0;
+    background-color: $secondary-color;
+    color: white;
+  }
+
+  > button i {
+    margin-right: 0.8rem;
+  }
+
+  > button:hover {
+    opacity: 0.9;
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 2.4rem;
+
+  &.margin {
+    margin: 1.5rem 0;
+  }
+
+  & + div {
+    overflow-y: auto;
+    height: 500px;
+  }
+}
+
+.popupContainer {
+  display: flex;
+  flex-direction: column;
+
+  > .popupHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    margin-right: 3rem;
+  }
+
+  .inputPassword {
+    padding: 0.5rem 0.8rem;
+    font-size: 1.4rem;
+    margin-right: 2rem;
+    width: 100%;
+  }
+
+  .inputContainer {
+    margin-bottom: 1.6rem;
+  }
+
+  .inputContainer span {
+    color: red;
+    font-weight: 500;
+  }
+}
+
+.confirmBtn {
+  border: 0;
+  background-color: $secondary-color;
+  color: white;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  font-size: 1.4rem;
+  width: 150px;
+  margin-left: auto;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.closeIcon {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-left: auto;
+
+  &:hover {
+    opacity: 0.9;
+    border: 1px solid #999;
+    background: #ededed;
   }
 }

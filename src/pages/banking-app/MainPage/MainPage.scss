@@ -29,6 +29,7 @@
   background: white;
   border-radius: 7.2px;
   padding: 2rem;
+  position: relative;
 }
 
 .align-center {
@@ -91,7 +92,9 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: rgb(244, 245, 250);
+  background: url("../../../assets/images/login-background.png") no-repeat
+    center;
+  background-size: cover;
 }
 
 .not-found {

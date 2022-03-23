@@ -60,3 +60,25 @@
 .label {
   font-size: 1.5rem;
 }
+
+.scanBtn {
+  border-radius: 2.4rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: 0;
+  background-color: $secondary-color;
+  color: white;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.scanQrContainer {
+  margin-left: auto;
+  padding: 0 2rem;
+
+  i {
+    margin-right: 0.5rem;
+  }
+}

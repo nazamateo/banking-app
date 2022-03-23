@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import FormInput from "../../forms/FormInput";
 import styles from "./Login.module.scss";
 import Popup from "../../pop-up/ErrorPopup";
+import Logo from "../../General/Logo/Logo";
+import logo from "../../../assets/images/bank-logo.png";
 
 function Login() {
   const [username, setUserName] = useState("");
@@ -28,21 +30,6 @@ function Login() {
     setError([]);
   }
 
-  function errorHandler() {
-    if (password === "" || username === "") {
-      if (password === "") {
-        togglePopup();
-        setError(displayerror => [...displayerror, "Empty password field"]);
-      }
-      if (username === "") {
-        togglePopup();
-        setError(displayerror => [...displayerror, "Empty username field"]);
-      }
-      return true;
-    }
-    return false;
-  }
-
   const loginAuthentication = username => {
     const adminAccounts = JSON.parse(localStorage.getItem("adminAccounts"));
 
@@ -59,12 +46,27 @@ function Login() {
     localStorage.setItem("adminAccounts", JSON.stringify(updatedAccounts));
   };
 
+  function errorHandler() {
+    if (password === "" || username === "") {
+      if (password === "") {
+        togglePopup();
+        setError(displayerror => [...displayerror, "Empty password field"]);
+      }
+      if (username === "") {
+        togglePopup();
+        setError(displayerror => [...displayerror, "Empty username field"]);
+      }
+      return true;
+    }
+    return false;
+  }
+
   const handleSubmit = e => {
     e.preventDefault();
-    const adminAccounts = getAdminAccounts();
+
     if (!errorHandler()) {
       if (
-        adminAccounts.find(
+        getAdminAccounts().find(
           account =>
             account.username === username && account.password === password
         )
@@ -85,6 +87,10 @@ function Login() {
 
   return (
     <>
+      <div className={styles.header}>
+        <Logo link={logo} name="DigiBank" className={styles.logoContainer} />
+        <p>Admin Dashboard</p>
+      </div>
       <form onSubmit={handleSubmit} className={styles.formContainer}>
         <h1>LOGIN</h1>
         <div className={styles.inputContainer}>

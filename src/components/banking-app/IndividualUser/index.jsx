@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   getBankAccountNumber,
@@ -7,7 +7,7 @@ import {
 } from "../../../services/LocalStorage";
 import capitalizeFirstLetter from "../../General/Helpers/CapitalizeFirstLetter";
 import styles from "./IndividualUser.module.scss";
-import Popup from "../../General/Helpers/ConfirmDelete";
+import Popup from "../../pop-up/ConfirmDelete";
 import TablePagination from "../../Pagination/Pagination";
 
 const BANK_ACCOUNTS = getBankAccounts();
@@ -16,9 +16,7 @@ function IndividualUser() {
   const bankAccount = getBankAccountNumber(+useParams().accountNumber);
   const [isOpen, setIsOpen] = useState(false);
   const [inputAdminPassword, setInputAdminPassword] = useState("");
-  const [displayError, setDisplayError] = useState(
-    "Please confirm delete account request"
-  );
+  const [displayError, setDisplayError] = useState();
   const [num, setNum] = useState(3);
   const navigate = useNavigate();
 
@@ -51,9 +49,7 @@ function IndividualUser() {
         localStorage.setItem("isAuthenticated", "");
         navigate("/banking/login");
       }
-      setDisplayError(
-        `Incorrect password. Please try again. Retries left:${num}`
-      );
+      setDisplayError(`Incorrect password. Retries left:${num}`);
       return;
     }
 
@@ -65,71 +61,86 @@ function IndividualUser() {
       {isOpen && (
         <Popup
           content={
-            <>
-              <p>{displayError}</p>
-              <input
-                type="password"
-                placeholder="Enter admin password"
-                onChange={e => setInputAdminPassword(e.target.value)}
-                value={inputAdminPassword}
-              />
-              <button className={styles.buttonu} onClick={confirmDelete}>
+            <div className={styles.popupContainer}>
+              <span className={styles.closeIcon} onClick={togglePopup}>
+                X
+              </span>
+              <p className={styles.popupHeader}>
+                <h1>Please confirm delete account request.</h1>
+              </p>
+              <div className={styles.inputContainer}>
+                <input
+                  className={styles.inputPassword}
+                  type="password"
+                  placeholder="Enter admin password"
+                  onChange={e => setInputAdminPassword(e.target.value)}
+                  value={inputAdminPassword}
+                />
+                <span>{displayError}</span>
+              </div>
+              <button className={styles.confirmBtn} onClick={confirmDelete}>
                 Confirm Delete
               </button>
-            </>
+            </div>
           }
-          handleClose={togglePopup}
         />
       )}
-
-      <div className={styles.detailsContainer}>
-        <h1>Account Details</h1>
-        <p>
-          <span>Name: </span> <span>{bankAccount.name}</span>
-        </p>
-        <p>
-          <span>E-mail: </span> <span>{bankAccount.email}</span>
-        </p>
-        <p>
-          <span>Birthday: </span> <span>{bankAccount.bday}</span>
-        </p>
-        <p>
-          <span>Address: </span> <span>{bankAccount.address}</span>
-        </p>
-        <p>
-          <span>Creation Date: </span> <span>{bankAccount.creationDate}</span>
-        </p>
-        <p>
-          <span>Account Number: </span>
-          <span>{bankAccount.accountNumber}</span>
-        </p>
-        <p>
-          <span>Balance: </span> <span>₱{bankAccount.balance}</span>
-        </p>
+      <div className="page-main-content">
+        <div className={styles.detailsContainer}>
+          <button onClick={togglePopup}>
+            <i className="las la-user-slash" />
+            Remove Account
+          </button>
+          <h1 className={styles.title}>Account Details</h1>
+          <p>
+            <span>Name: </span> <span>{bankAccount.name}</span>
+          </p>
+          <p>
+            <span>E-mail: </span> <span>{bankAccount.email}</span>
+          </p>
+          <p>
+            <span>Birthday: </span> <span>{bankAccount.bday}</span>
+          </p>
+          <p>
+            <span>Address: </span> <span>{bankAccount.address}</span>
+          </p>
+          <p>
+            <span>Creation Date: </span> <span>{bankAccount.creationDate}</span>
+          </p>
+          <p>
+            <span>Account Number: </span>
+            <span>{bankAccount.accountNumber}</span>
+          </p>
+          <p>
+            <span>Balance: </span> <span>₱{bankAccount.balance}</span>
+          </p>
+        </div>
+        <h1 className={`${styles.title} ${styles.margin}`}>
+          Transaction History
+        </h1>
+        <TablePagination
+          classNames={{
+            table: styles.statement,
+            pageNumbers: {
+              container: styles.pageNumbers,
+              activeElement: styles.active,
+            },
+          }}
+          headers={[
+            "Date",
+            "Mode",
+            "Type",
+            "Amount",
+            "Transaction ID",
+            "Old Balance",
+            "New Balance",
+          ]}
+          data={bankAccount.transactionHistory}
+          Component={TransactionTable}
+          pageLimit={5}
+          dataLimit={10}
+        />
       </div>
-
-      <TablePagination
-        classNames={{
-          table: styles.statement,
-          pageNumbers: {
-            container: styles.pageNumbers,
-            activeElement: styles.active,
-          },
-        }}
-        headers={[
-          "Date",
-          "Mode",
-          "Type",
-          "Amount",
-          "Transaction ID",
-          "Old Balance",
-          "New Balance",
-        ]}
-        data={bankAccount.transactionHistory}
-        Component={TransactionTable}
-        pageLimit={5}
-        dataLimit={10}
-      />
     </>
   );
 }
