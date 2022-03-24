@@ -1,12 +1,10 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import FormInput from "../../forms/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import TablePagination from "../../../components/Pagination";
 import styles from "./DisplayUsersBalance.module.scss";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
 
-const RowsBalance = ({ inputNameValue }) => {
-  const { bankAccounts } = useContext(BankAccountsContext);
+const RowsBalance = ({ inputNameValue, bankAccounts }) => {
   const [filteredBankAccounts, setFilterBankAccounts] = useState(bankAccounts);
 
   useEffect(() => {
@@ -70,7 +68,7 @@ function TableRow({ userInfo }) {
   );
 }
 
-const TableBalance = () => {
+const TableBalance = ({ bankAccounts }) => {
   const [inputNameValue, setInputNameValue] = useState("");
 
   return (
@@ -86,7 +84,10 @@ const TableBalance = () => {
         />
       </div>
 
-      <RowsBalance inputNameValue={inputNameValue} />
+      <RowsBalance
+        inputNameValue={inputNameValue}
+        bankAccounts={bankAccounts}
+      />
     </>
   );
 };

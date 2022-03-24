@@ -1,7 +1,7 @@
 import { LoadDataButton } from "../../services/LocalStorage";
 import { Link } from "react-router-dom";
 import styles from "./ChoosePage.module.scss";
-import Logo from "../General/Logo/Logo";
+import Logo from "../Logo";
 import logo from "../../assets/images/bank-logo-white.png";
 
 function ChooseLogin() {

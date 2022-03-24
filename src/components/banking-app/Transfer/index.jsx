@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import DateToday from "../../General/Helpers/DateToday";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import DateToday from "../../../utils/DateToday";
 import styles from "./Transfer.module.scss";
 import { v4 as uuidv4 } from "uuid";
 import Popup from "../../pop-up/ErrorPopup";
@@ -8,11 +9,12 @@ import {
   AccntNumDataListGenerator,
 } from "../../General/Helpers/Datalist";
 import FormInput from "../../forms/FormInput";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import {
+  getBankAccountName,
+  transferBankAccountBalance,
+} from "../../../utils/bankAccounts";
 
-const TransferFunc = () => {
-  const { transferBankAccountBalance, getBankAccountName, bankAccounts } =
-    useContext(BankAccountsContext);
+const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [fromName, setfromName] = useState("");
   const [fromAccountNumber, setfromAccountNumber] = useState("");
@@ -24,13 +26,14 @@ const TransferFunc = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [fromNameChecker, setFromNameChecker] = useState("");
   const [toNameChecker, setToNameChecker] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setFromNameChecker(getBankAccountName(fromName));
+    setFromNameChecker(getBankAccountName(bankAccounts, fromName));
   }, [fromName]);
 
   useEffect(() => {
-    setToNameChecker(getBankAccountName(toName));
+    setToNameChecker(getBankAccountName(bankAccounts, toName));
   }, [toName]);
 
   function togglePopup() {
@@ -128,7 +131,8 @@ const TransferFunc = () => {
         newBalance: toNameChecker.balance + amount,
         mode: "OTC",
       };
-      transferBankAccountBalance(
+      const updatedAccounts = transferBankAccountBalance(
+        bankAccounts,
         toName,
         toAccountNumber,
         fromName,
@@ -137,6 +141,10 @@ const TransferFunc = () => {
         senderTransactionObject,
         receiverTransactionObject
       );
+
+      setBankAccounts(updatedAccounts);
+
+      navigate(`/banking/complete/${transactionId}`);
       stateResetter();
     }
   };

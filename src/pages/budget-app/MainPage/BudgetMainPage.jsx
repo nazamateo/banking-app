@@ -4,14 +4,14 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 //import "./MainPage.scss";
 
 //COMPONENTS
-import NavBar from "../../../components/layout/NavBar/NavBar";
+import NavBar from "../../../components/NavBar/NavBar";
 
 import DashboardBudget from "../Dashboard/BudgetDashboard";
 import TransferBudget from "../Transfer/Transfer";
 import DepositBudget from "../Deposit/Deposit";
 import AddBillers from "../AddBillers/AddBillers";
 import { getBudgetAppUSer } from "../../../services/BudgetAppFunctions";
-import SideBarBudget from "../../../components/layout/SideBar/SideBarBudget";
+import SideBarBudget from "../../../components/SideBar/SideBarBudget";
 //import BudgetTable from "../BudgetTable/BudgetTable";
 //import NotFoundPage from "../../banking-app/NotFound";
 
@@ -50,11 +50,11 @@ function BudgetMainPage() {
     getLoggedInName();
   }, []);
 
-  const getSideBarWidth = (obtainedSideBarWidth) => {
+  const getSideBarWidth = obtainedSideBarWidth => {
     setSideBarWidth(obtainedSideBarWidth);
   };
 
-  const getSelectedLink = (selectedLink) => {
+  const getSelectedLink = selectedLink => {
     setSelectedLink(selectedLink);
   };
 

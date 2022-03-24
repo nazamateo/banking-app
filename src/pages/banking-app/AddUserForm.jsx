@@ -1,12 +1,15 @@
 import React from "react";
 import UserForm from "../../components/banking-app/AddUserForm";
 
-function FormPage() {
+function FormPage({ bankAccounts, setBankAccounts }) {
   return (
     <div className="page">
       <h1 className="title">ADD BANK ACCOUNT FORM</h1>
       <div className="page-main-content">
-        <UserForm />
+        <UserForm
+          bankAccounts={bankAccounts}
+          setBankAccounts={setBankAccounts}
+        />
       </div>
     </div>
   );

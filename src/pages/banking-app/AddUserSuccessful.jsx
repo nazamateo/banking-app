@@ -1,10 +1,10 @@
 import AddUserSuccess from "../../components/banking-app/AddUserSuccess/index";
 
-function SuccessAddUserPage() {
+function SuccessAddUserPage({ bankAccounts }) {
   return (
     <div className="page">
       <div className="page-main-content">
-        <AddUserSuccess />
+        <AddUserSuccess bankAccounts={bankAccounts} />
       </div>
     </div>
   );
