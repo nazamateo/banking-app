@@ -474,7 +474,7 @@ function addUser(userDetails) {
 
 function LoadDataButton({ className }) {
   const array = [];
-  const onClickBtn = e => {
+  const onClickBtn = (e) => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));

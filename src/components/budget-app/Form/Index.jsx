@@ -14,25 +14,76 @@ import "react-circular-progressbar/dist/styles.css";
 
 function BudgetForm() {
   const [formValues, setFormValues] = useState([
-    { description: "", number: "", biller: "", account: "" },
+    { description: "", number: "", account: "" },
   ]);
   const [amountSum, setAmountSum] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [inputAdminPassword, setInputAdminPassword] = useState("");
   const [displayError, setDisplayError] = useState(
-    "Please confirm delete account request"
+    "Please transaction request"
   );
   let [num, setNum] = useState(3);
   let [currentAppUser, setCurrentAppUser] = useState(getBudgetAppUSer());
   let [budgetBalance, setBudgetBalance] = useState(currentAppUser.balance);
 
-  const confirmExpense = (index, e) => {
+  const confirmExpense = (index) => {
     let bankAccounts = getBankAccounts();
-    let newFormValues = [...formValues];
-    let thisExpense = newFormValues[index].number;
-    const indexofuser = currentAppUser.accountNumber;
+    let newFormValues = formValues;
+    let thisExpense = parseInt(newFormValues[index].number);
+
+    const indexofuser = currentAppUser.accountNumber - 1;
+
     currentAppUser.balance -= thisExpense;
 
+    let reciever = bankAccounts.find((bankAccount) => {
+      return bankAccount.name === newFormValues[index].account;
+    });
+
+    let transactionaction;
+    let currentAppUserTransactionObject;
+    let recieverTransactionObject;
+    if (!reciever) {
+      transactionaction = "expense";
+      currentAppUserTransactionObject = {
+        transactionDate: DateToday(),
+        action: transactionaction,
+        transactionId: newFormValues[index].description,
+        receiver: newFormValues[index].account.split(/-(.*)/)[0],
+        receiverAccountNumber: newFormValues[index].account.split(/-(.*)/)[1],
+        oldBalance: currentAppUser.balance + thisExpense,
+        newBalance: currentAppUser.balance,
+        mode: "ONLINE",
+      };
+    } else {
+      const indexofreciever = reciever.accountNumber - 1;
+      transactionaction = "transfer";
+      recieverTransactionObject = {
+        transactionDate: DateToday(),
+        action: transactionaction,
+        transactionId: newFormValues[index].description,
+        sender: currentAppUser.name,
+        senderAccountNumber: currentAppUser.accountNumber,
+        oldBalance: reciever.balance,
+        newBalance: reciever.balance + thisExpense,
+        mode: "ONLINE",
+      };
+
+      reciever.balance = reciever.balance + thisExpense;
+      reciever.transactionHistory.unshift(recieverTransactionObject);
+      bankAccounts[indexofreciever] = reciever;
+      currentAppUserTransactionObject = {
+        transactionDate: DateToday(),
+        action: transactionaction,
+        transactionId: newFormValues[index].description,
+        receiver: newFormValues[index].account,
+        receiverAccountNumber: reciever.accountNumber,
+        oldBalance: currentAppUser.balance + thisExpense,
+        newBalance: currentAppUser.balance,
+        mode: "ONLINE",
+      };
+    }
+
+    currentAppUser.transactionHistory.unshift(currentAppUserTransactionObject);
     bankAccounts[indexofuser] = currentAppUser;
 
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
@@ -61,7 +112,7 @@ function BudgetForm() {
   let addFormFields = () => {
     setFormValues([
       ...formValues,
-      { description: "", number: "", biller: "", account: "" },
+      { description: "", number: "", account: "" },
     ]);
   };
 
@@ -110,9 +161,9 @@ function BudgetForm() {
                 onChange={(e) => handleChange(index, e)}
               />
               <datalist id="accountlist">
-                <option className={styles.optiongroup}>BILLERS</option>
+                <option className={styles.optiongroup}>--BILLERS--</option>
                 <BillerDataListGenerator />
-                <option className={styles.optiongroup}>PEERS</option>
+                <option className={styles.optiongroup}>--PEERS--</option>
                 <AccntDataListGenerator />
               </datalist>
               <input
@@ -194,9 +245,3 @@ function BudgetForm() {
   );
 }
 export default BudgetForm;
-/* <ProgressBar
-        completed={Math.round(
-          (100 * (budgetBalance - amountSum)) / budgetBalance
-        )}
-        budgetbalance={`₱${budgetBalance - amountSum}`}
-      />*/
