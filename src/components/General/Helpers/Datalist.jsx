@@ -23,7 +23,7 @@ const BillerDataListGenerator = () => {
   return getBillersArray().map((billers) => (
     <option
       key={`${billers.bankname}${billers.billeraccountnum}`}
-      value={`${billers.bankname}${billers.billeraccountnum}`}
+      value={`${billers.bankname}-${billers.billeraccountnum}`}
     ></option>
   ));
 };

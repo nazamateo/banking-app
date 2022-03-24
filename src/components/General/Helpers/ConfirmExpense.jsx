@@ -1,5 +1,5 @@
 import React from "react";
-import "./ConfirmDelete.scss";
+import "../../pop-up/ConfirmDelete.module.scss";
 
 const Popup = ({ handleClose, content }) => {
   return (

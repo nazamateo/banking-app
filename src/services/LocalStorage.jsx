@@ -353,7 +353,7 @@ let bankAccounts = [
     bday: "1995-01-10",
     address: "New Zealand",
     creationDate: "02/02/22",
-    accountNumber: 14,
+    accountNumber: 15,
     balance: 500000,
     transactionHistory: [],
     billersArray: [
@@ -473,9 +473,8 @@ function addUser(userDetails) {
 }
 
 function LoadDataButton({ className }) {
-
   const array = [];
-  const onClickBtn = e => {
+  const onClickBtn = (e) => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
