@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
 import DateToday from "../../General/Helpers/DateToday";
-import {
-  getBankAccountName,
-  getBankAccounts,
-  addUser,
-} from "../../../services/LocalStorage";
 import Popup from "../../pop-up/ErrorPopup";
 import FormInput from "../../forms/FormInput";
 import styles from "./UsersForm.module.scss";
+import { BankAccountsContext } from "../../../context/BankAccountContext";
 
 const UserForm = () => {
+  const { getBankAccountName, bankAccounts, addUser } =
+    useContext(BankAccountsContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
   const [address, setAddress] = useState("");
   const [creationDate, setCreationDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState(
-    getBankAccounts()[getBankAccounts().length - 1].accountNumber + 1
+    bankAccounts[bankAccounts.length - 1].accountNumber + 1
   );
   const [balance, setBalance] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
   const [nameChecker, setNameChecker] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     setNameChecker(getBankAccountName(name));
@@ -48,19 +44,18 @@ const UserForm = () => {
 
     if (!nameChecker) {
       const userObject = {
-        name: name,
-        email: email,
-        bday: bday,
-        address: address,
-        creationDate: creationDate,
-        accountNumber: accountNumber,
-        balance: balance,
+        name,
+        email,
+        bday,
+        address,
+        creationDate,
+        accountNumber,
+        balance,
         transactionHistory: [],
       };
 
       addUser(userObject);
       stateResetter();
-      navigate(`success/${accountNumber}`);
     } else {
       togglePopup();
       setErrorMessage("User already exists");

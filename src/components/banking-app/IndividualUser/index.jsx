@@ -1,18 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  getBankAccountNumber,
-  getBankAccounts,
-  getAdminAccounts,
-} from "../../../services/LocalStorage";
+import { getAdminAccounts } from "../../../services/LocalStorage";
 import capitalizeFirstLetter from "../../General/Helpers/CapitalizeFirstLetter";
 import styles from "./IndividualUser.module.scss";
 import Popup from "../../pop-up/ConfirmDelete";
-import TablePagination from "../../Pagination/Pagination";
-
-const BANK_ACCOUNTS = getBankAccounts();
+import TablePagination from "../../Pagination";
+import { BankAccountsContext } from "../../../context/BankAccountContext";
 
 function IndividualUser() {
+  const { getBankAccountNumber, bankAccounts } =
+    useContext(BankAccountsContext);
   const bankAccount = getBankAccountNumber(+useParams().accountNumber);
   const [isOpen, setIsOpen] = useState(false);
   const [inputAdminPassword, setInputAdminPassword] = useState("");
@@ -21,7 +18,7 @@ function IndividualUser() {
   const navigate = useNavigate();
 
   const deactivateAccount = accountNumber => {
-    const newAccountList = BANK_ACCOUNTS.filter(
+    const newAccountList = bankAccounts.filter(
       account => account.accountNumber !== accountNumber
     );
 
@@ -86,11 +83,11 @@ function IndividualUser() {
         />
       )}
       <div className="page-main-content">
+        <button onClick={togglePopup} className={styles.removeAccountBtn}>
+          <i className="las la-user-slash" />
+          Remove Account
+        </button>
         <div className={styles.detailsContainer}>
-          <button onClick={togglePopup}>
-            <i className="las la-user-slash" />
-            Remove Account
-          </button>
           <h1 className={styles.title}>Account Details</h1>
           <p>
             <span>Name: </span> <span>{bankAccount.name}</span>

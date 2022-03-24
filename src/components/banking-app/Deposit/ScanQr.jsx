@@ -5,7 +5,7 @@ function ScanQr() {
   const navigate = useNavigate();
   const handleClick = e => {
     e.preventDefault();
-    navigate("qr");
+    navigate("qr#scan-using-file");
   };
 
   return (

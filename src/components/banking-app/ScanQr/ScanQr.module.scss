@@ -39,8 +39,11 @@
     color: blue;
   }
 
-  input {
+  input[type="file"] {
     margin-bottom: 0.5rem;
+    width: 250px !important;
+    margin-left: 50px;
+    font-size: 1.5rem;
   }
 
   input::file-selector-button {
@@ -61,16 +64,4 @@
   input + span {
     display: none;
   }
-
-  // > div > div > img:nth-child(2) {
-  //   display: none;
-  // }
-  // img {
-  //   border: solid red 1px;
-  // }
-
-  // a {
-  //   font-size: 2rem;
-  //   color: $secondary-color;
-  // }
 }

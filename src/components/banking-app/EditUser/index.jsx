@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getBankAccounts } from "../../../services/LocalStorage";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import FormInput from "../../forms/FormInput";
 import styles from "./EditUser.module.scss";
-
-const BANK_ACCOUNTS = getBankAccounts();
+import { BankAccountsContext } from "../../../context/BankAccountContext";
 
 const EditForm = () => {
+  const { updateUser, getBankAccountNumber } = useContext(BankAccountsContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
   const [address, setAddress] = useState("");
   const [creationDate, setCreationDate] = useState("");
   const [balance, setBalance] = useState("");
-  const navigate = useNavigate();
   const accountNumber = +useParams().accountNumber;
 
   useEffect(() => {
     const getAccountDetails = () => {
-      const selectedBankAccount = BANK_ACCOUNTS.find(
-        bankAccount => bankAccount.accountNumber === accountNumber
-      );
+      const selectedBankAccount = getBankAccountNumber(accountNumber);
 
       setName(selectedBankAccount.name);
       setEmail(selectedBankAccount.email);
@@ -34,22 +30,10 @@ const EditForm = () => {
 
   const handleSubmitData = e => {
     e.preventDefault();
-    const selectedUser = BANK_ACCOUNTS.find(
-      user => user.accountNumber === accountNumber
-    );
 
-    selectedUser.name = name;
-    selectedUser.email = email;
-    selectedUser.bday = bday;
-    selectedUser.address = address;
+    const updatedUserDetails = { name, email, bday, address };
 
-    const updatedUsers = BANK_ACCOUNTS.map(account =>
-      account.accountNumber === accountNumber ? { ...selectedUser } : account
-    );
-
-    localStorage.setItem("bankAccounts", JSON.stringify(updatedUsers));
-
-    navigate(`/banking/users`);
+    updateUser(accountNumber, updatedUserDetails);
   };
 
   return (

@@ -6,6 +6,7 @@ import LoginPage from "./pages/banking-app/Login";
 import BudgetMainPage from "./pages/budget-app/MainPage/BudgetMainPage";
 import BudgetLoginPage from "./pages/budget-app/Login/BudgetLogin";
 import ChooseAppPage from "./pages/ChooseLoginPage";
+import AdminAuth from "./context/AdminAccountContext";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           </PrivateRouteBudget>
         }
       />
+
       <Route
         path="/banking/*"
         element={

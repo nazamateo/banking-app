@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
 import DateToday from "../../General/Helpers/DateToday";
-import {
-  getBankAccountName,
-  updateBankAccountBalance,
-} from "../../../services/LocalStorage";
 import { v4 as uuidv4 } from "uuid";
 import Popup from "../../pop-up/ErrorPopup";
 import {
@@ -14,8 +9,11 @@ import {
 import FormInput from "../../forms/FormInput";
 import ScanQr from "./ScanQr";
 import styles from "./Deposit.module.scss";
+import { BankAccountsContext } from "../../../context/BankAccountContext";
 
 const DepositFunc = () => {
+  const { updateBankAccountBalance, getBankAccountName, bankAccounts } =
+    useContext(BankAccountsContext);
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
@@ -24,7 +22,6 @@ const DepositFunc = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [nameChecker, setNameChecker] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     setNameChecker(getBankAccountName(name));
@@ -100,7 +97,6 @@ const DepositFunc = () => {
         transactionDetail
       );
       stateResetter();
-      navigate(`/banking/complete/${transactionId}`);
     }
   };
 
@@ -134,7 +130,7 @@ const DepositFunc = () => {
             required={true}
           />
           <datalist id="namelist">
-            <NameDataListGenerator />
+            <NameDataListGenerator accounts={bankAccounts} />
           </datalist>
         </div>
 
@@ -154,7 +150,7 @@ const DepositFunc = () => {
             required={true}
           />
           <datalist id="listacct">
-            <AccntNumDataListGenerator />
+            <AccntNumDataListGenerator accounts={bankAccounts} />
           </datalist>
         </div>
 

@@ -19,6 +19,7 @@ import NotFoundPage from "../NotFound";
 import SuccessAddUserPage from "../AddUserSuccessful";
 import IndividualUserPage from "../IndividualUser";
 import EditFormPage from "../EditForm";
+import BankAccountsProvider from "../../../context/BankAccountContext";
 
 const ROUTES = [
   {
@@ -51,6 +52,7 @@ function MainPage() {
     localStorage.getItem("selectedLink")
   );
   const [username, setUsername] = useState("");
+
   const location = useLocation();
 
   useEffect(() => {
@@ -84,11 +86,13 @@ function MainPage() {
         <SideBar getWidth={getSideBarWidth} getLink={getSelectedLink} />
         <TransitionGroup component={null}>
           <CSSTransition key={location.key} classNames="next" timeout={500}>
-            <Routes location={location}>
-              {ROUTES.map((route, i) => (
-                <Route key={i} path={route.path} element={route.element} />
-              ))}
-            </Routes>
+            <BankAccountsProvider>
+              <Routes location={location}>
+                {ROUTES.map((route, i) => (
+                  <Route key={i} path={route.path} element={route.element} />
+                ))}
+              </Routes>
+            </BankAccountsProvider>
           </CSSTransition>
         </TransitionGroup>
       </div>

@@ -1,23 +1,22 @@
-import { useNavigate } from "react-router-dom";
-import { updateBankAccountBalance } from "../../../services/LocalStorage";
+import { useContext } from "react";
 import QrCodeScanner from "./QrCodeScanner";
 import DateToday from "../../General/Helpers/DateToday";
 import styles from "./ScanQr.module.scss";
+import { BankAccountsContext } from "../../../context/BankAccountContext";
 
 const DATE_TODAY = DateToday();
 
 function ScanQrImg() {
-  const navigate = useNavigate();
-
+  const { updateBankAccountBalance, getBankAccountNumber } =
+    useContext(BankAccountsContext);
   const depositAmount = scannedTransactionId => {
     const trackers = JSON.parse(localStorage.getItem("depositTracker"));
     const selectedTracker = trackers.find(
       tracker => tracker.id === scannedTransactionId
     );
 
-    const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
-    const selectedBankAccount = bankAccounts.find(
-      bankAccount => bankAccount.accountNumber === selectedTracker.accountNumber
+    const selectedBankAccount = getBankAccountNumber(
+      selectedTracker.accountNumber
     );
 
     const updatedTrackers = trackers.filter(
@@ -48,7 +47,6 @@ function ScanQrImg() {
 
   const onScanResult = scannedId => {
     depositAmount(scannedId);
-    navigate(`/banking/complete/${scannedId}`);
   };
 
   return (

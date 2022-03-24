@@ -22,6 +22,21 @@
   }
 }
 
+.removeAccountBtn {
+  align-self: flex-end;
+  border-radius: 2.4rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: 0;
+  background-color: $secondary-color;
+  color: white;
+  margin-bottom: 1rem;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
 .pageNumbers {
   display: flex;
   justify-content: center;
@@ -81,18 +96,6 @@
     font-weight: 500;
 
     text-align: right;
-  }
-
-  > button {
-    position: absolute;
-    right: 1rem;
-    top: 2rem;
-    border-radius: 2.4rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border: 0;
-    background-color: $secondary-color;
-    color: white;
   }
 
   > button i {
