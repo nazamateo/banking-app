@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import DateToday from "../../General/Helpers/DateToday";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import DateToday from "../../../utils/DateToday";
 import { v4 as uuidv4 } from "uuid";
 import Popup from "../../pop-up/ErrorPopup";
 import {
@@ -8,11 +9,12 @@ import {
 } from "../../General/Helpers/Datalist";
 import styles from "./Withdraw.module.scss";
 import FormInput from "../../forms/FormInput";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import {
+  getBankAccountName,
+  updateBankAccountBalance,
+} from "../../../utils/bankAccounts";
 
-const WithdrawFunc = () => {
-  const { updateBankAccountBalance, getBankAccountName, bankAccounts } =
-    useContext(BankAccountsContext);
+const WithdrawFunc = ({ bankAccounts, setBankAccounts }) => {
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
@@ -21,9 +23,10 @@ const WithdrawFunc = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [nameChecker, setNameChecker] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setNameChecker(getBankAccountName(name));
+    setNameChecker(getBankAccountName(bankAccounts, name));
   }, [name]);
 
   function togglePopup() {
@@ -95,14 +98,18 @@ const WithdrawFunc = () => {
         newBalance: nameChecker.balance - withdraw,
         mode: "OTC",
       };
-
-      updateBankAccountBalance(
+      const updatedAccount = updateBankAccountBalance(
+        bankAccounts,
         name,
         accountNumber,
         withdraw,
         "withdraw",
         transactionObject
       );
+
+      setBankAccounts(updatedAccount);
+
+      navigate(`/banking/complete/${transactionId}`);
       stateResetter();
     }
   };

@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import DateToday from "../../General/Helpers/DateToday";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import DateToday from "../../../utils/DateToday";
 import { v4 as uuidv4 } from "uuid";
 import Popup from "../../pop-up/ErrorPopup";
 import {
@@ -9,11 +10,13 @@ import {
 import FormInput from "../../forms/FormInput";
 import ScanQr from "./ScanQr";
 import styles from "./Deposit.module.scss";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import {
+  updateBankAccountBalance,
+  getBankAccountName,
+} from "../../../utils/bankAccounts";
+import { updateBankAccounts } from "../../../services/LocalStorage";
 
-const DepositFunc = () => {
-  const { updateBankAccountBalance, getBankAccountName, bankAccounts } =
-    useContext(BankAccountsContext);
+const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
@@ -22,9 +25,10 @@ const DepositFunc = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [nameChecker, setNameChecker] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setNameChecker(getBankAccountName(name));
+    setNameChecker(getBankAccountName(bankAccounts, name));
   }, [name]);
 
   function togglePopup() {
@@ -81,21 +85,28 @@ const DepositFunc = () => {
     if (!errorHandler()) {
       const transactionDetail = {
         accountName: name,
-        accountNumber: accountNumber,
-        transactionDate: transactionDate,
-        transactionId: transactionId,
+        accountNumber,
+        transactionDate,
+        transactionId,
         action: "deposit",
         oldBalance: nameChecker.balance,
         newBalance: nameChecker.balance + deposit,
         mode: "OTC",
       };
-      updateBankAccountBalance(
+
+      const updatedAccount = updateBankAccountBalance(
+        bankAccounts,
         name,
         accountNumber,
         deposit,
         "deposit",
         transactionDetail
       );
+
+      setBankAccounts(updatedAccount);
+
+      navigate(`/banking/complete/${transactionId}`);
+
       stateResetter();
     }
   };

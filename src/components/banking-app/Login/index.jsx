@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import FormInput from "../../forms/FormInput";
 import styles from "./Login.module.scss";
 import Popup from "../../pop-up/ErrorPopup";
-import Logo from "../../General/Logo/Logo";
+import Logo from "../../Logo";
 import logo from "../../../assets/images/bank-logo-white.png";
 
 function Login() {

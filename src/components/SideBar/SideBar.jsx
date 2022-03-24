@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./SideBar.module.scss";
-import Logo from "../../General/Logo/Logo";
-import logo from "../../../assets/images/bank-logo.png";
+import Logo from "../Logo";
+import logo from "../../assets/images/bank-logo.png";
 
-function SideBarBudget({ getWidth, getLink }) {
+function SideBar({ getWidth, getLink }) {
   const widthRef = useRef();
 
   const getWidthSize = (e = "") => {
@@ -12,7 +12,7 @@ function SideBarBudget({ getWidth, getLink }) {
     getWidth(widthRef.current.offsetWidth);
   };
 
-  const getLinkSelected = (e) => {
+  const getLinkSelected = e => {
     getLink(e.target.textContent);
     localStorage.setItem("selectedLink", e.target.textContent);
   };
@@ -33,7 +33,7 @@ function SideBarBudget({ getWidth, getLink }) {
         <li>
           <i className="las la-university" />
           <NavLink
-            to="/budget/dashboard"
+            to="/banking/dashboard"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
@@ -45,37 +45,49 @@ function SideBarBudget({ getWidth, getLink }) {
         <li>
           <i className="las la-users" />
           <NavLink
-            to="/budget/deposit"
+            to="/banking/users"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
             onClick={getLinkSelected}
           >
-            Income
+            Accounts
           </NavLink>
         </li>
         <li>
           <i className="las la-share"></i>
           <NavLink
-            to="/budget/transfer"
+            to="/banking/deposit"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
             onClick={getLinkSelected}
           >
-            Expense
+            Deposit
           </NavLink>
         </li>
         <li>
           <i className="las la-receipt" />
           <NavLink
-            to="/budget/addbillers"
+            to="/banking/withdraw"
             className={({ isActive }) =>
               isActive ? styles.active : styles.inactive
             }
             onClick={getLinkSelected}
           >
-            AddBillers
+            Withdraw
+          </NavLink>
+        </li>
+        <li>
+          <i className="las la-exchange-alt" />
+          <NavLink
+            to="/banking/transfer"
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.inactive
+            }
+            onClick={getLinkSelected}
+          >
+            Transfer
           </NavLink>
         </li>
       </ul>
@@ -83,4 +95,4 @@ function SideBarBudget({ getWidth, getLink }) {
   );
 }
 
-export default SideBarBudget;
+export default SideBar;

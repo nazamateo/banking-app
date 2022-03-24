@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
-import DateToday from "../../General/Helpers/DateToday";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import DateToday from "../../../utils/DateToday";
 import Popup from "../../pop-up/ErrorPopup";
 import FormInput from "../../forms/FormInput";
 import styles from "./UsersForm.module.scss";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import { getBankAccountName, addUser } from "../../../utils/bankAccounts";
 
-const UserForm = () => {
-  const { getBankAccountName, bankAccounts, addUser } =
-    useContext(BankAccountsContext);
+const UserForm = ({ bankAccounts, setBankAccounts }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
@@ -20,9 +19,10 @@ const UserForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errormessage, setErrorMessage] = useState("");
   const [nameChecker, setNameChecker] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setNameChecker(getBankAccountName(name));
+    setNameChecker(getBankAccountName(bankAccounts, name));
   }, [name]);
 
   function togglePopup() {
@@ -54,7 +54,9 @@ const UserForm = () => {
         transactionHistory: [],
       };
 
-      addUser(userObject);
+      const updatedAccounts = addUser(bankAccounts, userObject);
+      setBankAccounts(updatedAccounts);
+      navigate(`success/${accountNumber}`);
       stateResetter();
     } else {
       togglePopup();

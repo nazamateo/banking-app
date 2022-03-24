@@ -55,8 +55,9 @@
 .transactionDetail {
   margin-bottom: 3rem;
   font-size: 2rem;
-  border: solid $secondary-color 2px;
+  border: solid $secondary-color 1px;
   border-radius: 5px;
+  padding: 0.5rem 1rem;
 
   p > span:first-of-type {
     color: gray;
@@ -79,11 +80,11 @@
   }
 }
 
-.Detail {
-  border: double $secondary-color 1px;
+.transferDetail {
+  border: double $secondary-color 2px;
   border-radius: 5px;
   font-size: 1.7rem;
-  padding: 0.8rem 1.2rem;
+  padding: 0.5rem 1rem;
 
   p {
     display: flex;

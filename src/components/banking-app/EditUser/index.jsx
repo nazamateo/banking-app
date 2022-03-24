@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import FormInput from "../../forms/FormInput";
 import styles from "./EditUser.module.scss";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import { updateUser, getBankAccountNumber } from "../../../utils/bankAccounts";
 
-const EditForm = () => {
-  const { updateUser, getBankAccountNumber } = useContext(BankAccountsContext);
+const EditForm = ({ bankAccounts, setBankAccounts }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
@@ -13,10 +12,14 @@ const EditForm = () => {
   const [creationDate, setCreationDate] = useState("");
   const [balance, setBalance] = useState("");
   const accountNumber = +useParams().accountNumber;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAccountDetails = () => {
-      const selectedBankAccount = getBankAccountNumber(accountNumber);
+      const selectedBankAccount = getBankAccountNumber(
+        bankAccounts,
+        accountNumber
+      );
 
       setName(selectedBankAccount.name);
       setEmail(selectedBankAccount.email);
@@ -33,7 +36,11 @@ const EditForm = () => {
 
     const updatedUserDetails = { name, email, bday, address };
 
-    updateUser(accountNumber, updatedUserDetails);
+    setBankAccounts(
+      updateUser(bankAccounts, accountNumber, updatedUserDetails)
+    );
+
+    navigate(-1);
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../General/Logo/Logo";
-import logo from "../../../assets/images/placeholder.jpg";
+import Logo from "../Logo";
+import logo from "../../assets/images/placeholder.jpg";
 import styles from "./NavBar.module.scss";
 
 function NavBar({ navBarWidth, linkSelected, adminUsername }) {

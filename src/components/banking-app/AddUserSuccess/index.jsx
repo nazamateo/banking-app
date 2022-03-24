@@ -1,12 +1,10 @@
-import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./AddUserSuccess.module.scss";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import { getBankAccountNumber } from "../../../utils/bankAccounts";
 
-function AddUserSuccess() {
-  const { getBankAccountNumber } = useContext(BankAccountsContext);
+function AddUserSuccess({ bankAccounts }) {
   const accountNumber = +useParams().accountNumber;
-  const account = getBankAccountNumber(accountNumber);
+  const account = getBankAccountNumber(bankAccounts, accountNumber);
 
   return (
     <div className={styles.mainContainer}>
