@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
 import DateToday from "../../General/Helpers/DateToday";
-import {
-  getBankAccountName,
-  transferBankAccountBalance,
-} from "../../../services/LocalStorage";
 import styles from "./Transfer.module.scss";
 import { v4 as uuidv4 } from "uuid";
 import Popup from "../../pop-up/ErrorPopup";
@@ -13,8 +8,11 @@ import {
   AccntNumDataListGenerator,
 } from "../../General/Helpers/Datalist";
 import FormInput from "../../forms/FormInput";
+import { BankAccountsContext } from "../../../context/BankAccountContext";
 
 const TransferFunc = () => {
+  const { transferBankAccountBalance, getBankAccountName, bankAccounts } =
+    useContext(BankAccountsContext);
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [fromName, setfromName] = useState("");
   const [fromAccountNumber, setfromAccountNumber] = useState("");
@@ -26,7 +24,6 @@ const TransferFunc = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [fromNameChecker, setFromNameChecker] = useState("");
   const [toNameChecker, setToNameChecker] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     setFromNameChecker(getBankAccountName(fromName));
@@ -112,9 +109,9 @@ const TransferFunc = () => {
 
     if (!errorHandler()) {
       const senderTransactionObject = {
-        transactionDate: transactionDate,
+        transactionDate,
         action: "transfer",
-        transactionId: transactionId,
+        transactionId,
         receiver: toName,
         receiverAccountNumber: toAccountNumber,
         oldBalance: fromNameChecker.balance,
@@ -122,9 +119,9 @@ const TransferFunc = () => {
         mode: "OTC",
       };
       const receiverTransactionObject = {
-        transactionDate: transactionDate,
+        transactionDate,
         action: "transfer",
-        transactionId: transactionId,
+        transactionId,
         sender: fromName,
         senderAccountNumber: fromAccountNumber,
         oldBalance: toNameChecker.balance,
@@ -141,7 +138,6 @@ const TransferFunc = () => {
         receiverTransactionObject
       );
       stateResetter();
-      navigate(`/banking/complete/${transactionId}`);
     }
   };
   return (
@@ -171,7 +167,7 @@ const TransferFunc = () => {
             required={true}
           />
           <datalist id="namelist">
-            <NameDataListGenerator />
+            <NameDataListGenerator accounts={bankAccounts} />
           </datalist>
         </div>
 
@@ -191,7 +187,7 @@ const TransferFunc = () => {
             required={true}
           />
           <datalist id="listacct">
-            <AccntNumDataListGenerator />
+            <AccntNumDataListGenerator accounts={bankAccounts} />
           </datalist>
         </div>
 
@@ -211,7 +207,7 @@ const TransferFunc = () => {
             required={true}
           />
           <datalist id="namelist">
-            <NameDataListGenerator />
+            <NameDataListGenerator accounts={bankAccounts} />
           </datalist>
         </div>
 
@@ -231,7 +227,7 @@ const TransferFunc = () => {
             required={true}
           />
           <datalist id="listacct">
-            <AccntNumDataListGenerator />
+            <AccntNumDataListGenerator accounts={bankAccounts} />
           </datalist>
         </div>
 

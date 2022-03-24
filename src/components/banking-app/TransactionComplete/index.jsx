@@ -1,5 +1,7 @@
 import capitalizeFirstLetter from "../../../components/General/Helpers/CapitalizeFirstLetter";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { BankAccountsContext } from "../../../context/BankAccountContext";
 import getInfo from "./transactionFunction";
 import styles from "./TransactionComplete.module.scss";
 
@@ -93,12 +95,20 @@ function TransferSuccessfulPage({ info }) {
 
 function SuccessTransaction() {
   const transactionId = useParams().transactionId;
-  const action = getInfo(transactionId).action;
+  const { bankAccounts } = useContext(BankAccountsContext);
+
+  const action = getInfo(bankAccounts, transactionId).action;
 
   if (action === "deposit" || action === "withdraw") {
-    return <DepositWithdrawSuccessfulPage info={getInfo(transactionId)} />;
+    return (
+      <DepositWithdrawSuccessfulPage
+        info={getInfo(bankAccounts, transactionId)}
+      />
+    );
   } else {
-    return <TransferSuccessfulPage info={getInfo(transactionId)} />;
+    return (
+      <TransferSuccessfulPage info={getInfo(bankAccounts, transactionId)} />
+    );
   }
 }
 

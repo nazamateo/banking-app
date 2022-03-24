@@ -17,10 +17,10 @@ function Login() {
   useEffect(() => {
     const isAuth = localStorage.getItem("isAuthenticatedBank");
 
-    if (isAuth) {
-      navigate("/banking/dashboard");
+    if (isAuth === true) {
+      navigate("/banking/dashboard", { replace: true });
     }
-  });
+  }, []);
 
   function togglePopup() {
     setIsOpen(!isOpen);

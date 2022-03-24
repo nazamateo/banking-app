@@ -9,9 +9,9 @@ function NavBar({ navBarWidth, linkSelected, adminUsername }) {
 
   const [isShown, setIsShown] = useState(false);
 
-  const signOut = (e) => {
+  const signOut = e => {
     e.preventDefault();
-    localStorage.setItem("isAuthenticatedBank", "");
+    localStorage.setItem("isAuthenticatedBank", false);
     navigate("/");
   };
 

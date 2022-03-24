@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { getBankAccountNumber } from "../../../services/LocalStorage";
 import styles from "./AddUserSuccess.module.scss";
+import { BankAccountsContext } from "../../../context/BankAccountContext";
 
 function AddUserSuccess() {
+  const { getBankAccountNumber } = useContext(BankAccountsContext);
   const accountNumber = +useParams().accountNumber;
   const account = getBankAccountNumber(accountNumber);
 

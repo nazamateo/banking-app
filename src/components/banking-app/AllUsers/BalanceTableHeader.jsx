@@ -3,7 +3,7 @@ import styles from "./BalanceTableHeader.module.scss";
 
 function BalanceTableHeader() {
   const navigate = useNavigate();
-  const directToAddAccountPage = (e) => {
+  const directToAddAccountPage = e => {
     e.preventDefault();
     navigate("/banking/users/newaccount");
   };

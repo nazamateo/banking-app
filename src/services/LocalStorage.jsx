@@ -381,6 +381,18 @@ function getAdminAccounts() {
   return JSON.parse(localStorage.getItem("adminAccounts"));
 }
 
+function updateBankAccounts(bankAccounts) {
+  localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
+}
+
+function updateAdminAccounts(adminAccounts) {
+  localStorage.setItem("adminAccounts", JSON.stringify(adminAccounts));
+}
+
+function updateAdminAuthentication(state) {
+  localStorage.setItem("isAuthenticatedBank", state);
+}
+
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
@@ -464,22 +476,14 @@ function transferBankAccountBalance(
   localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
 }
 
-function addUser(userDetails) {
-  const bankAccounts = getBankAccounts();
-
-  bankAccounts.push(userDetails);
-
-  localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
-}
-
 function LoadDataButton({ className }) {
   const array = [];
   const onClickBtn = e => {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
-    localStorage.setItem("isAuthenticatedBank", "");
-    localStorage.setItem("isAuthenticatedBudget", "");
+    localStorage.setItem("isAuthenticatedBank", false);
+    localStorage.setItem("isAuthenticatedBudget", false);
     localStorage.setItem("selectedLink", "Dashboard");
     localStorage.setItem("depositTracker", JSON.stringify(array));
     e.target.remove();
@@ -495,11 +499,13 @@ function LoadDataButton({ className }) {
 export {
   getBankAccounts,
   getAdminAccounts,
+  updateBankAccounts,
+  updateAdminAccounts,
+  updateAdminAuthentication,
   LoadDataButton,
   getBankAccount,
   updateBankAccountBalance,
   transferBankAccountBalance,
   getBankAccountName,
   getBankAccountNumber,
-  addUser,
 };

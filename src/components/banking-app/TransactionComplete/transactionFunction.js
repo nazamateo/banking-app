@@ -1,8 +1,4 @@
-import { getBankAccounts } from "../../../services/LocalStorage";
-
-function getInfo(transactionId) {
-  const bankAccounts = getBankAccounts();
-
+function getInfo(bankAccounts, transactionId) {
   const transactionHistory = bankAccounts
     .map(account => account.transactionHistory)
     .flat();
