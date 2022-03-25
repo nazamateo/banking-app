@@ -11,7 +11,7 @@ import TransferBudget from "../Transfer/Transfer";
 import DepositBudget from "../Deposit/Deposit";
 import AddBillers from "../AddBillers/AddBillers";
 import { getBudgetAppUSer } from "../../../services/BudgetAppFunctions";
-import SideBarBudget from "../../../components/layout/SideBar/SideBarBudget";
+import TopBarBudget from "../../../components/layout/SideBar/TopBarBudget";
 //import BudgetTable from "../BudgetTable/BudgetTable";
 //import NotFoundPage from "../../banking-app/NotFound";
 
@@ -50,10 +50,6 @@ function BudgetMainPage() {
     getLoggedInName();
   }, []);
 
-  const getSideBarWidth = (obtainedSideBarWidth) => {
-    setSideBarWidth(obtainedSideBarWidth);
-  };
-
   const getSelectedLink = (selectedLink) => {
     setSelectedLink(selectedLink);
   };
@@ -65,8 +61,8 @@ function BudgetMainPage() {
         linkSelected={selectedLink}
         adminUsername={username}
       />
+      <TopBarBudget getLink={getSelectedLink} />
       <div className="main-layout">
-        <SideBarBudget getWidth={getSideBarWidth} getLink={getSelectedLink} />
         <TransitionGroup component={null}>
           <CSSTransition key={location.key} classNames="next" timeout={500}>
             <Routes location={location}>

@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getBudgetAppUSer } from "../../../services/BudgetAppFunctions";
 import styles from "../Form/Form.module.scss";
 import ProgressBar from "../../General/Helpers/Progressbar";
-import {
-  AccntDataListGenerator,
-  BillerDataListGenerator,
-} from "../../General/Helpers/Datalist";
+import { BillerDataListGenerator } from "../../General/Helpers/Datalist";
 import Popup from "../../General/Helpers/ConfirmExpense";
 import { getBankAccounts } from "../../../services/LocalStorage";
 import DateToday from "../../General/Helpers/DateToday";
@@ -150,6 +147,7 @@ function BudgetForm() {
                 placeholder="DESCRIPTION"
                 value={element.description || ""}
                 onChange={(e) => handleChange(index, e)}
+                autoComplete="off"
               />
               <input
                 className={styles.field}
@@ -159,12 +157,10 @@ function BudgetForm() {
                 placeholder="BILLER"
                 value={element.account || ""}
                 onChange={(e) => handleChange(index, e)}
+                autoComplete="off"
               />
               <datalist id="accountlist">
-                <option className={styles.optiongroup}>--BILLERS--</option>
                 <BillerDataListGenerator />
-                <option className={styles.optiongroup}>--PEERS--</option>
-                <AccntDataListGenerator />
               </datalist>
               <input
                 className={styles.fieldcost}

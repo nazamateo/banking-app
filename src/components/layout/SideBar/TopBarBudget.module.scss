@@ -1,0 +1,60 @@
+@use "../../../assets/sass/variables" as *;
+
+.navtop {
+  display: grid;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 64px;
+  background-color: #0e1935;
+  font-size: 2rem;
+  height: 5%;
+  width: 100%;
+  gap: 2.4rem;
+  padding: 1rem 1.5rem;
+
+  color: white;
+
+  i {
+    color: $secondary-color;
+    margin-right: 3px;
+  }
+
+  a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.topbarlinks {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  list-style-type: none;
+  gap: 1rem;
+  font-size: 2.6rem;
+  justify-items: center;
+}
+
+.active {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.inactive {
+  color: white;
+}
+
+.logoContainer {
+  font-size: 2.5rem;
+  gap: 1rem;
+
+  > img {
+    height: 36px;
+    width: 36px;
+    border-radius: 50px;
+  }
+
+  > p {
+    font-size: 2.6rem;
+  }
+}

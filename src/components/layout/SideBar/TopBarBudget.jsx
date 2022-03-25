@@ -1,35 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./SideBar.module.scss";
+import styles from "../SideBar/TopBarBudget.module.scss";
 import Logo from "../../General/Logo/Logo";
 import logo from "../../../assets/images/bank-logo.png";
 
-function SideBarBudget({ getWidth, getLink }) {
-  const widthRef = useRef();
-
-  const getWidthSize = (e = "") => {
-    e.preventDefault();
-    getWidth(widthRef.current.offsetWidth);
-  };
-
+function TopBarBudget({ getLink }) {
   const getLinkSelected = (e) => {
     getLink(e.target.textContent);
     localStorage.setItem("selectedLink", e.target.textContent);
   };
 
-  useEffect(() => {
-    getWidth(widthRef.current.offsetWidth);
-    window.addEventListener("resize", getWidthSize);
-
-    return () => {
-      window.removeEventListener("resize", getWidthSize);
-    };
-  }, []);
-
   return (
-    <nav className={styles.navSidebar} ref={widthRef}>
-      <Logo link={logo} name="DigiBank" className={styles.logoContainer} />
-      <ul className={styles.sideBarLinks}>
+    <nav className={styles.navtop}>
+      <ul className={styles.topbarlinks}>
         <li>
           <i className="las la-university" />
           <NavLink
@@ -83,4 +66,4 @@ function SideBarBudget({ getWidth, getLink }) {
   );
 }
 
-export default SideBarBudget;
+export default TopBarBudget;
