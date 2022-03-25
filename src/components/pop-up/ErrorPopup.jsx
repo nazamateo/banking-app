@@ -1,10 +1,10 @@
 import styles from "./ErrorPopup.module.scss";
 
-const Popup = ({ handleClose, content }) => {
+const Popup = ({ handleClose, children }) => {
   return (
     <div className={styles.popupBox}>
       <div className={styles.box}>
-        <>{content}</>
+        <>{children}</>
         <span className={styles.closeIcon} onClick={handleClose}>
           X
         </span>

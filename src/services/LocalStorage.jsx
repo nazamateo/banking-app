@@ -1,4 +1,6 @@
 import React from "react";
+import bdo from "../../src/assets/images/Company logos/bdo.png";
+import netflix from "../../src/assets/images/Company logos/netflix.png";
 
 const ADMIN_ACCOUNTS = [
   { username: "abc123", password: "abc123", isLoggedIn: false },
@@ -18,14 +20,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -42,14 +48,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -66,14 +76,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -91,14 +105,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -115,14 +133,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -140,14 +162,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -165,14 +191,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -189,14 +219,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -214,14 +248,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -238,14 +276,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -262,14 +304,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -286,14 +332,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -310,14 +360,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -334,14 +388,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -358,14 +416,18 @@ let bankAccounts = [
     transactionHistory: [],
     billersArray: [
       {
-        bankname: "BDO",
+        link: bdo,
+        name: "BDO",
         billeraccountname: "Mateo",
         billeraccountnum: "201100074",
+        billernickname: "BDOB1",
       },
       {
-        bankname: "NETFLIX",
+        link: netflix,
+        name: "NETFLIX",
         billeraccountname: "Mateo",
         billeraccountnum: "201423728",
+        billernickname: "NetflixHouse",
       },
     ],
     password: "user123",
@@ -396,7 +458,7 @@ function updateAdminAuthentication(state) {
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return (
       bankAccount.accountNumber === accountNumber &&
       bankAccount.name === accountName
@@ -407,7 +469,7 @@ function getBankAccount(accountName, accountNumber) {
 function getBankAccountName(accountName) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return bankAccount.name === accountName;
   });
 }
@@ -415,7 +477,7 @@ function getBankAccountName(accountName) {
 function getBankAccountNumber(accountNumber) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find(bankAccount => {
+  return bankAccounts.find((bankAccount) => {
     return bankAccount.accountNumber === accountNumber;
   });
 }
@@ -429,7 +491,7 @@ function updateBankAccountBalance(
 ) {
   const bankAccounts = getBankAccounts();
   const foundAccount = getBankAccount(accountName, accountNumber);
-  const index = bankAccounts.findIndex(obj => {
+  const index = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === accountNumber;
   });
 
@@ -456,7 +518,7 @@ function transferBankAccountBalance(
   const bankAccounts = getBankAccounts();
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
-  const fromIndex = bankAccounts.findIndex(obj => {
+  const fromIndex = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
@@ -464,7 +526,7 @@ function transferBankAccountBalance(
   bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
-  const toIndex = bankAccounts.findIndex(obj => {
+  const toIndex = bankAccounts.findIndex((obj) => {
     return obj.accountNumber === toaccountNumber;
   });
 
