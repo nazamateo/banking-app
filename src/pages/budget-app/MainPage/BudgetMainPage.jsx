@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { getBankAccounts } from "../../../services/LocalStorage";
 //import "./MainPage.scss";
 
 //COMPONENTS
@@ -8,7 +9,7 @@ import NavBar from "../../../components/NavBar/NavBar";
 
 import DashboardBudget from "../Dashboard/BudgetDashboard";
 import TransferBudget from "../Transfer/Transfer";
-import DepositBudget from "../Deposit/Deposit";
+import DepositBudget from "../Deposit";
 import AddBillers from "../AddBillers/AddBillers";
 import { getBudgetAppUSer } from "../../../services/BudgetAppFunctions";
 import SideBarBudget from "../../../components/SideBar/SideBarBudget";
@@ -40,6 +41,7 @@ function BudgetMainPage() {
     localStorage.getItem("selectedLink")
   );
   const [username, setUsername] = useState("");
+  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
   const location = useLocation();
 
   const getLoggedInName = () => {
@@ -73,6 +75,10 @@ function BudgetMainPage() {
               {ROUTESBUDGET.map((route, i) => (
                 <Route key={i} path={route.path} element={route.element} />
               ))}
+              <Route
+                path="deposit"
+                element={<DepositBudget bankAccounts={bankAccounts} />}
+              />
             </Routes>
           </CSSTransition>
         </TransitionGroup>

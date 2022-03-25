@@ -16,11 +16,11 @@ function isSpecificInputEmpty(input, label) {
 function isEmailValid(email) {
   const regExp = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
   if (isInputEmpty(email)) {
-    return "E-mail field is empty";
+    return "E-mail field is empty.";
   }
 
   if (!regExp.test(email)) {
-    return "E-mail is not valid";
+    return "E-mail is not valid.";
   }
 
   return null;
@@ -28,7 +28,7 @@ function isEmailValid(email) {
 
 function isAccountNameInvalid(accountNameReference, accountNameInput = "") {
   if (isInputEmpty(accountNameInput)) {
-    return "Name field is empty";
+    return "Name field is empty.";
   }
 
   if (accountNameReference !== accountNameInput) {
@@ -44,11 +44,11 @@ function isAccountNumberInvalid(
   accountNumReferenceTwo
 ) {
   if (isInputEmpty(accountNumInput.toString())) {
-    return "Account number field is empty";
+    return "Account number field is empty.";
   }
 
   if (accountNumReference !== accountNumInput) {
-    return "Account number input is not associated with account name";
+    return "Account number input is not associated with account name.";
   }
 
   if (accountNumReference === accountNumReferenceTwo) {
@@ -60,14 +60,14 @@ function isAccountNumberInvalid(
 
 function isAmountInvalid(amount = "", action, amountReference) {
   if (isInputEmpty(amount.toString())) {
-    return "Amount field is empty";
+    return "Amount field is empty.";
   }
   if (amount <= 0) {
-    return "Invalid amount";
+    return "Invalid amount.";
   }
 
   if (action === "withdraw" && amountReference < amount) {
-    return "Insufficient Balance";
+    return "Insufficient Balance.";
   }
   return null;
 }

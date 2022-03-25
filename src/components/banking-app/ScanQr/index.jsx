@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QrCodeScanner from "./QrCodeScanner";
 import DateToday from "../../../utils/DateToday";
 import styles from "./ScanQr.module.scss";
-
+import {
+  getDepositTrackers,
+  updateDepositTrackers,
+} from "../../../services/LocalStorage";
 import {
   updateBankAccountBalance,
   getBankAccountNumber,
@@ -10,10 +14,14 @@ import {
 
 function ScanQrImg({ bankAccounts, setBankAccounts }) {
   const navigate = useNavigate();
+  const [depositTrackers, setDepositTrackers] = useState(getDepositTrackers());
+
+  useEffect(() => {
+    updateDepositTrackers(depositTrackers);
+  }, [depositTrackers]);
 
   const depositAmount = scannedTransactionId => {
-    const trackers = JSON.parse(localStorage.getItem("depositTracker"));
-    const selectedTracker = trackers.find(
+    const selectedTracker = depositTrackers.find(
       tracker => tracker.id === scannedTransactionId
     );
 
@@ -22,7 +30,7 @@ function ScanQrImg({ bankAccounts, setBankAccounts }) {
       selectedTracker.accountNumber
     );
 
-    const updatedTrackers = trackers.filter(
+    const updatedTrackers = depositTrackers.filter(
       tracker => tracker.id !== scannedTransactionId
     );
 
@@ -47,8 +55,9 @@ function ScanQrImg({ bankAccounts, setBankAccounts }) {
     );
 
     setBankAccounts(updatedAccount);
+    setDepositTrackers(updatedTrackers);
+
     navigate(`/banking/complete/${scannedTransactionId}`);
-    localStorage.setItem("depositTracker", JSON.stringify(updatedTrackers));
   };
 
   const onScanResult = scannedId => {
