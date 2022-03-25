@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./SideBar.module.scss";
-import Logo from "../../General/Logo/Logo";
-import logo from "../../../assets/images/bank-logo.png";
+import Logo from "../Logo";
+import logo from "../../assets/images/bank-logo.png";
 
 function SideBar({ getWidth, getLink }) {
   const widthRef = useRef();
@@ -12,7 +12,7 @@ function SideBar({ getWidth, getLink }) {
     getWidth(widthRef.current.offsetWidth);
   };
 
-  const getLinkSelected = (e) => {
+  const getLinkSelected = e => {
     getLink(e.target.textContent);
     localStorage.setItem("selectedLink", e.target.textContent);
   };

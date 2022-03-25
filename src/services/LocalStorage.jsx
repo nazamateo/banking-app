@@ -7,7 +7,7 @@ const ADMIN_ACCOUNTS = [
   { username: "admin", password: "admin1234", isLoggedIn: false },
 ];
 
-let bankAccounts = [
+const BANK_ACCOUNTS = [
   {
     name: "Esmeralda Curry",
     email: "smrldCrry@gmail.com",
@@ -455,6 +455,14 @@ function updateAdminAuthentication(state) {
   localStorage.setItem("isAuthenticatedBank", state);
 }
 
+function getDepositTrackers() {
+  return JSON.parse(localStorage.getItem("depositTrackers"));
+}
+
+function updateDepositTrackers(trackers) {
+  localStorage.setItem("depositTrackers", JSON.stringify(trackers));
+}
+
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
@@ -540,9 +548,9 @@ function transferBankAccountBalance(
 
 function LoadDataButton({ className }) {
   const array = [];
-  const onClickBtn = (e) => {
+  const onClickBtn = e => {
     e.preventDefault();
-    localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
+    localStorage.setItem("bankAccounts", JSON.stringify(BANK_ACCOUNTS));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
     localStorage.setItem("isAuthenticatedBank", false);
     localStorage.setItem("isAuthenticatedBudget", false);
@@ -564,6 +572,8 @@ export {
   updateBankAccounts,
   updateAdminAccounts,
   updateAdminAuthentication,
+  getDepositTrackers,
+  updateDepositTrackers,
   LoadDataButton,
   getBankAccount,
   updateBankAccountBalance,

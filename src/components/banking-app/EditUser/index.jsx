@@ -1,22 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import FormInput from "../../forms/FormInput";
 import styles from "./EditUser.module.scss";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import { updateUser, getBankAccountNumber } from "../../../utils/bankAccounts";
+import { formInputValidation } from "../../../utils/formValidation";
 
-const EditForm = () => {
-  const { updateUser, getBankAccountNumber } = useContext(BankAccountsContext);
+const EditForm = ({ bankAccounts, setBankAccounts }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bday, setBday] = useState("");
   const [address, setAddress] = useState("");
   const [creationDate, setCreationDate] = useState("");
   const [balance, setBalance] = useState("");
+  const [errors, setErrors] = useState("");
   const accountNumber = +useParams().accountNumber;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAccountDetails = () => {
-      const selectedBankAccount = getBankAccountNumber(accountNumber);
+      const selectedBankAccount = getBankAccountNumber(
+        bankAccounts,
+        accountNumber
+      );
 
       setName(selectedBankAccount.name);
       setEmail(selectedBankAccount.email);
@@ -31,14 +36,25 @@ const EditForm = () => {
   const handleSubmitData = e => {
     e.preventDefault();
 
+    const errors = formInputValidation(name, email, address);
+
+    if (Object.values(errors).some(error => error !== null)) {
+      setErrors(errors);
+      return;
+    }
+
     const updatedUserDetails = { name, email, bday, address };
 
-    updateUser(accountNumber, updatedUserDetails);
+    setBankAccounts(
+      updateUser(bankAccounts, accountNumber, updatedUserDetails)
+    );
+
+    navigate(-1);
   };
 
   return (
     <div>
-      <form className={styles.form} onSubmit={handleSubmitData}>
+      <form className={styles.form} onSubmit={handleSubmitData} noValidate>
         <div className={styles.divname}>
           <FormInput
             name="name"
@@ -51,8 +67,7 @@ const EditForm = () => {
             value={name}
             onChange={e => setName(e.target.value)}
             autoComplete="off"
-            pattern="[a-zA-Z\s]+"
-            required={true}
+            error={errors.name}
           />
         </div>
 
@@ -68,7 +83,7 @@ const EditForm = () => {
             value={email}
             onChange={e => setEmail(e.target.value)}
             autoComplete="off"
-            required={true}
+            error={errors.email}
           />
         </div>
 
@@ -83,7 +98,6 @@ const EditForm = () => {
             label="Birthday"
             value={bday}
             onChange={e => setBday(e.target.value)}
-            required={true}
           />
         </div>
 
@@ -99,7 +113,7 @@ const EditForm = () => {
             value={address}
             onChange={e => setAddress(e.target.value)}
             autoComplete="off"
-            required={true}
+            error={errors.address}
           />
         </div>
 

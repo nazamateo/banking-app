@@ -1,32 +1,43 @@
-import { useContext } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import QrCodeScanner from "./QrCodeScanner";
-import DateToday from "../../General/Helpers/DateToday";
+import DateToday from "../../../utils/DateToday";
 import styles from "./ScanQr.module.scss";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import {
+  getDepositTrackers,
+  updateDepositTrackers,
+} from "../../../services/LocalStorage";
+import {
+  updateBankAccountBalance,
+  getBankAccountNumber,
+} from "../../../utils/bankAccounts";
 
-const DATE_TODAY = DateToday();
+function ScanQrImg({ bankAccounts, setBankAccounts }) {
+  const navigate = useNavigate();
+  const [depositTrackers, setDepositTrackers] = useState(getDepositTrackers());
 
-function ScanQrImg() {
-  const { updateBankAccountBalance, getBankAccountNumber } =
-    useContext(BankAccountsContext);
+  useEffect(() => {
+    updateDepositTrackers(depositTrackers);
+  }, [depositTrackers]);
+
   const depositAmount = scannedTransactionId => {
-    const trackers = JSON.parse(localStorage.getItem("depositTracker"));
-    const selectedTracker = trackers.find(
+    const selectedTracker = depositTrackers.find(
       tracker => tracker.id === scannedTransactionId
     );
 
     const selectedBankAccount = getBankAccountNumber(
+      bankAccounts,
       selectedTracker.accountNumber
     );
 
-    const updatedTrackers = trackers.filter(
+    const updatedTrackers = depositTrackers.filter(
       tracker => tracker.id !== scannedTransactionId
     );
 
     const transactionDetail = {
       accountName: selectedBankAccount.name,
       accountNumber: selectedBankAccount.accountNumber,
-      transactionDate: DATE_TODAY,
+      transactionDate: DateToday(),
       transactionId: scannedTransactionId,
       action: "deposit",
       oldBalance: selectedBankAccount.balance,
@@ -34,7 +45,8 @@ function ScanQrImg() {
       mode: "OTC",
     };
 
-    updateBankAccountBalance(
+    const updatedAccount = updateBankAccountBalance(
+      bankAccounts,
       selectedBankAccount.name,
       selectedBankAccount.accountNumber,
       selectedTracker.amount,
@@ -42,7 +54,10 @@ function ScanQrImg() {
       transactionDetail
     );
 
-    localStorage.setItem("depositTracker", JSON.stringify(updatedTrackers));
+    setBankAccounts(updatedAccount);
+    setDepositTrackers(updatedTrackers);
+
+    navigate(`/banking/complete/${scannedTransactionId}`);
   };
 
   const onScanResult = scannedId => {

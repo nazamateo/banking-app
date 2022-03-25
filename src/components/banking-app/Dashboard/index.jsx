@@ -1,4 +1,4 @@
-import Logo from "../../General/Logo/Logo";
+import Logo from "../../Logo";
 import logo from "../../../assets/images/bank-logo-white.png";
 import styles from "./Dashboard.module.scss";
 

@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { getBankAccounts } from "../../../services/LocalStorage";
 //import "./MainPage.scss";
 
 //COMPONENTS
-import NavBar from "../../../components/layout/NavBar/NavBar";
+import NavBar from "../../../components/NavBar/NavBar";
 
 import DashboardBudget from "../Dashboard/BudgetDashboard";
 import TransferBudget from "../Transfer/Transfer";
-import DepositBudget from "../Deposit/Deposit";
+import DepositBudget from "../Deposit";
 import AddBillers from "../AddBillers/AddBillers";
 import { getBudgetAppUSer } from "../../../services/BudgetAppFunctions";
+<<<<<<< HEAD
 import TopBarBudget from "../../../components/layout/SideBar/TopBarBudget";
+=======
+import SideBarBudget from "../../../components/SideBar/SideBarBudget";
+>>>>>>> 500f712c7814f3753b27f6047cf1ba12ec55e71f
 //import BudgetTable from "../BudgetTable/BudgetTable";
 //import NotFoundPage from "../../banking-app/NotFound";
 
@@ -40,6 +45,7 @@ function BudgetMainPage() {
     localStorage.getItem("selectedLink")
   );
   const [username, setUsername] = useState("");
+  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
   const location = useLocation();
 
   const getLoggedInName = () => {
@@ -50,7 +56,15 @@ function BudgetMainPage() {
     getLoggedInName();
   }, []);
 
+<<<<<<< HEAD
   const getSelectedLink = (selectedLink) => {
+=======
+  const getSideBarWidth = obtainedSideBarWidth => {
+    setSideBarWidth(obtainedSideBarWidth);
+  };
+
+  const getSelectedLink = selectedLink => {
+>>>>>>> 500f712c7814f3753b27f6047cf1ba12ec55e71f
     setSelectedLink(selectedLink);
   };
 
@@ -69,6 +83,10 @@ function BudgetMainPage() {
               {ROUTESBUDGET.map((route, i) => (
                 <Route key={i} path={route.path} element={route.element} />
               ))}
+              <Route
+                path="deposit"
+                element={<DepositBudget bankAccounts={bankAccounts} />}
+              />
             </Routes>
           </CSSTransition>
         </TransitionGroup>

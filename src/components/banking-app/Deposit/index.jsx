@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import DateToday from "../../General/Helpers/DateToday";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import DateToday from "../../../utils/DateToday";
 import { v4 as uuidv4 } from "uuid";
-import Popup from "../../pop-up/ErrorPopup";
 import {
   NameDataListGenerator,
   AccntNumDataListGenerator,
@@ -9,31 +9,30 @@ import {
 import FormInput from "../../forms/FormInput";
 import ScanQr from "./ScanQr";
 import styles from "./Deposit.module.scss";
-import { BankAccountsContext } from "../../../context/BankAccountContext";
+import {
+  updateBankAccountBalance,
+  getBankAccountName,
+} from "../../../utils/bankAccounts";
+import { transactionValidation } from "../../../utils/formValidation";
 
-const DepositFunc = () => {
-  const { updateBankAccountBalance, getBankAccountName, bankAccounts } =
-    useContext(BankAccountsContext);
+const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
   const [name, setName] = useState("");
   const [transactionDate, setTransactionDate] = useState(DateToday);
   const [accountNumber, setAccountNumber] = useState("");
   const [deposit, setDeposit] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
-  const [isOpen, setIsOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [nameChecker, setNameChecker] = useState("");
+  const [accountChecker, setAccountChecker] = useState({});
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setNameChecker(getBankAccountName(name));
+    const account = getBankAccountName(bankAccounts, name);
+    if (!account) {
+      setAccountChecker({ name: null, accountNumber: null });
+      return;
+    }
+    setAccountChecker(account);
   }, [name]);
-
-  function togglePopup() {
-    setIsOpen(!isOpen);
-  }
-  function clearErrors() {
-    setIsOpen(!isOpen);
-    setErrorMessage([]);
-  }
 
   function stateResetter() {
     setName("");
@@ -43,77 +42,55 @@ const DepositFunc = () => {
     setTransactionId(uuidv4());
   }
 
-  function errorHandler() {
-    if (
-      !nameChecker ||
-      nameChecker.accountNumber !== accountNumber ||
-      deposit < 0
-    ) {
-      if (!nameChecker) {
-        togglePopup();
-        setErrorMessage(displayerror => [
-          ...displayerror,
-          "Account Name does not exist",
-        ]);
-      }
-      if (nameChecker.accountNumber !== accountNumber) {
-        togglePopup();
-        setErrorMessage(displayerror => [
-          ...displayerror,
-          "Account Number does not match",
-        ]);
-      }
-      if (deposit < 0) {
-        togglePopup();
-        setErrorMessage(displayerror => [
-          ...displayerror,
-          "Invalid deposit amount",
-        ]);
-      }
-      return true;
-    }
-    return false;
-  }
-
   const logTransaction = e => {
     e.preventDefault();
 
-    if (!errorHandler()) {
-      const transactionDetail = {
-        accountName: name,
-        accountNumber: accountNumber,
-        transactionDate: transactionDate,
-        transactionId: transactionId,
-        action: "deposit",
-        oldBalance: nameChecker.balance,
-        newBalance: nameChecker.balance + deposit,
-        mode: "OTC",
-      };
-      updateBankAccountBalance(
-        name,
-        accountNumber,
-        deposit,
-        "deposit",
-        transactionDetail
-      );
-      stateResetter();
+    const errors = transactionValidation(
+      accountChecker.name,
+      name,
+      accountChecker.accountNumber,
+      accountNumber,
+      deposit
+    );
+
+    if (Object.values(errors).some(error => error !== null)) {
+      setErrors(errors);
+      return;
     }
+
+    const transactionDetail = {
+      accountName: name,
+      accountNumber,
+      transactionDate,
+      transactionId,
+      action: "deposit",
+      oldBalance: accountChecker.balance,
+      newBalance: accountChecker.balance + deposit,
+      mode: "OTC",
+    };
+
+    const updatedAccount = updateBankAccountBalance(
+      bankAccounts,
+      name,
+      accountNumber,
+      deposit,
+      "deposit",
+      transactionDetail
+    );
+
+    setBankAccounts(updatedAccount);
+
+    navigate(`/banking/complete/${transactionId}`);
+
+    stateResetter();
   };
 
   return (
     <>
-      {isOpen && (
-        <Popup
-          content={errorMessage.map(displayed => {
-            return <p>{displayed}</p>;
-          })}
-          handleClose={clearErrors}
-        />
-      )}
       <div className={styles.scanQrContainer}>
         <ScanQr />
       </div>
-      <form className={styles.formd} onSubmit={logTransaction}>
+      <form className={styles.formd} onSubmit={logTransaction} noValidate>
         <div className={styles.divname}>
           <FormInput
             name="name"
@@ -128,12 +105,12 @@ const DepositFunc = () => {
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
+            error={errors.name}
           />
           <datalist id="namelist">
             <NameDataListGenerator accounts={bankAccounts} />
           </datalist>
         </div>
-
         <div className={styles.acct}>
           <FormInput
             type="number"
@@ -145,9 +122,10 @@ const DepositFunc = () => {
             }}
             label="Account Number"
             value={accountNumber}
-            onChange={e => setAccountNumber(+e.target.value)}
+            onChange={e => setAccountNumber(parseFloat(e.target.value))}
             autoComplete="off"
             required={true}
+            error={errors.accountNumber}
           />
           <datalist id="listacct">
             <AccntNumDataListGenerator accounts={bankAccounts} />
@@ -164,7 +142,6 @@ const DepositFunc = () => {
             }}
             label="Transaction Date"
             value={transactionDate}
-            autoComplete="off"
             disabled={true}
           />
         </div>
@@ -180,9 +157,10 @@ const DepositFunc = () => {
             label="Deposit Amount (₱)"
             value={deposit}
             autoComplete="off"
-            onChange={e => setDeposit(+e.target.value)}
+            onChange={e => setDeposit(parseFloat(e.target.value))}
             required={true}
             pattern="[0-9.]+"
+            error={errors.amount}
           />
         </div>
 
