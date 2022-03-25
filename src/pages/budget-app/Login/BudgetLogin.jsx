@@ -1,127 +1,80 @@
-import React, { useState } from "react";
-import {
-  LoadDataButton,
-  getBankAccounts,
-} from "../../../services/LocalStorage";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-//import "./login.scss";
-import Popup from "../../../components/pop-up/ErrorPopup";
+import { emailPasswordValidation } from "../../../utils/formValidation";
+import FormInput from "../../../components/forms/FormInput";
+import LogInFormContainer from "../../../components/LogInFormContainer/LoginFormContainer";
+import Button from "../../../components/button/Button";
 
-function BudgetLoginPage() {
-  const [email, setemail] = useState("");
+function BudgetLoginPage({
+  setIsUserAuthenticated,
+  isUserAuthenticated,
+  bankAccounts,
+  setBankAccounts,
+}) {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-  let navigate = useNavigate();
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  function togglePopup() {
-    setIsOpen(!isOpen);
-  }
-  function clearErrors() {
-    setIsOpen(!isOpen);
-    setError([]);
-  }
-
-  function errorHandler() {
-    if (password === "" || email === "") {
-      if (password === "") {
-        togglePopup();
-        setError(displayerror => [...displayerror, "Empty password field"]);
-      }
-      if (email === "") {
-        togglePopup();
-        setError(displayerror => [...displayerror, "Empty email field"]);
-      }
-      return true;
+  useEffect(() => {
+    if (isUserAuthenticated) {
+      navigate("/budget/dashboard");
     }
-    return false;
-  }
-
-  const handleemailChange = e => {
-    setemail(e.target.value);
-  };
-
-  const handlePasswordChange = e => {
-    setPassword(e.target.value);
-  };
+  }, [isUserAuthenticated]);
 
   const loginAuthentication = email => {
-    const userAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
-
-    const account = userAccounts.find(account => account.email === email);
+    const account = bankAccounts.find(account => account.email === email);
 
     account.isLoggedIn = true;
 
-    const updatedAccounts = userAccounts.map(adminAccount =>
-      adminAccount.email === email ? { ...account } : adminAccount
+    const updatedAccounts = bankAccounts.map(bankAccount =>
+      bankAccount.email === email ? { ...account } : bankAccount
     );
 
-    localStorage.setItem("bankAccounts", JSON.stringify(updatedAccounts));
+    setBankAccounts(updatedAccounts);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    const userAccounts = getBankAccounts();
-    if (!errorHandler()) {
-      if (
-        userAccounts.find(
-          account => account.email === email && account.password === password
-        )
-      ) {
-        localStorage.setItem("isAuthenticatedBudget", "true");
-        loginAuthentication(email);
-        navigate("/budget/dashboard");
-      } else {
-        togglePopup();
-        setError(displayerror => [...displayerror, "Invalid userame/password"]);
-        return;
-      }
+    const errors = emailPasswordValidation(email, password, bankAccounts);
+
+    if (Object.values(errors).some(error => error !== null)) {
+      setErrors(errors);
+      return;
     }
+
+    loginAuthentication(email);
+
+    setIsUserAuthenticated(true);
   };
 
   return (
     <div className="log-in">
-      <form onSubmit={handleSubmit} className="form-login">
-        <h1>LOGIN</h1>
+      <LogInFormContainer handleSubmit={handleSubmit}>
         <div className="input-login">
-          <label htmlFor="email" className="label-login">
-            email:
-          </label>
-          <input
-            type="text"
-            placeholder="email"
-            id="email"
+          <FormInput
             name="email"
-            onChange={handleemailChange}
+            label="Email:"
+            type="email"
+            onChange={e => setEmail(e.target.value)}
+            placeholder="E-mail"
             autoComplete="off"
+            error={errors.email}
           />
         </div>
         <div className="input-login">
-          <label htmlFor="password" className="label-login">
-            Password:
-          </label>
-          <input
+          <FormInput
             type="password"
+            name="password"
+            label="Password:"
             placeholder="Password"
-            id="password"
-            onChange={handlePasswordChange}
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+            error={errors.password}
           />
         </div>
-        <button type="submit" className="btn-login">
-          Log In
-        </button>
-      </form>
-
-      {isOpen && (
-        <Popup
-          content={error.map(displayed => {
-            return <p>{displayed}</p>;
-          })}
-          handleClose={clearErrors}
-        />
-      )}
+        <Button text="Log In" />
+      </LogInFormContainer>
     </div>
   );
 }

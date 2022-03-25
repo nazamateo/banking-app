@@ -1,38 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
 import logo from "../../assets/images/placeholder.jpg";
 import styles from "./NavBar.module.scss";
-import { updateAdminAuthentication } from "../../services/LocalStorage";
 
 function NavBar({
-  navBarWidth,
+  navBarWidth = 0,
   linkSelected,
-  adminUsername,
-  adminAccounts,
-  setAdminAccounts,
+  accounts,
+  setAccounts,
+  setAuthentication,
+  isAuthenticated,
 }) {
   const navigate = useNavigate();
+  const [loggedInName, setLoggedInName] = useState("");
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    const getLoggedInName = () => {
+      const loggedInAccount = accounts.find(
+        bankAccount => bankAccount.isLoggedIn === true
+      );
+
+      if (loggedInAccount.username) {
+        setLoggedInName(loggedInAccount.username);
+        return;
+      }
+      setLoggedInName(loggedInAccount.email);
+    };
+
+    getLoggedInName();
+  }, []);
 
   const [isShown, setIsShown] = useState(false);
 
-  const signOut = (e) => {
+  const signOut = e => {
     e.preventDefault();
-    const loggedInAccount = adminAccounts.find(
-      adminAccount => adminAccount.isLoggedIn === true
+    const loggedInAccount = accounts.find(
+      account => account.isLoggedIn === true
     );
 
     loggedInAccount.isLoggedIn = false;
 
-    const updatedAccounts = adminAccounts.map(adminAccount =>
-      adminAccount.username === loggedInAccount.username
-        ? { ...loggedInAccount }
-        : adminAccount
-    );
+    let updatedAccounts;
 
-    setTimeout(() => navigate("/"), 0);
-    setAdminAccounts(updatedAccounts);
-    updateAdminAuthentication(false);
+    if (loggedInAccount.username) {
+      updatedAccounts = accounts.map(account =>
+        account.username === loggedInAccount.username
+          ? { ...loggedInAccount }
+          : account
+      );
+    } else {
+      updatedAccounts = accounts.map(account =>
+        account.email === loggedInAccount.email
+          ? { ...loggedInAccount }
+          : account
+      );
+    }
+
+    setAccounts(updatedAccounts);
+    setAuthentication(false);
   };
 
   return (
@@ -58,7 +90,7 @@ function NavBar({
         >
           <Logo
             link={logo}
-            name={adminUsername}
+            name={loggedInName}
             className={styles.logoContainer}
           />
           {isShown && (

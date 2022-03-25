@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./MainPage.scss";
-import { getAdminAccounts } from "../../../services/LocalStorage";
 
 import SideBar from "../../../components/SideBar/SideBar";
 import NavBar from "../../../components/NavBar/NavBar";
@@ -19,42 +18,20 @@ import NotFoundPage from "../NotFound";
 import SuccessAddUserPage from "../AddUserSuccessful";
 import IndividualUserPage from "../IndividualUser";
 import EditFormPage from "../EditForm";
-import {
-  getBankAccounts,
-  updateBankAccounts,
-  updateAdminAccounts,
-} from "../../../services/LocalStorage";
 
-function MainPage() {
+function MainPage({
+  bankAccounts,
+  setBankAccounts,
+  adminAccounts,
+  setAdminAccounts,
+  isAdminAuthenticated,
+  setIsAdminAuthenticated,
+}) {
   const [sideBarWidth, setSideBarWidth] = useState(0);
   const [selectedLink, setSelectedLink] = useState(
     localStorage.getItem("selectedLink")
   );
-  const [username, setUsername] = useState("");
-  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
-  const [adminAccounts, setAdminAccounts] = useState(getAdminAccounts());
-
   const location = useLocation();
-
-  useEffect(() => {
-    updateBankAccounts(bankAccounts);
-  }, [bankAccounts]);
-
-  useEffect(() => {
-    updateAdminAccounts(adminAccounts);
-  }, [adminAccounts]);
-
-  useEffect(() => {
-    const getLoggedInName = () => {
-      const loggedInAccount = adminAccounts.find(
-        adminAccount => adminAccount.isLoggedIn === true
-      );
-
-      setUsername(loggedInAccount.username);
-    };
-
-    getLoggedInName();
-  }, []);
 
   const getSideBarWidth = obtainedSideBarWidth => {
     setSideBarWidth(obtainedSideBarWidth);
@@ -69,9 +46,10 @@ function MainPage() {
       <NavBar
         navBarWidth={sideBarWidth}
         linkSelected={selectedLink}
-        adminUsername={username}
-        adminAccounts={adminAccounts}
-        setAdminAccounts={setAdminAccounts}
+        accounts={adminAccounts}
+        setAccounts={setAdminAccounts}
+        setAuthentication={setIsAdminAuthenticated}
+        isAuthenticated={isAdminAuthenticated}
       />
       <div className="main-layout">
         <SideBar getWidth={getSideBarWidth} getLink={getSelectedLink} />

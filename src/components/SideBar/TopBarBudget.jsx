@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import styles from "../SideBar/TopBarBudget.module.scss";
 
 function TopBarBudget({ getLink }) {
-  const getLinkSelected = (e) => {
+  const getLinkSelected = e => {
     getLink(e.target.textContent);
     localStorage.setItem("selectedLink", e.target.textContent);
   };
@@ -25,7 +25,7 @@ function TopBarBudget({ getLink }) {
           </NavLink>
         </li>
         <li>
-          <i className="las la-users" />
+          <i className="las la-share" />
           <NavLink
             to="/budget/deposit"
             className={({ isActive }) =>
@@ -33,11 +33,11 @@ function TopBarBudget({ getLink }) {
             }
             onClick={getLinkSelected}
           >
-            Income
+            Deposit
           </NavLink>
         </li>
         <li>
-          <i className="las la-share"></i>
+          <i className="las la-file-invoice" />
           <NavLink
             to="/budget/transfer"
             className={({ isActive }) =>

@@ -5,6 +5,7 @@ import DepositQR from "../../components/budget-app/DepositQR/index";
 function DepositBudget({ bankAccounts }) {
   return (
     <div className="page">
+      <h1>Deposit via QR</h1>
       <DepositQR bankAccounts={bankAccounts} />
     </div>
   );
