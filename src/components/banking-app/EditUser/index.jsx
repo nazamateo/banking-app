@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import FormInput from "../../forms/FormInput";
 import styles from "./EditUser.module.scss";
 import { updateUser, getBankAccountNumber } from "../../../utils/bankAccounts";
+import { formInputValidation } from "../../../utils/formValidation";
 
 const EditForm = ({ bankAccounts, setBankAccounts }) => {
   const [name, setName] = useState("");
@@ -11,6 +12,7 @@ const EditForm = ({ bankAccounts, setBankAccounts }) => {
   const [address, setAddress] = useState("");
   const [creationDate, setCreationDate] = useState("");
   const [balance, setBalance] = useState("");
+  const [errors, setErrors] = useState("");
   const accountNumber = +useParams().accountNumber;
   const navigate = useNavigate();
 
@@ -34,6 +36,13 @@ const EditForm = ({ bankAccounts, setBankAccounts }) => {
   const handleSubmitData = e => {
     e.preventDefault();
 
+    const errors = formInputValidation(name, email, address);
+
+    if (Object.values(errors).some(error => error !== null)) {
+      setErrors(errors);
+      return;
+    }
+
     const updatedUserDetails = { name, email, bday, address };
 
     setBankAccounts(
@@ -45,7 +54,7 @@ const EditForm = ({ bankAccounts, setBankAccounts }) => {
 
   return (
     <div>
-      <form className={styles.form} onSubmit={handleSubmitData}>
+      <form className={styles.form} onSubmit={handleSubmitData} noValidate>
         <div className={styles.divname}>
           <FormInput
             name="name"
@@ -58,8 +67,7 @@ const EditForm = ({ bankAccounts, setBankAccounts }) => {
             value={name}
             onChange={e => setName(e.target.value)}
             autoComplete="off"
-            pattern="[a-zA-Z\s]+"
-            required={true}
+            error={errors.name}
           />
         </div>
 
@@ -75,7 +83,7 @@ const EditForm = ({ bankAccounts, setBankAccounts }) => {
             value={email}
             onChange={e => setEmail(e.target.value)}
             autoComplete="off"
-            required={true}
+            error={errors.email}
           />
         </div>
 
@@ -90,7 +98,6 @@ const EditForm = ({ bankAccounts, setBankAccounts }) => {
             label="Birthday"
             value={bday}
             onChange={e => setBday(e.target.value)}
-            required={true}
           />
         </div>
 
@@ -106,7 +113,7 @@ const EditForm = ({ bankAccounts, setBankAccounts }) => {
             value={address}
             onChange={e => setAddress(e.target.value)}
             autoComplete="off"
-            required={true}
+            error={errors.address}
           />
         </div>
 

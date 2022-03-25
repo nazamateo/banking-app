@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import DateToday from "../../../utils/DateToday";
 import styles from "./Transfer.module.scss";
 import { v4 as uuidv4 } from "uuid";
-import Popup from "../../pop-up/ErrorPopup";
 import {
   NameDataListGenerator,
   AccntNumDataListGenerator,
@@ -13,6 +12,7 @@ import {
   getBankAccountName,
   transferBankAccountBalance,
 } from "../../../utils/bankAccounts";
+import { transactionValidation } from "../../../utils/formValidation";
 
 const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
   const [transactionDate, setTransactionDate] = useState(DateToday);
@@ -22,81 +22,30 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
   const [toAccountNumber, settoAccountNumber] = useState("");
   const [amount, setAmount] = useState("");
   const [transactionId, setTransactionId] = useState(uuidv4());
-  const [isOpen, setIsOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [fromNameChecker, setFromNameChecker] = useState("");
-  const [toNameChecker, setToNameChecker] = useState("");
+  const [fromAccountChecker, setFromAccountChecker] = useState("");
+  const [toAccountChecker, setToAccountChecker] = useState("");
+  const [fromErrors, setFromErrors] = useState({});
+  const [toErrors, setToErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    setFromNameChecker(getBankAccountName(bankAccounts, fromName));
+    const account = getBankAccountName(bankAccounts, fromName);
+    if (!account) {
+      setFromAccountChecker({ name: null, accountNumber: null, balance: null });
+      return;
+    }
+    setFromAccountChecker(account);
   }, [fromName]);
 
   useEffect(() => {
-    setToNameChecker(getBankAccountName(bankAccounts, toName));
+    const account = getBankAccountName(bankAccounts, toName);
+    if (!account) {
+      setToAccountChecker({ name: null, accountNumber: null });
+      return;
+    }
+    setToAccountChecker(account);
   }, [toName]);
 
-  function togglePopup() {
-    setIsOpen(!isOpen);
-  }
-
-  function clearErrors() {
-    setIsOpen(!isOpen);
-    setErrorMessage([]);
-  }
-
-  function errorHandler() {
-    if (
-      fromNameChecker == null ||
-      fromNameChecker.accountNumber !== fromAccountNumber ||
-      toNameChecker == null ||
-      toNameChecker.accountNumber !== toAccountNumber ||
-      fromNameChecker.balance < amount ||
-      fromNameChecker.name === toNameChecker.name ||
-      amount < 0
-    ) {
-      if (
-        fromNameChecker == null ||
-        fromNameChecker.accountNumber !== fromAccountNumber
-      ) {
-        togglePopup();
-        setErrorMessage(displayerror => [...displayerror, "Sender not found"]);
-      }
-      if (
-        toNameChecker == null ||
-        toNameChecker.accountNumber !== toAccountNumber
-      ) {
-        togglePopup();
-        setErrorMessage(displayerror => [
-          ...displayerror,
-          "Receiver not found",
-        ]);
-      }
-      if (fromNameChecker.balance < amount) {
-        togglePopup();
-        setErrorMessage(displayerror => [
-          ...displayerror,
-          "Insufficient sender balance",
-        ]);
-      }
-      if (fromNameChecker.name === toNameChecker.name) {
-        togglePopup();
-        setErrorMessage(displayerror => [
-          ...displayerror,
-          "Invalid transaction, sender and receiver same account",
-        ]);
-      }
-      if (amount < 0) {
-        togglePopup();
-        setErrorMessage(displayerror => [
-          ...displayerror,
-          "Invalid Transfer Amount",
-        ]);
-      }
-      return true;
-    }
-    return false;
-  }
   function stateResetter() {
     setTransactionDate(DateToday);
     setfromName("");
@@ -110,55 +59,76 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
   const logTransaction = e => {
     e.preventDefault();
 
-    if (!errorHandler()) {
-      const senderTransactionObject = {
-        transactionDate,
-        action: "transfer",
-        transactionId,
-        receiver: toName,
-        receiverAccountNumber: toAccountNumber,
-        oldBalance: fromNameChecker.balance,
-        newBalance: fromNameChecker.balance - amount,
-        mode: "OTC",
-      };
-      const receiverTransactionObject = {
-        transactionDate,
-        action: "transfer",
-        transactionId,
-        sender: fromName,
-        senderAccountNumber: fromAccountNumber,
-        oldBalance: toNameChecker.balance,
-        newBalance: toNameChecker.balance + amount,
-        mode: "OTC",
-      };
-      const updatedAccounts = transferBankAccountBalance(
-        bankAccounts,
-        toName,
-        toAccountNumber,
-        fromName,
-        fromAccountNumber,
-        amount,
-        senderTransactionObject,
-        receiverTransactionObject
-      );
+    const fromErrors = transactionValidation(
+      fromAccountChecker.name,
+      fromName,
+      fromAccountChecker.accountNumber,
+      fromAccountNumber,
+      amount,
+      fromAccountChecker.balance,
+      "withdraw",
+      toAccountChecker.accountNumber
+    );
 
-      setBankAccounts(updatedAccounts);
+    const toErrors = transactionValidation(
+      toAccountChecker.name,
+      toName,
+      toAccountChecker.accountNumber,
+      toAccountNumber,
+      "",
+      "",
+      "",
+      fromAccountChecker.accountNumber
+    );
 
-      navigate(`/banking/complete/${transactionId}`);
-      stateResetter();
+    if (
+      Object.values(fromErrors).some(error => error !== null) &&
+      Object.values(toErrors).some(error => error !== null)
+    ) {
+      setFromErrors(fromErrors);
+      setToErrors(toErrors);
+      return;
     }
+
+    const senderTransactionObject = {
+      transactionDate,
+      action: "transfer",
+      transactionId,
+      receiver: toName,
+      receiverAccountNumber: toAccountNumber,
+      oldBalance: fromAccountChecker.balance,
+      newBalance: fromAccountChecker.balance - amount,
+      mode: "OTC",
+    };
+    const receiverTransactionObject = {
+      transactionDate,
+      action: "transfer",
+      transactionId,
+      sender: fromName,
+      senderAccountNumber: fromAccountNumber,
+      oldBalance: toAccountChecker.balance,
+      newBalance: toAccountChecker.balance + amount,
+      mode: "OTC",
+    };
+    const updatedAccounts = transferBankAccountBalance(
+      bankAccounts,
+      toName,
+      toAccountNumber,
+      fromName,
+      fromAccountNumber,
+      amount,
+      senderTransactionObject,
+      receiverTransactionObject
+    );
+
+    setBankAccounts(updatedAccounts);
+
+    navigate(`/banking/complete/${transactionId}`);
+    stateResetter();
   };
   return (
     <>
-      {isOpen && (
-        <Popup
-          content={errorMessage.map(displayed => {
-            return <p>{displayed}</p>;
-          })}
-          handleClose={clearErrors}
-        />
-      )}
-      <form className={styles.formt} onSubmit={logTransaction}>
+      <form className={styles.formt} onSubmit={logTransaction} noValidate>
         <div className={styles.fromdivname}>
           <FormInput
             name="fromName"
@@ -171,8 +141,8 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
             value={fromName}
             onChange={e => setfromName(e.target.value)}
             autoComplete="off"
-            pattern="[a-zA-Z\s]+"
             required={true}
+            error={fromErrors.name}
           />
           <datalist id="namelist">
             <NameDataListGenerator accounts={bankAccounts} />
@@ -190,9 +160,10 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
             }}
             label="From Account Number"
             value={fromAccountNumber}
-            onChange={e => setfromAccountNumber(+e.target.value)}
+            onChange={e => setfromAccountNumber(parseFloat(e.target.value))}
             autoComplete="off"
             required={true}
+            error={fromErrors.accountNumber}
           />
           <datalist id="listacct">
             <AccntNumDataListGenerator accounts={bankAccounts} />
@@ -211,8 +182,8 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
             value={toName}
             onChange={e => setToName(e.target.value)}
             autoComplete="off"
-            pattern="[a-zA-Z\s]+"
             required={true}
+            error={toErrors.name}
           />
           <datalist id="namelist">
             <NameDataListGenerator accounts={bankAccounts} />
@@ -230,9 +201,10 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
             }}
             label="To Account Number"
             value={toAccountNumber}
-            onChange={e => settoAccountNumber(+e.target.value)}
+            onChange={e => settoAccountNumber(parseFloat(e.target.value))}
             autoComplete="off"
             required={true}
+            error={toErrors.accountNumber}
           />
           <datalist id="listacct">
             <AccntNumDataListGenerator accounts={bankAccounts} />
@@ -265,9 +237,9 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
             label="Amount (₱)"
             value={amount}
             autoComplete="off"
-            onChange={e => setAmount(+e.target.value)}
+            onChange={e => setAmount(parseFloat(e.target.value))}
             required={true}
-            pattern="[0-9.]+"
+            error={fromErrors.amount}
           />
         </div>
 

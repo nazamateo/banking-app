@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DateToday from "../../../utils/DateToday";
-import Popup from "../../pop-up/ErrorPopup";
 import FormInput from "../../forms/FormInput";
 import styles from "./UsersForm.module.scss";
-import { getBankAccountName, addUser } from "../../../utils/bankAccounts";
+import { addUser } from "../../../utils/bankAccounts";
+import { newAccountValidation } from "../../../utils/formValidation";
 
 const UserForm = ({ bankAccounts, setBankAccounts }) => {
   const [name, setName] = useState("");
@@ -16,18 +16,8 @@ const UserForm = ({ bankAccounts, setBankAccounts }) => {
     bankAccounts[bankAccounts.length - 1].accountNumber + 1
   );
   const [balance, setBalance] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [errormessage, setErrorMessage] = useState("");
-  const [nameChecker, setNameChecker] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setNameChecker(getBankAccountName(bankAccounts, name));
-  }, [name]);
-
-  function togglePopup() {
-    setIsOpen(!isOpen);
-  }
 
   function stateResetter() {
     setName("");
@@ -39,34 +29,36 @@ const UserForm = ({ bankAccounts, setBankAccounts }) => {
     setBalance("");
   }
 
-  const addUserdata = e => {
+  const addUserData = e => {
     e.preventDefault();
 
-    if (!nameChecker) {
-      const userObject = {
-        name,
-        email,
-        bday,
-        address,
-        creationDate,
-        accountNumber,
-        balance,
-        transactionHistory: [],
-      };
+    const errors = newAccountValidation(name, email, bday, address, balance);
 
-      const updatedAccounts = addUser(bankAccounts, userObject);
-      setBankAccounts(updatedAccounts);
-      navigate(`success/${accountNumber}`);
-      stateResetter();
-    } else {
-      togglePopup();
-      setErrorMessage("User already exists");
+    if (Object.values(errors).some(error => error !== null)) {
+      setErrors(errors);
+      return;
     }
+
+    const userObject = {
+      name,
+      email,
+      bday,
+      address,
+      creationDate,
+      accountNumber,
+      balance,
+      transactionHistory: [],
+    };
+
+    const updatedAccounts = addUser(bankAccounts, userObject);
+    setBankAccounts(updatedAccounts);
+    navigate(`success/${accountNumber}`);
+    stateResetter();
   };
 
   return (
     <>
-      <form className={styles.form} onSubmit={addUserdata}>
+      <form className={styles.form} onSubmit={addUserData} noValidate>
         <div className={styles.divname}>
           <FormInput
             name="name"
@@ -81,6 +73,7 @@ const UserForm = ({ bankAccounts, setBankAccounts }) => {
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
+            error={errors.name}
           />
         </div>
 
@@ -97,6 +90,7 @@ const UserForm = ({ bankAccounts, setBankAccounts }) => {
             onChange={e => setEmail(e.target.value)}
             autoComplete="off"
             required={true}
+            error={errors.email}
           />
         </div>
 
@@ -113,6 +107,7 @@ const UserForm = ({ bankAccounts, setBankAccounts }) => {
             onChange={e => setBday(e.target.value)}
             autoComplete="off"
             required={true}
+            error={errors.bday}
           />
         </div>
 
@@ -129,6 +124,7 @@ const UserForm = ({ bankAccounts, setBankAccounts }) => {
             onChange={e => setAddress(e.target.value)}
             autoComplete="off"
             required={true}
+            error={errors.address}
           />
         </div>
 
@@ -169,8 +165,9 @@ const UserForm = ({ bankAccounts, setBankAccounts }) => {
             }}
             label="Balance"
             value={balance}
-            onChange={e => setBalance(+e.target.value)}
+            onChange={e => setBalance(parseFloat(e.target.value))}
             autoComplete="off"
+            error={errors.balance}
           />
         </div>
 
@@ -178,16 +175,6 @@ const UserForm = ({ bankAccounts, setBankAccounts }) => {
           Submit
         </button>
       </form>
-      {isOpen && (
-        <Popup
-          content={
-            <>
-              <b>{errormessage}</b>
-            </>
-          }
-          handleClose={togglePopup}
-        />
-      )}
     </>
   );
 };
