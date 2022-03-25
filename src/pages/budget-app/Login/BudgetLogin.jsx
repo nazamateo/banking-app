@@ -4,6 +4,7 @@ import { emailPasswordValidation } from "../../../utils/formValidation";
 import FormInput from "../../../components/forms/FormInput";
 import LogInFormContainer from "../../../components/LogInFormContainer/LoginFormContainer";
 import Button from "../../../components/button/Button";
+import styles from "../MainPage/MainPage.module.scss";
 
 function BudgetLoginPage({
   setIsUserAuthenticated,
@@ -49,7 +50,7 @@ function BudgetLoginPage({
   };
 
   return (
-    <div className="log-in">
+    <div className={styles.logIn}>
       <LogInFormContainer handleSubmit={handleSubmit}>
         <div className="input-login">
           <FormInput

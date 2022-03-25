@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./MainPage.scss";
+import styles from "./MainPage.module.scss";
 
 import SideBar from "../../../components/SideBar/SideBar";
 import NavBar from "../../../components/NavBar/NavBar";
@@ -51,91 +50,88 @@ function MainPage({
         setAuthentication={setIsAdminAuthenticated}
         isAuthenticated={isAdminAuthenticated}
       />
-      <div className="main-layout">
+      <div className={styles.mainLayout}>
         <SideBar getWidth={getSideBarWidth} getLink={getSelectedLink} />
-        <TransitionGroup component={null}>
-          <CSSTransition key={location.key} classNames="next" timeout={500}>
-            <Routes location={location}>
-              <Route path="dashboard" element={<DashboardPage />} />
-              <Route
-                path="users"
-                element={<AllUsersPage bankAccounts={bankAccounts} />}
+
+        <Routes location={location}>
+          <Route path="dashboard" element={<DashboardPage />} />
+          <Route
+            path="users"
+            element={<AllUsersPage bankAccounts={bankAccounts} />}
+          />
+          <Route
+            path="users/:accountNumber"
+            element={
+              <IndividualUserPage
+                bankAccounts={bankAccounts}
+                setBankAccounts={setBankAccounts}
               />
-              <Route
-                path="users/:accountNumber"
-                element={
-                  <IndividualUserPage
-                    bankAccounts={bankAccounts}
-                    setBankAccounts={setBankAccounts}
-                  />
-                }
+            }
+          />
+          <Route
+            path="users/newaccount"
+            element={
+              <FormPage
+                bankAccounts={bankAccounts}
+                setBankAccounts={setBankAccounts}
               />
-              <Route
-                path="users/newaccount"
-                element={
-                  <FormPage
-                    bankAccounts={bankAccounts}
-                    setBankAccounts={setBankAccounts}
-                  />
-                }
+            }
+          />
+          <Route
+            path="users/newaccount/success/:accountNumber"
+            element={<SuccessAddUserPage bankAccounts={bankAccounts} />}
+          />
+          <Route
+            path="users/edit/:accountNumber"
+            element={
+              <EditFormPage
+                bankAccounts={bankAccounts}
+                setBankAccounts={setBankAccounts}
               />
-              <Route
-                path="users/newaccount/success/:accountNumber"
-                element={<SuccessAddUserPage bankAccounts={bankAccounts} />}
+            }
+          />
+          <Route
+            path="deposit"
+            element={
+              <DepositPage
+                bankAccounts={bankAccounts}
+                setBankAccounts={setBankAccounts}
               />
-              <Route
-                path="users/edit/:accountNumber"
-                element={
-                  <EditFormPage
-                    bankAccounts={bankAccounts}
-                    setBankAccounts={setBankAccounts}
-                  />
-                }
+            }
+          />
+          <Route
+            path="deposit/qr"
+            element={
+              <DepositQrPage
+                bankAccounts={bankAccounts}
+                setBankAccounts={setBankAccounts}
               />
-              <Route
-                path="deposit"
-                element={
-                  <DepositPage
-                    bankAccounts={bankAccounts}
-                    setBankAccounts={setBankAccounts}
-                  />
-                }
+            }
+          />
+          <Route
+            path="withdraw"
+            element={
+              <WithdrawPage
+                bankAccounts={bankAccounts}
+                setBankAccounts={setBankAccounts}
               />
-              <Route
-                path="deposit/qr"
-                element={
-                  <DepositQrPage
-                    bankAccounts={bankAccounts}
-                    setBankAccounts={setBankAccounts}
-                  />
-                }
+            }
+          />
+          <Route
+            path="transfer"
+            element={
+              <TransferPage
+                bankAccounts={bankAccounts}
+                setBankAccounts={setBankAccounts}
               />
-              <Route
-                path="withdraw"
-                element={
-                  <WithdrawPage
-                    bankAccounts={bankAccounts}
-                    setBankAccounts={setBankAccounts}
-                  />
-                }
-              />
-              <Route
-                path="transfer"
-                element={
-                  <TransferPage
-                    bankAccounts={bankAccounts}
-                    setBankAccounts={setBankAccounts}
-                  />
-                }
-              />
-              <Route
-                path="complete/:transactionId"
-                element={<SuccessTransactionPage bankAccounts={bankAccounts} />}
-              />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </CSSTransition>
-        </TransitionGroup>
+            }
+          />
+          <Route
+            path="complete/:transactionId"
+            element={<SuccessTransactionPage bankAccounts={bankAccounts} />}
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </div>
     </div>
   );

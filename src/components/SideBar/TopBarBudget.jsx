@@ -57,7 +57,7 @@ function TopBarBudget({ getLink }) {
             }
             onClick={getLinkSelected}
           >
-            AddBillers
+            Add Billers
           </NavLink>
         </li>
       </ul>

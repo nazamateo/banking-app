@@ -1,4 +1,5 @@
 import Login from "../../components/banking-app/Login";
+import styles from "./MainPage/MainPage.module.scss";
 
 function LoginPage({
   setIsAdminAuthenticated,
@@ -7,7 +8,7 @@ function LoginPage({
   setAdminAccounts,
 }) {
   return (
-    <div className="log-in">
+    <div className={styles.logIn}>
       <Login
         setIsAdminAuthenticated={setIsAdminAuthenticated}
         isAdminAuthenticated={isAdminAuthenticated}

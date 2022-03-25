@@ -1,12 +1,6 @@
 @use "../../../assets/sass/main.scss";
 @use "../../../assets/sass/variables" as *;
 
-.main-layout {
-  height: 100vh;
-  display: flex;
-  overflow: hidden;
-}
-
 .page {
   background-color: $background-color-page;
   overflow-y: auto;
@@ -17,4 +11,40 @@
   align-items: center;
   gap: 2rem;
   height: 100%;
+}
+
+.logIn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("../../../assets/images/login-background-white.png") no-repeat
+    center;
+  background-size: cover;
+}
+
+.mainLayout {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 4.4rem;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.pageMainContent {
+  background: white;
+  border-radius: 5px;
+  padding: 2rem;
+
+  button {
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
