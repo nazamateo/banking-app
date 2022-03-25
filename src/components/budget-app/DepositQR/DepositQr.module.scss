@@ -1,0 +1,19 @@
+@use "../../../assets/sass/variables" as *;
+
+.qrCodeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 2rem;
+
+  > a {
+    font-size: 2rem;
+    color: $secondary-color;
+  }
+
+  > a:hover {
+    color: blue;
+  }
+}

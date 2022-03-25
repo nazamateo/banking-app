@@ -1,10 +1,10 @@
 import ScanQrImg from "../../components/banking-app/ScanQr";
-
+import styles from "./MainPage/MainPage.module.scss";
 function DepositQrPage({ bankAccounts, setBankAccounts }) {
   return (
-    <div className="page">
-      <h1 className="title">SCAN QR</h1>
-      <div className="page-main-content">
+    <div className={styles.page}>
+      <h1 className={styles.title}>SCAN QR</h1>
+      <div className={styles.pageMainContent}>
         <ScanQrImg
           bankAccounts={bankAccounts}
           setBankAccounts={setBankAccounts}

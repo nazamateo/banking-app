@@ -1,12 +1,14 @@
 import React from "react";
 import DepositQR from "../../components/budget-app/DepositQR/index";
-//import "./dashboard.scss";
+import styles from "../budget-app/MainPage/MainPage.module.scss";
 
 function DepositBudget({ bankAccounts }) {
   return (
-    <div className="page">
-      <h1>Deposit via QR</h1>
-      <DepositQR bankAccounts={bankAccounts} />
+    <div className={styles.page}>
+      <h1 className={styles.title}>Deposit via QR</h1>
+      <div className={styles.pageMainContent}>
+        <DepositQR bankAccounts={bankAccounts} />
+      </div>
     </div>
   );
 }

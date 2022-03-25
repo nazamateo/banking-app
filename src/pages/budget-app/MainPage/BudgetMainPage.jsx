@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import styles from "./MainPage.module.scss";
 
 //COMPONENTS
 import NavBar from "../../../components/NavBar/NavBar";
@@ -43,9 +43,7 @@ function BudgetMainPage({
         isAuthenticated={isUserAuthenticated}
       />
       <TopBarBudget getLink={getSelectedLink} />
-      <div className="main-layout">
-        {/* <TransitionGroup component={null}>
-          <CSSTransition key={location.key} classNames="next" timeout={500}> */}
+      <div className={styles.mainLayout}>
         <Routes location={location}>
           <Route path="dashboard" element={<DashboardBudget />} />
           <Route path="transfer" element={<TransferBudget />} />
@@ -55,8 +53,6 @@ function BudgetMainPage({
             element={<DepositBudget bankAccounts={bankAccounts} />}
           />
         </Routes>
-        {/* </CSSTransition>
-        </TransitionGroup> */}
       </div>
     </>
   );
