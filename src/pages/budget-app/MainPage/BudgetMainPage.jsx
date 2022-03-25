@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { getBankAccounts } from "../../../services/LocalStorage";
-//import "./MainPage.scss";
 
 //COMPONENTS
 import NavBar from "../../../components/NavBar/NavBar";
@@ -11,7 +9,6 @@ import DashboardBudget from "../Dashboard/BudgetDashboard";
 import TransferBudget from "../Transfer/Transfer";
 import DepositBudget from "../Deposit";
 import AddBillers from "../AddBillers/AddBillers";
-import { getBudgetAppUSer } from "../../../services/BudgetAppFunctions";
 
 import TopBarBudget from "../../../components/SideBar/TopBarBudget";
 
@@ -20,68 +17,48 @@ import TopBarBudget from "../../../components/SideBar/TopBarBudget";
 
 //PAGES
 
-const ROUTESBUDGET = [
-  {
-    path: "/dashboard",
-    element: <DashboardBudget />,
-  },
-  {
-    path: "/transfer",
-    element: <TransferBudget />,
-  },
-  {
-    path: "/deposit",
-    element: <DepositBudget />,
-  },
-  { path: "/addbillers", element: <AddBillers /> },
-  // { path: "users/:accountNumber", element: <IndividualUserPage /> },
-];
-
-function BudgetMainPage() {
-  const [sideBarWidth, setSideBarWidth] = useState(0);
+function BudgetMainPage({
+  bankAccounts,
+  setBankAccounts,
+  isUserAuthenticated,
+  setIsUserAuthenticated,
+}) {
   const [selectedLink, setSelectedLink] = useState(
     localStorage.getItem("selectedLink")
   );
-  const [username, setUsername] = useState("");
-  const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
+
   const location = useLocation();
 
-  const getLoggedInName = () => {
-    setUsername(getBudgetAppUSer().name);
-  };
-
-  useEffect(() => {
-    getLoggedInName();
-  }, []);
-
-  const getSelectedLink = (selectedLink) => {
+  const getSelectedLink = selectedLink => {
     setSelectedLink(selectedLink);
   };
 
   return (
-    <div>
+    <>
       <NavBar
-        navBarWidth={sideBarWidth}
         linkSelected={selectedLink}
-        adminUsername={username}
+        accounts={bankAccounts}
+        setAccounts={setBankAccounts}
+        setAuthentication={setIsUserAuthenticated}
+        isAuthenticated={isUserAuthenticated}
       />
       <TopBarBudget getLink={getSelectedLink} />
       <div className="main-layout">
-        <TransitionGroup component={null}>
-          <CSSTransition key={location.key} classNames="next" timeout={500}>
-            <Routes location={location}>
-              {ROUTESBUDGET.map((route, i) => (
-                <Route key={i} path={route.path} element={route.element} />
-              ))}
-              <Route
-                path="deposit"
-                element={<DepositBudget bankAccounts={bankAccounts} />}
-              />
-            </Routes>
-          </CSSTransition>
-        </TransitionGroup>
+        {/* <TransitionGroup component={null}>
+          <CSSTransition key={location.key} classNames="next" timeout={500}> */}
+        <Routes location={location}>
+          <Route path="dashboard" element={<DashboardBudget />} />
+          <Route path="transfer" element={<TransferBudget />} />
+          <Route path="addbillers" element={<AddBillers />} />
+          <Route
+            path="deposit"
+            element={<DepositBudget bankAccounts={bankAccounts} />}
+          />
+        </Routes>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
       </div>
-    </div>
+    </>
   );
 }
 

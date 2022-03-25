@@ -451,10 +451,6 @@ function updateAdminAccounts(adminAccounts) {
   localStorage.setItem("adminAccounts", JSON.stringify(adminAccounts));
 }
 
-function updateAdminAuthentication(state) {
-  localStorage.setItem("isAuthenticatedBank", state);
-}
-
 function getDepositTrackers() {
   return JSON.parse(localStorage.getItem("depositTrackers"));
 }
@@ -466,7 +462,7 @@ function updateDepositTrackers(trackers) {
 function getBankAccount(accountName, accountNumber) {
   const bankAccounts = JSON.parse(localStorage.getItem("bankAccounts"));
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return (
       bankAccount.accountNumber === accountNumber &&
       bankAccount.name === accountName
@@ -477,7 +473,7 @@ function getBankAccount(accountName, accountNumber) {
 function getBankAccountName(accountName) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return bankAccount.name === accountName;
   });
 }
@@ -485,7 +481,7 @@ function getBankAccountName(accountName) {
 function getBankAccountNumber(accountNumber) {
   const bankAccounts = getBankAccounts();
 
-  return bankAccounts.find((bankAccount) => {
+  return bankAccounts.find(bankAccount => {
     return bankAccount.accountNumber === accountNumber;
   });
 }
@@ -499,7 +495,7 @@ function updateBankAccountBalance(
 ) {
   const bankAccounts = getBankAccounts();
   const foundAccount = getBankAccount(accountName, accountNumber);
-  const index = bankAccounts.findIndex((obj) => {
+  const index = bankAccounts.findIndex(obj => {
     return obj.accountNumber === accountNumber;
   });
 
@@ -526,7 +522,7 @@ function transferBankAccountBalance(
   const bankAccounts = getBankAccounts();
 
   const fromAccount = getBankAccount(fromaccountName, fromaccountNumber);
-  const fromIndex = bankAccounts.findIndex((obj) => {
+  const fromIndex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === fromaccountNumber;
   });
   fromAccount.balance -= amount;
@@ -534,7 +530,7 @@ function transferBankAccountBalance(
   bankAccounts[fromIndex] = fromAccount;
 
   const toAccount = getBankAccount(toaccountName, toaccountNumber);
-  const toIndex = bankAccounts.findIndex((obj) => {
+  const toIndex = bankAccounts.findIndex(obj => {
     return obj.accountNumber === toaccountNumber;
   });
 
@@ -552,10 +548,8 @@ function LoadDataButton({ className }) {
     e.preventDefault();
     localStorage.setItem("bankAccounts", JSON.stringify(BANK_ACCOUNTS));
     localStorage.setItem("adminAccounts", JSON.stringify(ADMIN_ACCOUNTS));
-    localStorage.setItem("isAuthenticatedBank", false);
-    localStorage.setItem("isAuthenticatedBudget", false);
     localStorage.setItem("selectedLink", "Dashboard");
-    localStorage.setItem("depositTracker", JSON.stringify(array));
+    localStorage.setItem("depositTrackers", JSON.stringify(array));
     e.target.remove();
   };
 
@@ -571,7 +565,6 @@ export {
   getAdminAccounts,
   updateBankAccounts,
   updateAdminAccounts,
-  updateAdminAuthentication,
   getDepositTrackers,
   updateDepositTrackers,
   LoadDataButton,

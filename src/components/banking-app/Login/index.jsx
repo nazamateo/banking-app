@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { getAdminAccounts } from "../../../services/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../../forms/FormInput";
 import styles from "./Login.module.scss";
 import Logo from "../../Logo";
 import logo from "../../../assets/images/bank-logo-white.png";
 import { loginValidation } from "../../../utils/formValidation";
-import { updateAdminAuthentication } from "../../../services/LocalStorage";
+import LogInFormContainer from "../../LogInFormContainer/LoginFormContainer";
+import Button from "../../button/Button";
 
-function Login() {
+function Login({
+  setIsAdminAuthenticated,
+  isAdminAuthenticated,
+  adminAccounts,
+  setAdminAccounts,
+}) {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAuth = localStorage.getItem("isAuthenticatedBank");
-
-    if (isAuth === true) {
-      navigate("/banking/dashboard", { replace: true });
+    if (isAdminAuthenticated) {
+      navigate("/banking/dashboard");
     }
-  }, []);
+  }, [isAdminAuthenticated]);
 
   const loginAuthentication = username => {
-    const adminAccounts = JSON.parse(localStorage.getItem("adminAccounts"));
-
     const account = adminAccounts.find(
       account => account.username === username
     );
@@ -35,22 +36,22 @@ function Login() {
       adminAccount.username === username ? { ...account } : adminAccount
     );
 
-    localStorage.setItem("adminAccounts", JSON.stringify(updatedAccounts));
+    setAdminAccounts(updatedAccounts);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    const errors = loginValidation(username, password, getAdminAccounts());
-    console.log(errors);
+    const errors = loginValidation(username, password, adminAccounts);
+
     if (Object.values(errors).some(error => error !== null)) {
       setErrors(errors);
       return;
     }
 
-    updateAdminAuthentication(true);
     loginAuthentication(username);
-    navigate("/banking/dashboard");
+
+    setIsAdminAuthenticated(true);
   };
 
   return (
@@ -59,14 +60,12 @@ function Login() {
         <Logo link={logo} name="DigiBank" className={styles.logoContainer} />
         <p>Admin Dashboard</p>
       </div>
-      <form onSubmit={handleSubmit} className={styles.formContainer} noValidate>
-        <h1>LOGIN</h1>
+      <LogInFormContainer handleSubmit={handleSubmit}>
         <div className={styles.inputContainer}>
           <FormInput
             type="text"
             name="username"
             label="Username:"
-            classNames={{ label: styles.label, input: styles.input }}
             placeholder="Username"
             autoComplete="off"
             onChange={e => setUserName(e.target.value)}
@@ -79,7 +78,6 @@ function Login() {
             type="password"
             name="password"
             label="Password:"
-            classNames={{ label: styles.label, input: styles.input }}
             placeholder="Password"
             onChange={e => setPassword(e.target.value)}
             value={password}
@@ -87,10 +85,8 @@ function Login() {
           />
         </div>
 
-        <button type="submit" className={styles.loginBtn}>
-          Log In
-        </button>
-      </form>
+        <Button text="Log In" />
+      </LogInFormContainer>
     </>
   );
 }

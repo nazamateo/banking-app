@@ -1,9 +1,19 @@
 import Login from "../../components/banking-app/Login";
 
-function LoginPage() {
+function LoginPage({
+  setIsAdminAuthenticated,
+  isAdminAuthenticated,
+  adminAccounts,
+  setAdminAccounts,
+}) {
   return (
     <div className="log-in">
-      <Login />
+      <Login
+        setIsAdminAuthenticated={setIsAdminAuthenticated}
+        isAdminAuthenticated={isAdminAuthenticated}
+        adminAccounts={adminAccounts}
+        setAdminAccounts={setAdminAccounts}
+      />
     </div>
   );
 }

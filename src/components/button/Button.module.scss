@@ -1,0 +1,16 @@
+@use "../../assets/sass/variables" as *;
+
+.btn {
+  border: 0;
+  background: rgb(44, 52, 59);
+  color: white;
+  padding: 0.8rem 1rem;
+  font-size: 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: $secondary-color;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
