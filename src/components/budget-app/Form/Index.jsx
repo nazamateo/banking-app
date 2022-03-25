@@ -23,7 +23,7 @@ function BudgetForm() {
   let [currentAppUser, setCurrentAppUser] = useState(getBudgetAppUSer());
   let [budgetBalance, setBudgetBalance] = useState(currentAppUser.balance);
 
-  const confirmExpense = index => {
+  const confirmExpense = (index) => {
     let bankAccounts = getBankAccounts();
     let newFormValues = formValues;
     let thisExpense = parseInt(newFormValues[index].number);
@@ -32,7 +32,7 @@ function BudgetForm() {
 
     currentAppUser.balance -= thisExpense;
 
-    let reciever = bankAccounts.find(bankAccount => {
+    let reciever = bankAccounts.find((bankAccount) => {
       return bankAccount.name === newFormValues[index].account;
     });
 
@@ -113,7 +113,7 @@ function BudgetForm() {
     ]);
   };
 
-  let removeFormFields = i => {
+  let removeFormFields = (i) => {
     let newFormValues = [...formValues];
     newFormValues.splice(i, 1);
     let filteredArray = [];
@@ -128,7 +128,7 @@ function BudgetForm() {
     setAmountSum(total);
   };
 
-  let handleSubmit = e => {
+  let handleSubmit = (e) => {
     e.preventDefault();
     alert(JSON.stringify(formValues));
   };
@@ -146,12 +146,8 @@ function BudgetForm() {
                 name="description"
                 placeholder="DESCRIPTION"
                 value={element.description || ""}
-<<<<<<< HEAD
                 onChange={(e) => handleChange(index, e)}
                 autoComplete="off"
-=======
-                onChange={e => handleChange(index, e)}
->>>>>>> 500f712c7814f3753b27f6047cf1ba12ec55e71f
               />
               <input
                 className={styles.field}
@@ -160,12 +156,8 @@ function BudgetForm() {
                 name="account"
                 placeholder="BILLER"
                 value={element.account || ""}
-<<<<<<< HEAD
                 onChange={(e) => handleChange(index, e)}
                 autoComplete="off"
-=======
-                onChange={e => handleChange(index, e)}
->>>>>>> 500f712c7814f3753b27f6047cf1ba12ec55e71f
               />
               <datalist id="accountlist">
                 <BillerDataListGenerator />
@@ -176,8 +168,8 @@ function BudgetForm() {
                 name="number"
                 placeholder="AMOUNT"
                 value={element.number || ""}
-                onChange={e => handleChange(index, e)}
-                onBlur={e => handleBlur(index, e)}
+                onChange={(e) => handleChange(index, e)}
+                onBlur={(e) => handleBlur(index, e)}
               />
               <button
                 type="button"

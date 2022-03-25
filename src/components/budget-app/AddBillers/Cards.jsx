@@ -63,15 +63,8 @@ function Cards() {
     { link: netflix, name: "NEFLIX" },
     { link: starbucks, name: "STARBUCKS" },
   ];
-<<<<<<< HEAD
+
   let handleClick = (i) => {
-=======
-  let handleClick = i => {
-    setBillersArrayLogos([
-      ...billersArrayLogos,
-      { link: logoArray[i].link, name: logoArray[i].name },
-    ]);
->>>>>>> 500f712c7814f3753b27f6047cf1ba12ec55e71f
     setBillerName(logoArray[i].name);
     setbillerLogoDetails({ link: logoArray[i].link, name: logoArray[i].name });
     setIsOpen(true);
@@ -141,13 +134,8 @@ function Cards() {
   return (
     <>
       <div className={styles.mybillers}>
-<<<<<<< HEAD
         {billersArrayLogos.map((element, index) => (
           <button onClick={(e) => handleClickSavedLogo(index, e)}>
-=======
-        {billersArrayLogos.map(element => (
-          <button>
->>>>>>> 500f712c7814f3753b27f6047cf1ba12ec55e71f
             <Logo
               link={element.link}
               name={element.billernickname}
@@ -158,7 +146,7 @@ function Cards() {
       </div>
       <div className={styles.cardContainer}>
         {logoArray.map((element, index) => (
-          <button onClick={e => handleClick(index, e)}>
+          <button onClick={(e) => handleClick(index, e)}>
             <Logo link={element.link} className={styles.logoContainer} />
           </button>
         ))}

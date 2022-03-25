@@ -12,11 +12,9 @@ import TransferBudget from "../Transfer/Transfer";
 import DepositBudget from "../Deposit";
 import AddBillers from "../AddBillers/AddBillers";
 import { getBudgetAppUSer } from "../../../services/BudgetAppFunctions";
-<<<<<<< HEAD
-import TopBarBudget from "../../../components/layout/SideBar/TopBarBudget";
-=======
-import SideBarBudget from "../../../components/SideBar/SideBarBudget";
->>>>>>> 500f712c7814f3753b27f6047cf1ba12ec55e71f
+
+import TopBarBudget from "../../../components/SideBar/TopBarBudget";
+
 //import BudgetTable from "../BudgetTable/BudgetTable";
 //import NotFoundPage from "../../banking-app/NotFound";
 
@@ -56,15 +54,7 @@ function BudgetMainPage() {
     getLoggedInName();
   }, []);
 
-<<<<<<< HEAD
   const getSelectedLink = (selectedLink) => {
-=======
-  const getSideBarWidth = obtainedSideBarWidth => {
-    setSideBarWidth(obtainedSideBarWidth);
-  };
-
-  const getSelectedLink = selectedLink => {
->>>>>>> 500f712c7814f3753b27f6047cf1ba12ec55e71f
     setSelectedLink(selectedLink);
   };
 
