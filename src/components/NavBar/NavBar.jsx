@@ -3,16 +3,36 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
 import logo from "../../assets/images/placeholder.jpg";
 import styles from "./NavBar.module.scss";
+import { updateAdminAuthentication } from "../../services/LocalStorage";
 
-function NavBar({ navBarWidth, linkSelected, adminUsername }) {
+function NavBar({
+  navBarWidth,
+  linkSelected,
+  adminUsername,
+  adminAccounts,
+  setAdminAccounts,
+}) {
   const navigate = useNavigate();
 
   const [isShown, setIsShown] = useState(false);
 
   const signOut = e => {
     e.preventDefault();
-    localStorage.setItem("isAuthenticatedBank", false);
-    navigate("/");
+    const loggedInAccount = adminAccounts.find(
+      adminAccount => adminAccount.isLoggedIn === true
+    );
+
+    loggedInAccount.isLoggedIn = false;
+
+    const updatedAccounts = adminAccounts.map(adminAccount =>
+      adminAccount.username === loggedInAccount.username
+        ? { ...loggedInAccount }
+        : adminAccount
+    );
+
+    setTimeout(() => navigate("/"), 0);
+    setAdminAccounts(updatedAccounts);
+    updateAdminAuthentication(false);
   };
 
   return (

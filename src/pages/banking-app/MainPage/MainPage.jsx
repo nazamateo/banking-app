@@ -22,6 +22,7 @@ import EditFormPage from "../EditForm";
 import {
   getBankAccounts,
   updateBankAccounts,
+  updateAdminAccounts,
 } from "../../../services/LocalStorage";
 
 function MainPage() {
@@ -31,6 +32,7 @@ function MainPage() {
   );
   const [username, setUsername] = useState("");
   const [bankAccounts, setBankAccounts] = useState(getBankAccounts());
+  const [adminAccounts, setAdminAccounts] = useState(getAdminAccounts());
 
   const location = useLocation();
 
@@ -39,8 +41,12 @@ function MainPage() {
   }, [bankAccounts]);
 
   useEffect(() => {
+    updateAdminAccounts(adminAccounts);
+  }, [adminAccounts]);
+
+  useEffect(() => {
     const getLoggedInName = () => {
-      const loggedInAccount = getAdminAccounts().find(
+      const loggedInAccount = adminAccounts.find(
         adminAccount => adminAccount.isLoggedIn === true
       );
 
@@ -64,6 +70,8 @@ function MainPage() {
         navBarWidth={sideBarWidth}
         linkSelected={selectedLink}
         adminUsername={username}
+        adminAccounts={adminAccounts}
+        setAdminAccounts={setAdminAccounts}
       />
       <div className="main-layout">
         <SideBar getWidth={getSideBarWidth} getLink={getSelectedLink} />

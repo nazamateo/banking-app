@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Popup from "../../General/Helpers/ConfirmExpense";
-import Logo from "../../General/Logo/Logo";
+import Logo from "../../Logo";
 import bdo from "../../../assets/images/Company logos/bdo.png";
 import ust from "../../../assets/images/Company logos/ust.png";
 import globe from "../../../assets/images/Company logos/globe.png";
@@ -49,7 +49,7 @@ function Cards() {
     { link: joll, name: "JOLLIBEE" },
     { link: starbucks, name: "STARBUCKS" },
   ];
-  let handleClick = (i) => {
+  let handleClick = i => {
     setBillersArrayLogos([
       ...billersArrayLogos,
       { link: logoArray[i].link, name: logoArray[i].name },
@@ -64,7 +64,7 @@ function Cards() {
   return (
     <>
       <div className={styles.mybillers}>
-        {billersArrayLogos.map((element) => (
+        {billersArrayLogos.map(element => (
           <button>
             <Logo
               link={element.link}
@@ -76,7 +76,7 @@ function Cards() {
       </div>
       <div className={styles.cardContainer}>
         {logoArray.map((element, index) => (
-          <button onClick={(e) => handleClick(index, e)}>
+          <button onClick={e => handleClick(index, e)}>
             <Logo link={element.link} className={styles.logoContainer} />
           </button>
         ))}
