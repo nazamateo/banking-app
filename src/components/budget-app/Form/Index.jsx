@@ -135,107 +135,112 @@ function BudgetForm() {
 
   return (
     <>
-      <div className={styles.form}>
-        <h1 className={styles.expensesheading}>MY EXPENSES</h1>
-        <form onSubmit={handleSubmit}>
-          {formValues.map((element, index) => (
-            <div className={index} key={index}>
-              <input
-                className={styles.field}
-                type="text"
-                name="description"
-                placeholder="DESCRIPTION"
-                value={element.description || ""}
-                onChange={(e) => handleChange(index, e)}
-                autoComplete="off"
-              />
-              <input
-                className={styles.field}
-                type="text"
-                list="accountlist"
-                name="account"
-                placeholder="BILLER"
-                value={element.account || ""}
-                onChange={(e) => handleChange(index, e)}
-                autoComplete="off"
-              />
-              <datalist id="accountlist">
-                <BillerDataListGenerator />
-              </datalist>
-              <input
-                className={styles.fieldcost}
-                type="number"
-                name="number"
-                placeholder="AMOUNT"
-                value={element.number || ""}
-                onChange={(e) => handleChange(index, e)}
-                onBlur={(e) => handleBlur(index, e)}
-              />
-              <button
-                type="button"
-                className={styles.delete}
-                onClick={() => confirmExpense(index)}
-              >
-                Confirm
-              </button>
-              {index ? (
+      <div className={styles.main}>
+        <div className={styles.hello}>
+          <h1 className={styles.hellow}>
+            Hello {currentAppUser.name}! <i class="lar la-smile-wink" />
+          </h1>
+          <h1 className={styles.hellow}>
+            Your bank account balance is:
+            {Intl.NumberFormat("en-PH", {
+              currency: "PHP",
+              style: "currency",
+            }).format(currentAppUser.balance)}
+          </h1>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.form}>
+            <h1 className={styles.expensesheading}>MY EXPENSES</h1>
+            <form onSubmit={handleSubmit}>
+              {formValues.map((element, index) => (
+                <div className={index} key={index}>
+                  <input
+                    className={styles.field}
+                    type="text"
+                    name="description"
+                    placeholder="DESCRIPTION"
+                    value={element.description || ""}
+                    onChange={(e) => handleChange(index, e)}
+                    autoComplete="off"
+                  />
+                  <input
+                    className={styles.field}
+                    type="text"
+                    list="accountlist"
+                    name="account"
+                    placeholder="BILLER"
+                    value={element.account || ""}
+                    onChange={(e) => handleChange(index, e)}
+                    autoComplete="off"
+                  />
+                  <datalist id="accountlist">
+                    <BillerDataListGenerator />
+                  </datalist>
+                  <input
+                    className={styles.fieldcost}
+                    type="number"
+                    name="number"
+                    placeholder="AMOUNT"
+                    value={element.number || ""}
+                    onChange={(e) => handleChange(index, e)}
+                    onBlur={(e) => handleBlur(index, e)}
+                  />
+                  <button
+                    type="button"
+                    className={styles.delete}
+                    onClick={() => confirmExpense(index)}
+                  >
+                    Confirm
+                  </button>
+                  {index ? (
+                    <button
+                      type="button"
+                      className={styles.delete}
+                      onClick={() => removeFormFields(index)}
+                    >
+                      Del
+                    </button>
+                  ) : null}
+                </div>
+              ))}
+              <div className="total-section">
+                <p className={styles.total}>TOTAL</p>
+                <p className={styles.amountsum}>
+                  {Intl.NumberFormat("en-PH", {
+                    currency: "PHP",
+                    style: "currency",
+                  }).format(amountSum)}
+                </p>
+              </div>
+
+              <div className="button-section">
                 <button
+                  className={styles.add}
                   type="button"
-                  className={styles.delete}
-                  onClick={() => removeFormFields(index)}
+                  onClick={() => addFormFields()}
                 >
-                  Del
+                  Add
                 </button>
-              ) : null}
-            </div>
-          ))}
-          <div className="total-section">
-            <p className={styles.total}>TOTAL</p>
-            <p className={styles.amountsum}>
-              {Intl.NumberFormat("en-PH", {
+              </div>
+            </form>
+          </div>{" "}
+          <div className={styles.statcontainer}>
+            <h1 className={styles.hellow}>PROJECTED BALANCE:</h1>
+            <CircularProgressbar
+              value={Math.round(
+                (100 * (budgetBalance - amountSum)) / budgetBalance
+              )}
+              text={Intl.NumberFormat("en-PH", {
                 currency: "PHP",
                 style: "currency",
-              }).format(amountSum)}
-            </p>
+              }).format(budgetBalance - amountSum)}
+              styles={buildStyles({
+                // Text size
+                textSize: "15px",
+              })}
+            />
           </div>
-
-          <div className="button-section">
-            <button
-              className={styles.add}
-              type="button"
-              onClick={() => addFormFields()}
-            >
-              Add
-            </button>
-            <button className={styles.submit} type="submit">
-              Withdraw
-            </button>
-          </div>
-        </form>
-      </div>{" "}
-      <div className={styles.statcontainer}>
-        <h1 className={styles.hellow}>Hello {currentAppUser.name}!</h1>
-        <h1 className={styles.hellow}>
-          Your bank account balance is:
-          {Intl.NumberFormat("en-PH", {
-            currency: "PHP",
-            style: "currency",
-          }).format(currentAppUser.balance)}
-        </h1>
-        <h1 className={styles.hellow}>Your projected account balance is:</h1>
-        <CircularProgressbar
-          value={Math.round(
-            (100 * (budgetBalance - amountSum)) / budgetBalance
-          )}
-          text={Intl.NumberFormat("en-PH", {
-            currency: "PHP",
-            style: "currency",
-          }).format(budgetBalance - amountSum)}
-          styles={buildStyles({
-            // Text size
-            textSize: "15px",
-          })}
-        />
+        </div>{" "}
       </div>
     </>
   );

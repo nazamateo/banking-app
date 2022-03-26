@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { getBankAccounts } from "../../../services/LocalStorage";
+import styles from "./MainPage.module.scss";
 //import "./MainPage.scss";
 
 //COMPONENTS
@@ -66,20 +67,20 @@ function BudgetMainPage() {
         adminUsername={username}
       />
       <TopBarBudget getLink={getSelectedLink} />
-      <div className="main-layout">
-        <TransitionGroup component={null}>
-          <CSSTransition key={location.key} classNames="next" timeout={500}>
-            <Routes location={location}>
-              {ROUTESBUDGET.map((route, i) => (
-                <Route key={i} path={route.path} element={route.element} />
-              ))}
-              <Route
-                path="deposit"
-                element={<DepositBudget bankAccounts={bankAccounts} />}
-              />
-            </Routes>
-          </CSSTransition>
-        </TransitionGroup>
+      <div className={styles.mainlayout}>
+        {/* <TransitionGroup component={null}>
+          <CSSTransition key={location.key} classNames="next" timeout={500}> */}
+        <Routes location={location}>
+          {ROUTESBUDGET.map((route, i) => (
+            <Route key={i} path={route.path} element={route.element} />
+          ))}
+          <Route
+            path="deposit"
+            element={<DepositBudget bankAccounts={bankAccounts} />}
+          />
+        </Routes>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
       </div>
     </div>
   );

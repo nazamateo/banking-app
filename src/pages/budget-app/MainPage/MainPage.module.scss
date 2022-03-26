@@ -1,14 +1,14 @@
 @use "../../../assets/sass/main.scss";
 @use "../../../assets/sass/variables" as *;
 
-.main-layout {
-  height: 100vh;
+.mainlayout {
   display: flex;
   overflow: hidden;
+  height: 92vh;
 }
 
 .page {
-  background-color: $background-color-page;
+  background-color: #6fbece;
   overflow-y: auto;
   width: 100%;
   display: flex;
@@ -16,5 +16,4 @@
   margin-top: 64px;
   align-items: center;
   gap: 2rem;
-  height: 100%;
 }

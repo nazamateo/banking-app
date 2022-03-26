@@ -42,7 +42,7 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
     setTransactionId(uuidv4());
   }
 
-  const logTransaction = e => {
+  const logTransaction = (e) => {
     e.preventDefault();
 
     const errors = transactionValidation(
@@ -53,7 +53,7 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
       deposit
     );
 
-    if (Object.values(errors).some(error => error !== null)) {
+    if (Object.values(errors).some((error) => error !== null)) {
       setErrors(errors);
       return;
     }
@@ -101,7 +101,7 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
             }}
             label="Name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             autoComplete="off"
             pattern="[a-zA-Z\s]+"
             required={true}
@@ -122,7 +122,7 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
             }}
             label="Account Number"
             value={accountNumber}
-            onChange={e => setAccountNumber(parseFloat(e.target.value))}
+            onChange={(e) => setAccountNumber(parseFloat(e.target.value))}
             autoComplete="off"
             required={true}
             error={errors.accountNumber}
@@ -157,7 +157,7 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
             label="Deposit Amount (₱)"
             value={deposit}
             autoComplete="off"
-            onChange={e => setDeposit(parseFloat(e.target.value))}
+            onChange={(e) => setDeposit(parseFloat(e.target.value))}
             required={true}
             pattern="[0-9.]+"
             error={errors.amount}
