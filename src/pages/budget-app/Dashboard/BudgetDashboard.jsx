@@ -2,6 +2,8 @@ import React from "react";
 import DashboardBudgetFunc from "../../../components/budget-app/Dashboard/BudgetDashboard";
 import styles from "../MainPage/MainPage.module.scss";
 
+
+
 function DashboardBudget() {
   return (
     <div className={styles.page}>
