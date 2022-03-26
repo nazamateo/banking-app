@@ -133,10 +133,6 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             name="fromName"
             list="namelist"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="From"
             value={fromName}
             onChange={e => setfromName(e.target.value)}
@@ -154,10 +150,6 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
             type="number"
             name="fromAccountNumber"
             list="listacct"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="From Account Number"
             value={fromAccountNumber}
             onChange={e => setfromAccountNumber(parseFloat(e.target.value))}
@@ -174,10 +166,6 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             name="toName"
             list="namelist"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="To"
             value={toName}
             onChange={e => setToName(e.target.value)}
@@ -195,10 +183,6 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
             type="number"
             name="toAccountNumber"
             list="listacct"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="To Account Number"
             value={toAccountNumber}
             onChange={e => settoAccountNumber(parseFloat(e.target.value))}
@@ -215,10 +199,6 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             type="text"
             name="transactionDate"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Transaction Date"
             value={transactionDate}
             autoComplete="off"
@@ -230,10 +210,6 @@ const TransferFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             type="number"
             name="amount"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Amount (₱)"
             value={amount}
             autoComplete="off"

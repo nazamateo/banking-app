@@ -1,7 +1,7 @@
 @use "../../../assets/sass/main.scss";
 @use "../../../assets/sass/variables" as *;
 
-.main-layout {
+.mainLayout {
   height: 100vh;
   display: flex;
   overflow: hidden;
@@ -19,7 +19,7 @@
   gap: 2rem;
 }
 
-.page-main-content {
+.pageMainContent {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,49 +32,8 @@
   position: relative;
 }
 
-.align-center {
+.alignCenter {
   align-items: center;
-}
-
-//fires as element enters the DOM
-.next-enter {
-  opacity: 0;
-}
-
-//we add transition here (transition when the page is active)
-.next-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-// fires before the element leaves the DOM (like standby mode)
-.next-exit {
-  display: none;
-}
-
-// fires as element leaves the DOM
-.next-exit-active {
-  opacity: 0;
-  transition: opacity 500ms ease-in;
-  z-index: 0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
 }
 
 ::-webkit-scrollbar {
@@ -86,7 +45,7 @@
   background: rgba(94, 94, 95, 0.4);
 }
 
-.log-in {
+.logIn {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -97,7 +56,7 @@
   background-size: cover;
 }
 
-.not-found {
+.notFound {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +70,7 @@
   text-align: center;
 }
 
-.choose-page {
+.choosePage {
   display: flex;
   flex-direction: column;
   justify-content: center;

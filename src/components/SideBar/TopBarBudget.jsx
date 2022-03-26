@@ -5,7 +5,7 @@ import styles from "../SideBar/TopBarBudget.module.scss";
 import logo from "../../assets/images/bank-logo.png";
 
 function TopBarBudget({ getLink }) {
-  const getLinkSelected = (e) => {
+  const getLinkSelected = e => {
     getLink(e.target.textContent);
     localStorage.setItem("selectedLink", e.target.textContent);
   };
@@ -28,6 +28,7 @@ function TopBarBudget({ getLink }) {
           </NavLink>
         </li>
         <li>
+
           <i class="las la-piggy-bank" />
           <NavLink
             to="/budget/deposit"
@@ -36,11 +37,13 @@ function TopBarBudget({ getLink }) {
             }
             onClick={getLinkSelected}
           >
-            Income
+            Deposit
           </NavLink>
         </li>
         <li>
+
           <i class="las la-file-invoice-dollar" />
+
           <NavLink
             to="/budget/transfer"
             className={({ isActive }) =>
@@ -60,7 +63,7 @@ function TopBarBudget({ getLink }) {
             }
             onClick={getLinkSelected}
           >
-            AddBillers
+            Add Billers
           </NavLink>
         </li>
       </ul>

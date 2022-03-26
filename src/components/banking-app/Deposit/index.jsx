@@ -95,15 +95,10 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             name="name"
             list="namelist"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoComplete="off"
-            pattern="[a-zA-Z\s]+"
             required={true}
             error={errors.name}
           />
@@ -116,10 +111,6 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
             type="number"
             name="accountNumber"
             list="listacct"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Account Number"
             value={accountNumber}
             onChange={(e) => setAccountNumber(parseFloat(e.target.value))}
@@ -136,10 +127,6 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             type="text"
             name="transactionDate"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Transaction Date"
             value={transactionDate}
             disabled={true}
@@ -150,10 +137,6 @@ const DepositFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             type="number"
             name="deposit"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Deposit Amount (₱)"
             value={deposit}
             autoComplete="off"

@@ -54,8 +54,6 @@ const WithdrawFunc = ({ bankAccounts, setBankAccounts }) => {
       "withdraw"
     );
 
-    console.log(errors);
-
     if (Object.values(errors).some(error => error !== null)) {
       setErrors(errors);
       return;
@@ -92,10 +90,6 @@ const WithdrawFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             name="name"
             list="namelist"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Name"
             value={name}
             onChange={e => setName(e.target.value)}
@@ -113,10 +107,6 @@ const WithdrawFunc = ({ bankAccounts, setBankAccounts }) => {
             type="number"
             name="accountNumber"
             list="listacct"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Account Number"
             value={accountNumber}
             onChange={e => setAccountNumber(parseFloat(e.target.value))}
@@ -133,10 +123,6 @@ const WithdrawFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             type="text"
             name="transactionDate"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Transaction Date"
             value={transactionDate}
             disabled={true}
@@ -147,10 +133,6 @@ const WithdrawFunc = ({ bankAccounts, setBankAccounts }) => {
           <FormInput
             type="number"
             name="withdraw"
-            classNames={{
-              label: styles.label,
-              input: styles.field,
-            }}
             label="Withdraw Amount (₱)"
             value={withdraw}
             autoComplete="off"

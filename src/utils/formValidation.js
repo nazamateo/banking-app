@@ -144,9 +144,31 @@ function loginValidation(username, password, accounts) {
   return errors;
 }
 
+function emailPasswordValidation(email, password, accounts) {
+  const errors = {};
+
+  errors.email = isEmailValid(email);
+  errors.password = isSpecificInputEmpty(password, "Password");
+
+  if (
+    !accounts.find(
+      account => account.email === email && account.password === password
+    ) &&
+    email &&
+    password
+  ) {
+    errors.email = "Invalid E-mail";
+    errors.password = "Invalid Password";
+  }
+
+  return errors;
+}
+
 export {
   transactionValidation,
   formInputValidation,
   loginValidation,
   newAccountValidation,
+  emailPasswordValidation,
+  isAmountInvalid,
 };
