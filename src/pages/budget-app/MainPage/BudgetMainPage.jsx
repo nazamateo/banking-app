@@ -21,6 +21,22 @@ import TopBarBudget from "../../../components/SideBar/TopBarBudget";
 
 //PAGES
 
+const ROUTESBUDGET = [
+  {
+    path: "/dashboard",
+    element: <DashboardBudget />,
+  },
+  {
+    path: "/transfer",
+    element: <TransferBudget />,
+  },
+  {
+    path: "/deposit",
+    element: <DepositBudget />,
+  },
+  { path: "/addbillers", element: <AddBillers /> },
+  // { path: "users/:accountNumber", element: <IndividualUserPage /> },
+];
 function BudgetMainPage({
   bankAccounts,
   setBankAccounts,
@@ -33,7 +49,7 @@ function BudgetMainPage({
 
   const location = useLocation();
 
-  const getSelectedLink = selectedLink => {
+  const getSelectedLink = (selectedLink) => {
     setSelectedLink(selectedLink);
   };
 
@@ -64,7 +80,6 @@ function BudgetMainPage({
 
         {/* </CSSTransition>
         </TransitionGroup> */}
-
       </div>
     </>
   );
