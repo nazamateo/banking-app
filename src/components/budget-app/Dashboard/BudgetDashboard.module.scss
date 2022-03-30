@@ -1,0 +1,15 @@
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  > img {
+    height: 128px;
+    width: 128px;
+  }
+
+  > p {
+    font-size: 8rem;
+    font-weight: 700;
+  }
+}

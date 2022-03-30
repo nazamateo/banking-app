@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getAdminAccounts } from "../../../services/LocalStorage";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
 import styles from "./IndividualUser.module.scss";
+import styles1 from "../../../pages/banking-app/MainPage/MainPage.module.scss";
 import Popup from "../../pop-up/ConfirmDelete";
 import TablePagination from "../../Pagination";
 import { getBankAccountNumber } from "../../../utils/bankAccounts";
@@ -85,7 +86,7 @@ function IndividualUser({ bankAccounts, setBankAccounts }) {
           }
         />
       )}
-      <div className="page-main-content">
+      <div className={styles1.pageMainContent}>
         <button onClick={togglePopup} className={styles.removeAccountBtn}>
           <i className="las la-user-slash" />
           Remove Account

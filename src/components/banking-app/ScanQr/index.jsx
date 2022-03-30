@@ -42,7 +42,7 @@ function ScanQrImg({ bankAccounts, setBankAccounts }) {
       action: "deposit",
       oldBalance: selectedBankAccount.balance,
       newBalance: selectedBankAccount.balance + selectedTracker.amount,
-      mode: "OTC",
+      mode: "QR",
     };
 
     const updatedAccount = updateBankAccountBalance(

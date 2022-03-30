@@ -2,29 +2,19 @@
 
 .navtop {
   display: flex;
-  flex-direction: row;
-
-  position: relative;
   justify-content: center;
-
-  top: 64px;
+  margin-top: 64px;
   background-color: #0e1935;
   font-size: 2rem;
-
   width: 100%;
   gap: 2.4rem;
   padding: 1rem 1.5rem;
   color: white;
 
-  h3 {
-    position: relative;
-    left: -25%;
-  }
   ul {
     display: flex;
     align-items: center;
   }
-
 
   i {
     color: $secondary-color;
@@ -37,7 +27,7 @@
 }
 
 .topbarlinks {
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   list-style-type: none;
   gap: 1rem;
@@ -56,9 +46,8 @@
 
 .logoContainer {
   font-size: 2.5rem;
-  gap: 1rem;
-  position: relative;
-  left: -24%;
+  gap: 1.5rem;
+  display: flex;
   > img {
     height: 36px;
     width: 36px;
