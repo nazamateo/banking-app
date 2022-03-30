@@ -4,6 +4,7 @@ function IndividualUserPage({ bankAccounts, setBankAccounts }) {
   return (
     <div className={styles.page}>
       <h1 className={styles.title}>STATEMENT OF ACCOUNT</h1>
+
       <IndividualUser
         bankAccounts={bankAccounts}
         setBankAccounts={setBankAccounts}

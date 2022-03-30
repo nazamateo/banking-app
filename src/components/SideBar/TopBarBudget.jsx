@@ -12,11 +12,11 @@ function TopBarBudget({ getLink }) {
 
   return (
     <nav className={styles.navtop}>
-      <Logo link={logo} className={styles.logoContainer} />
-      <h3>Digibank</h3>
+      {/* <Logo link={logo} name="DigiBank" className={styles.logoContainer} /> */}
+
       <ul className={styles.topbarlinks}>
         <li>
-          <i class="las la-wallet" />
+          <i className="las la-wallet" />
           <NavLink
             to="/budget/dashboard"
             className={({ isActive }) =>
@@ -28,8 +28,7 @@ function TopBarBudget({ getLink }) {
           </NavLink>
         </li>
         <li>
-
-          <i class="las la-piggy-bank" />
+          <i className="las la-piggy-bank" />
           <NavLink
             to="/budget/deposit"
             className={({ isActive }) =>
@@ -41,8 +40,7 @@ function TopBarBudget({ getLink }) {
           </NavLink>
         </li>
         <li>
-
-          <i class="las la-file-invoice-dollar" />
+          <i className="las la-file-invoice-dollar" />
 
           <NavLink
             to="/budget/transfer"

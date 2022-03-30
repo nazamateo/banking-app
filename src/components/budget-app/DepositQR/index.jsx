@@ -20,8 +20,6 @@ function DepositQR({ bankAccounts }) {
   }, [depositTrackers]);
 
   const confirmTransaction = e => {
-    e.preventDefault();
-
     const errorMessage = isAmountInvalid(amount);
 
     if (error !== null) {
@@ -44,7 +42,7 @@ function DepositQR({ bankAccounts }) {
     ]);
 
     setTimeout(() => {
-      const canvas = document.querySelector("canvas");
+      const canvas = document.querySelector(".qr > canvas");
       const img = canvas
         .toDataURL("image/png")
         .replace("image/png", "image/octet-stream");
@@ -65,6 +63,7 @@ function DepositQR({ bankAccounts }) {
             onChange={e => setAmount(parseFloat(e.target.value))}
             value={amount}
             error={error}
+            autoComplete="off"
           />
 
           <Button handleClick={confirmTransaction} text="Confirm" />
@@ -72,7 +71,7 @@ function DepositQR({ bankAccounts }) {
       )}
 
       {isAskedToGenerate && (
-        <div className={styles.qrCodeContainer}>
+        <div className={`${styles.qrCodeContainer} qr`}>
           <h1>
             Please present this QR with the corresponding amount you have
             entered.

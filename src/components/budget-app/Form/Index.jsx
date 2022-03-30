@@ -23,7 +23,12 @@ function BudgetForm() {
   let [currentAppUser, setCurrentAppUser] = useState(getBudgetAppUSer());
   let [budgetBalance, setBudgetBalance] = useState(currentAppUser.balance);
 
-  const confirmExpense = (index) => {
+  const confirmExpense = index => {
+    if (budgetBalance - amountSum < 0) {
+      alert("Resulting amount is negative. Please reconsider your transaction");
+      return;
+    }
+
     let bankAccounts = getBankAccounts();
     let newFormValues = formValues;
     let thisExpense = parseInt(newFormValues[index].number);
@@ -32,7 +37,7 @@ function BudgetForm() {
 
     currentAppUser.balance -= thisExpense;
 
-    let reciever = bankAccounts.find((bankAccount) => {
+    let reciever = bankAccounts.find(bankAccount => {
       return bankAccount.name === newFormValues[index].account;
     });
 
@@ -113,7 +118,7 @@ function BudgetForm() {
     ]);
   };
 
-  let removeFormFields = (i) => {
+  let removeFormFields = i => {
     let newFormValues = [...formValues];
     newFormValues.splice(i, 1);
     let filteredArray = [];
@@ -128,7 +133,7 @@ function BudgetForm() {
     setAmountSum(total);
   };
 
-  let handleSubmit = (e) => {
+  let handleSubmit = e => {
     e.preventDefault();
     alert(JSON.stringify(formValues));
   };
@@ -160,7 +165,7 @@ function BudgetForm() {
                     name="description"
                     placeholder="DESCRIPTION"
                     value={element.description || ""}
-                    onChange={(e) => handleChange(index, e)}
+                    onChange={e => handleChange(index, e)}
                     autoComplete="off"
                   />
                   <input
@@ -170,7 +175,7 @@ function BudgetForm() {
                     name="account"
                     placeholder="BILLER"
                     value={element.account || ""}
-                    onChange={(e) => handleChange(index, e)}
+                    onChange={e => handleChange(index, e)}
                     autoComplete="off"
                   />
                   <datalist id="accountlist">
@@ -182,8 +187,8 @@ function BudgetForm() {
                     name="number"
                     placeholder="AMOUNT"
                     value={element.number || ""}
-                    onChange={(e) => handleChange(index, e)}
-                    onBlur={(e) => handleBlur(index, e)}
+                    onChange={e => handleChange(index, e)}
+                    onBlur={e => handleBlur(index, e)}
                   />
                   <button
                     type="button"

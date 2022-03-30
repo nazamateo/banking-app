@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { getBankAccounts } from "../../../services/LocalStorage";
 import styles from "./MainPage.module.scss";
 //import "./MainPage.scss";
 
@@ -21,22 +19,22 @@ import TopBarBudget from "../../../components/SideBar/TopBarBudget";
 
 //PAGES
 
-const ROUTESBUDGET = [
-  {
-    path: "/dashboard",
-    element: <DashboardBudget />,
-  },
-  {
-    path: "/transfer",
-    element: <TransferBudget />,
-  },
-  {
-    path: "/deposit",
-    element: <DepositBudget />,
-  },
-  { path: "/addbillers", element: <AddBillers /> },
-  // { path: "users/:accountNumber", element: <IndividualUserPage /> },
-];
+// const ROUTESBUDGET = [
+//   {
+//     path: "/dashboard",
+//     element: <DashboardBudget />,
+//   },
+//   {
+//     path: "/transfer",
+//     element: <TransferBudget />,
+//   },
+//   {
+//     path: "/deposit",
+//     element: <DepositBudget />,
+//   },
+//   { path: "/addbillers", element: <AddBillers /> },
+//   // { path: "users/:accountNumber", element: <IndividualUserPage /> },
+// ];
 function BudgetMainPage({
   bankAccounts,
   setBankAccounts,
@@ -49,7 +47,7 @@ function BudgetMainPage({
 
   const location = useLocation();
 
-  const getSelectedLink = (selectedLink) => {
+  const getSelectedLink = selectedLink => {
     setSelectedLink(selectedLink);
   };
 
@@ -65,21 +63,18 @@ function BudgetMainPage({
       <TopBarBudget getLink={getSelectedLink} />
 
       <div className={styles.mainlayout}>
-        {/* <TransitionGroup component={null}>
-          <CSSTransition key={location.key} classNames="next" timeout={500}> */}
         <Routes location={location}>
-          {ROUTESBUDGET.map((route, i) => (
+          {/* {ROUTESBUDGET.map((route, i) => (
             <Route key={i} path={route.path} element={route.element} />
-          ))}
-
+          ))} */}
+          <Route path="dashboard" element={<DashboardBudget />} />
+          <Route path="transfer" element={<TransferBudget />} />
+          <Route path="/addbillers" element={<AddBillers />} />
           <Route
             path="deposit"
             element={<DepositBudget bankAccounts={bankAccounts} />}
           />
         </Routes>
-
-        {/* </CSSTransition>
-        </TransitionGroup> */}
       </div>
     </>
   );
