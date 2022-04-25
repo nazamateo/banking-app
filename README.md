@@ -4,7 +4,7 @@
 
 ## Description
 
-This project is built to apply and experience creating an application, for the first time, in React, which is a Javascript library, with localStorage API to store data. Basic usage of hooks in React have been applied, also, one of the highlights in creating the application is the challenge of collaboration and combination of concepts and its execution of the pair.
+This project is built to apply and experience creating an application for the first time, in React, which is a Javascript library, with localStorage API to store data. Basic usage of hooks in React have been applied, also, one of the highlights in creating the application is the challenge of collaboration and combination of concepts and its execution of the pair.
 
 The Banking App is is in the perspective of admin where he or she may be able to add and delete bank accounts. Additionally, he or she may also transfer amounts.
 
