@@ -15,15 +15,15 @@ The Budget App is in the perspective of the user to be able to send money to the
 ### Setup
 
 ```
-  git@github.com:nazamateo/banking-app.git
-  cd banking-app
-  npm install
+$ git@github.com:nazamateo/banking-app.git
+$ cd banking-app
+$ npm install
 ```
 
 ### Starting the app
 
 ```
-  npm start
+$ npm start
 ```
 
 ## Features
