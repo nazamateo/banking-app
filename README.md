@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# DigiBank Banking and Budget App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Preview](https://banking-app-collaboration.vercel.app/)
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This project is built to apply and experience creating an application, for the first time, in React, which is a Javascript library, with localStorage API to store data. Basic usage of hooks in React have been applied, also, one of the highlights in creating the application is the challenge of collaboration and combination of concepts and its execution of the pair.
 
-### `npm start`
+The Banking App is is in the perspective of admin where he or she may be able to add and delete bank accounts. Additionally, he or she may also transfer amounts.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The Budget App is in the perspective of the user to be able to send money to the bank.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+### Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+  git@github.com:nazamateo/banking-app.git
+  cd banking-app
+  npm install
+```
 
-### `npm run build`
+### Starting the app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+  npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Banking App
 
-### `npm run eject`
+- User is able to deposit, withdraw and transfer an amount to the bank accounts.
+- User is able to add and delete bank accounts.
+- Add amount to a bank account through QR code.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Budget App
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Send amount to another bank account
+- Enroll and pay to billers
+- Create a list of expenses and track on how much amount will be remained to the user's bank account.
+- Deposit amount in the bank via generation of QR code.

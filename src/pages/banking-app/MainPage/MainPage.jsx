@@ -27,9 +27,7 @@ function MainPage({
   setIsAdminAuthenticated,
 }) {
   const [sideBarWidth, setSideBarWidth] = useState(0);
-  const [selectedLink, setSelectedLink] = useState(
-    localStorage.getItem("selectedLink")
-  );
+  const [selectedLink, setSelectedLink] = useState("Dashboard");
   const location = useLocation();
 
   const getSideBarWidth = obtainedSideBarWidth => {

@@ -14,7 +14,6 @@ function SideBar({ getWidth, getLink }) {
 
   const getLinkSelected = e => {
     getLink(e.target.textContent);
-    localStorage.setItem("selectedLink", e.target.textContent);
   };
 
   useEffect(() => {
